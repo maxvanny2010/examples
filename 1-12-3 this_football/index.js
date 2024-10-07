@@ -22,5 +22,5 @@ const attack = footballer.attack.bind(footballer);
 const score = footballer.scoreGoal;
 const substitute = footballer.goToSubstitution;
 attack();
-score.call(footballer,'Сиииии');
-substitute.apply(footballer,['Paulo Dibala']);
+score.call(footballer, 'Сиииии');
+substitute.apply(footballer, ['Paulo Dibala']);

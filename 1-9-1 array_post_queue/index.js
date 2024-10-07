@@ -16,12 +16,12 @@ function giveParcel() {
 }
 
 function leaveQueueWithoutParcel() {
-    let personLeavedQueue =  peopleWaiting.pop();
+    let personLeavedQueue = peopleWaiting.pop();
     console.log(`${personLeavedQueue} не получил(а) посылку и ушел(ла) из очереди`);
     displayLengthOfQueue(peopleWaiting.length);
 
 }
 
-function displayLengthOfQueue(length){
+function displayLengthOfQueue(length) {
     console.log(`в очереди осталось ${length} человек.`);
 }

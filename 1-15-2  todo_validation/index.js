@@ -139,6 +139,7 @@ function removeError() {
 function clearInput() {
     input.value = '';
 }
+
 function clearError(event) {
     const spanError = getSelector('.error-message-block');
     if (event.target.value && spanError) spanError.remove();

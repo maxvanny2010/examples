@@ -1,14 +1,14 @@
 let index = 3;
-while(index--) {
+while (index--) {
     promter();
 }
 
 let indexDo = 0
-do{
+do {
     promter();
-} while(indexDo++ < 3)
+} while (indexDo++ < 3)
 
-function promter(){
+function promter() {
     let newStudent = prompt('Введите имя нового студента!');
     if (newStudent) {
         newStudent = newStudent.trim();

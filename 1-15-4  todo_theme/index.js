@@ -268,6 +268,7 @@ function initThemeBlack() {
 
 function initThemeWhite() {
     baseStyleTheme();
-    toggle.style.color = '#1c1b1b';'#e8e5e5';
+    toggle.style.color = '#1c1b1b';
+    '#e8e5e5';
     toggle.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
 }

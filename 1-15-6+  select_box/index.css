@@ -76,7 +76,7 @@ body {
     opacity: 0;
     pointer-events: none;
     transform-origin: top left;
-    transform: scale(1,0);
+    transform: scale(1, 0);
     transition: all ease-in-out .3s;
     z-index: 2;
 }
@@ -84,7 +84,7 @@ body {
 .select-dropdown__list.active {
     opacity: 1;
     pointer-events: auto;
-    transform: scale(1,1);
+    transform: scale(1, 1);
 }
 
 .select-dropdown__list-item {

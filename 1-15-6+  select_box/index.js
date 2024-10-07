@@ -79,7 +79,7 @@ class CustomSelect {
         span.textContent = 'Сделайте выбор:';
 
         const chevron = this.#createElement('i');
-        chevron.className= 'mdi mdi-chevron-down';
+        chevron.className = 'mdi mdi-chevron-down';
 
         const button = this.#createElement('button');
         button.className = this.classButton;
@@ -105,7 +105,7 @@ class CustomSelect {
     /* choose option in the select box */
     #selectOption(event, li) {
         event.stopPropagation();
-        const { target } = event;
+        const {target} = event;
         const oldValue = this.selectedValue;
         const newValue = target.dataset.value;
         if (oldValue !== newValue) {

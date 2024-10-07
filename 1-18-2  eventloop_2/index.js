@@ -7,6 +7,7 @@ function runCode() {
         }, 0);
     });
 }
+
 setTimeout(() => {
     console.log('Zero');
 }, 0);

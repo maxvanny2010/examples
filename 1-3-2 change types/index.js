@@ -1,5 +1,5 @@
 let age = 20;
-let name ='Maxim';
+let name = 'Maxim';
 let isProgrammer = false;
 age = '20';
 name = 2500;

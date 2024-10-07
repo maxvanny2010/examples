@@ -1,6 +1,6 @@
 import styles from "rollup-plugin-styles";
 import image from '@rollup/plugin-image';
-import { babel } from '@rollup/plugin-babel';
+import {babel} from '@rollup/plugin-babel';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 
@@ -18,9 +18,9 @@ export default {
             presets: ['@babel/preset-env'],
         }),
         styles({
-        mode: 'extract',
-        minimize: true,
-    }),
+            mode: 'extract',
+            minimize: true,
+        }),
         image(),
         serve('dist'),
         livereload(),

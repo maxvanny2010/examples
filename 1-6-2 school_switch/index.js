@@ -1,7 +1,7 @@
 let correctAnswers = 0;
 let incorrectAnswers = 0;
-const correct ='Ответ Верный';
-const incorrect ='Ответ Неверный';
+const correct = 'Ответ Верный';
+const incorrect = 'Ответ Неверный';
 
 const _twoPlusTwo = 4;
 const _twoMultiplyTwo = 4;
@@ -31,13 +31,12 @@ correctAnswer(twoPlusTwoAndMultiplyTwo, _twoPlusTwoAndMultiplyTwo);
 alert(`Конец теста! \nПравильные ответы — ${correctAnswers}; 
                     \nНеправильные ответы — ${incorrectAnswers}.`);
 
-function correctAnswer(param1, param2){
+function correctAnswer(param1, param2) {
     let result = incorrect;
-    if(param1 === param2){
+    if (param1 === param2) {
         correctAnswers++;
         result = correct;
-    }
-    else incorrectAnswers++;
+    } else incorrectAnswers++;
 
     alert(result);
 }

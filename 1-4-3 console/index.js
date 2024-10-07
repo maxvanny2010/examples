@@ -1,4 +1,4 @@
-console.log({ name: 'Maxim' });// {name: 'Maxim'}
+console.log({name: 'Maxim'});// {name: 'Maxim'}
 console.log(Symbol('key'));// Symbol(key)
 console.log(Number()); // ƒ Number() { [native code] }
 console.log('');//
