@@ -8,9 +8,9 @@ export class JSBlock extends Block{
     }
 
     render() {
-        const mainTitle = document.createElement('h1');
-        mainTitle.classList.add("main-title");
-        mainTitle.textContent = 'JavaScript';
+        const header = document.createElement('h1');
+        header.classList.add("main-title");
+        header.textContent = 'JavaScript';
 
         const JSImageHTML = document.createElement('img');
         JSImageHTML.classList.add('js-image');
@@ -20,7 +20,7 @@ export class JSBlock extends Block{
         foundedText.classList.add('founded-text');
         foundedText.textContent = 'C момента созадания JavaScript прошло';
 
-        this.container.append(mainTitle, JSImageHTML, foundedText);
+        this.container.append(header, JSImageHTML, foundedText);
         return this.container;
     }
 }

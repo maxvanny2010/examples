@@ -53,7 +53,7 @@ body {
     font-style: italic;
 }
 
-#timer {
+.timer {
     color: var(--text-color);
     font-size: 2.5rem;
     line-height: 3rem;

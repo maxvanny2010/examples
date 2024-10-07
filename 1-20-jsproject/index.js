@@ -6,7 +6,7 @@ import {JS_CREATION_DATE} from "./src/core/constants/settings";
 /*import { App as AppComponent } from './src/app';*/
 
 const baseBlock = new JSBlock('js-block');
-const timerBlock = new TimerBlock(JS_CREATION_DATE);
+const timerBlock = new TimerBlock('timer', JS_CREATION_DATE);
 const app = new App(baseBlock, timerBlock);
 app.run();
 console.log('__work__');

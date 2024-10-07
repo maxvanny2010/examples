@@ -12,7 +12,7 @@ export class TimerBlock extends Block {
     #date;
     #header;
 
-    constructor(date, className) {
+    constructor(className, date) {
         super(className);
         this.#date = date;
         this.#header = document.createElement("h2");
