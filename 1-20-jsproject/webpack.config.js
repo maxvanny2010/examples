@@ -5,7 +5,7 @@ module.exports = ({ development }) => ({
     mode: development ? 'development' : 'production',
     entry: `${__dirname}/index.js`,
     devServer: {
-        contentBase: `${__dirname}/dist`,
+        static: `${__dirname}/dist`,
         open: true,
         compress: true,
         port: 4000,
