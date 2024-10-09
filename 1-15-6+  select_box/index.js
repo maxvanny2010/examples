@@ -87,7 +87,7 @@ class CustomSelect {
         const block = this.#createElement('div');
         block.className = this.#classBlock;
 
-        ul.addEventListener('click', event => this.#selectOption(event));
+        ul.addEventListener('click', event => this.#selectOption(event, span));
 
 
         button.append(span, chevron);
@@ -103,11 +103,12 @@ class CustomSelect {
     }
 
     /* choose option in the select box */
-    #selectOption(event, li) {
+    #selectOption(event, span) {
         event.stopPropagation();
         const {target} = event;
         const oldValue = this.selectedValue;
         const newValue = target.dataset.value;
+        span.textContent = target.textContent;
         if (oldValue !== newValue) {
             this.selectedValue = newValue;
             if (oldValue) {
