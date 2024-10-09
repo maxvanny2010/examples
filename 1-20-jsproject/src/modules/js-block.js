@@ -1,7 +1,7 @@
 import JS_IMAGE from '../../assets/js.png'
 import {Block} from "./block";
 
-export class JSBlock extends Block{
+export class JSBlock extends Block {
 
     constructor(className) {
         super(className);

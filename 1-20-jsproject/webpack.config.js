@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
-module.exports = ({ development }) => ({
+module.exports = ({development}) => ({
     mode: development ? 'development' : 'production',
     entry: `${__dirname}/index.js`,
     devServer: {

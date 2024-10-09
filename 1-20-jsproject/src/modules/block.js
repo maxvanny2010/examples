@@ -2,7 +2,7 @@ export class Block {
     #container;
 
     constructor(className) {
-        if (!className)  throw new Error('Cannot create parent class Block.');
+        if (!className) throw new Error('Cannot create parent class Block.');
         this.#container = document.createElement("div");
         this.#container.classList.add(className);
     }
