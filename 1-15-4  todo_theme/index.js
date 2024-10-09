@@ -27,7 +27,7 @@ blockTaskList.addEventListener('click', event => showModal(event, modalElements)
 
 /* create a button toggle */
 const toggle = createToggleTheme();
-toggle.addEventListener('click', event => switchTheme(event));
+toggle.addEventListener('click', switchTheme);
 
 /* init a task list*/
 tasks.forEach(task => setListChild(createTaskBlock(task)));
@@ -35,10 +35,10 @@ tasks.forEach(task => setListChild(createTaskBlock(task)));
 /* a task block form listener*/
 const input = document.querySelector('.create-task-block__input');
 const form = document.querySelector('.create-task-block');
-form.addEventListener('submit', event => addTask(event));
+form.addEventListener('submit', addTask);
 
 /* clear the input after one symbol print*/
-input.addEventListener('input', event => clearError(event));
+input.addEventListener('input', clearError);
 
 /* create a modal and a listeners*/
 const modalElements = createModal();
@@ -269,6 +269,5 @@ function initThemeBlack() {
 function initThemeWhite() {
     baseStyleTheme();
     toggle.style.color = '#1c1b1b';
-    '#e8e5e5';
     toggle.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
 }
