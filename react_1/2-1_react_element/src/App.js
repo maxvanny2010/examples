@@ -1,7 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
 
+/* imperative*/
 export default function App() {
+	/* declarative */
+	function getTimeBeforeNextNewYear() {
+		const today = new Date();
+		const nextYear = today.getFullYear() + 1;
+		const newYearDate = new Date(nextYear, 0, 1, 0, 0, 0, 0);
+		return newYearDate - today;
+	}
+
+	/* declarative */
+	function gettingNewYear() {
+		document.getElementById('year').textContent = new Date().getFullYear().toString();
+		setTimeout(gettingNewYear, getTimeBeforeNextNewYear());
+	}
+
+	/* imperative */
+	setTimeout(gettingNewYear, getTimeBeforeNextNewYear());
+	
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -19,8 +38,11 @@ export default function App() {
 				>
 					Learn React
 				</a>
+				<p id="year"></p>
 			</header>
 		</div>
 	);
-}
+};
+
+
 
