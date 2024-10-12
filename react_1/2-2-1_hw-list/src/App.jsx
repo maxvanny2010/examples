@@ -1,9 +1,12 @@
 import styles from '../style/App.module.css';
 import '../style/index.css';
 import React from 'react';
+import moment from 'moment';
 
 const messageError = 'Введенное значение должно содержать минимум 3 символа';
 const messagePrompt = 'Введите значение:';
+
+const format = 'DD.MM.YYYY HH:mm:ss';
 
 export default function App() {
 	const [value, setValue] = React.useState('');
@@ -24,7 +27,12 @@ export default function App() {
 	const onAddButtonClick = () => {
 		if (isValueValid) {
 			//	const updateList = [...list, { id: Date.now(), value: value }];
-			setList(list => [...list, { id: Date.now(), value: value }]);
+			let time = moment().format(format);
+			setList(list => [...list, {
+				id: Date.now(),
+				time: time,
+				value: value,
+			}]);
 			setValue('');
 			setError('');
 		}
@@ -61,12 +69,12 @@ export default function App() {
 				}
 				<ul className={styles.list}>
 					{
-						list.map(({ id, value }) =>
+						list.map(({ id, time, value }) =>
 							(
 								<li className={styles['list-item']}
 									key={id}
 								>
-									{`${id} - ${value}`}
+									{`[${time}] :: ${value}`}
 								</li>
 							),
 						)
