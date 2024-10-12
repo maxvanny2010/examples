@@ -1,4 +1,6 @@
 import React from 'react';
+import app from '../styles/App.module.css';
+import style from '../styles/ComponentListRender.module.css';
 
 const products = [
 	{ id: '001', name: 'Teapot' },
@@ -7,9 +9,10 @@ const products = [
 export const ComponentListRender = () => {
 	const [list, setList] = React.useState([]);
 	return (
-		<div style={{ width: '300px', border: '1px solid blue' }}>
-			List with not mutable index:
-			<ul>
+		<div className={`${app.block} ${style.color}`}>
+			List with immutable index:
+			<hr className={style.hr} />
+			<ul className={style.ul}>
 				{products.map(({ id, name }, INDEX) => (
 					// don't use. the index mutable.
 					// https://codesandbox.io/s/key-s-peredachey-index-i-bez-nego-nby2cx

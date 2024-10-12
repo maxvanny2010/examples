@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import app from '../styles/App.module.css';
+import style from '../styles/ComponentImmutable.module.css';
 
 export const ComponentImmutable = () => {
 	const [obj, setObj] = useState({ a: 10, b: 20, c: 30 });
@@ -10,10 +12,14 @@ export const ComponentImmutable = () => {
 	// to use border for the unlimited renders.
 	if (obj.a === 10) setObj({ ...obj, a: 20 });
 	return (
-		<div style={{
-			width: '300px',
-			border: '1px solid green',
-		}}>
-			{'Immutable field of object: ' + obj.a}
-		</div>);
+		<div className={`${app.block} ${style.color}`}>
+			Immutable State Object
+			<hr className={style.hr} />
+			{'useState({ a: 10, b: 20, c: 30 })'}
+			<br />
+			{'setObj({ ...obj, a: 20 })'}
+			<br />
+			{'Immutable field of object a: ' + obj.a}
+		</div>
+	);
 };

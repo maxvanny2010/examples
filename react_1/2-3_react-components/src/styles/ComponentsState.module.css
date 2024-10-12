@@ -1,0 +1,8 @@
+.color {
+	border: 1px dotted rgb(0, 103, 108);
+}
+
+.hr {
+	width: 100%;
+	border-top: 1px dotted rgb(0, 103, 108);
+}
