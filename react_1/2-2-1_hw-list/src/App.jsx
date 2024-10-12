@@ -21,6 +21,14 @@ export default function App() {
 			setError(messageError);
 		}
 	};
+	const onAddButtonClick = () => {
+		if (isValueValid) {
+			//	const updateList = [...list, { id: Date.now(), value: value }];
+			setList(list => [...list, { id: Date.now(), value: value }]);
+			setValue('');
+			setError('');
+		}
+	};
 	let isError = error !== '';
 	return (
 		<div className={styles.app}>
@@ -39,6 +47,7 @@ export default function App() {
 					Ввести новое
 				</button>
 				<button className={styles.button}
+						onClick={onAddButtonClick}
 						disabled={!isValueValid}>Добавить в список
 				</button>
 			</div>
