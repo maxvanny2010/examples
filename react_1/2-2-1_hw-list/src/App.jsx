@@ -10,12 +10,15 @@ export default function App() {
 	const [list, setList] = React.useState([]);
 	const [error, setError] = React.useState('');
 
+	const isValueValid = value.length >= 3;
+
 	const onInputButtonClick = () => {
 		const promptValue = prompt(messagePrompt);
-		if (promptValue.trim().length <= 3) setError(messageError);
-		else {
+		if (promptValue.trim().length > 3) {
 			setValue(promptValue);
 			setError('');
+		} else {
+			setError(messageError);
 		}
 	};
 	let isError = error !== '';
@@ -36,7 +39,7 @@ export default function App() {
 					Ввести новое
 				</button>
 				<button className={styles.button}
-						disabled>Добавить в список
+						disabled={!isValueValid}>Добавить в список
 				</button>
 			</div>
 			<div className={styles['list-container']}>
