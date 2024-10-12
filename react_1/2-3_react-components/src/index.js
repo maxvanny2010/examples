@@ -4,6 +4,7 @@ import { ComponentAndJSX, ComponentWithNull } from './components/Components';
 import { ComponentState } from './components/ComponentState';
 import { ComponentImmutable } from './components/ComponentImmutable';
 import { ComponentListRender } from './components/ComponentListRender';
+import { ComponentListener } from './components/ComponentListenerEvent';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -14,5 +15,6 @@ root.render(
 		<ComponentState />
 		<ComponentImmutable />
 		<ComponentListRender />
+		<ComponentListener />
 	</React.StrictMode>,
 );
