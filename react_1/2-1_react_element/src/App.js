@@ -37,7 +37,7 @@ export default function App() {
 				'p',
 				null,
 				'Edit',
-				React.createElement('code', null, 'src/App.js'),
+				React.createElement('code', null, 'src/Components.js'),
 				' and save to reload.',
 			),
 			React.createElement(
@@ -59,7 +59,7 @@ export default function App() {
 					 className="App-logo"
 					 alt="logo" />
 				<p>
-					Edit <code>src/App.js</code> and save to reload.
+					Edit <code>src/Components.js</code> and save to reload.
 				</p>
 				<a
 					className="App-link"

@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import { ComponentAndJSX, ComponentWithNull } from './Components';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
 	<React.StrictMode>
-		<App />
+		<ComponentAndJSX />
+		<ComponentWithNull />
 	</React.StrictMode>,
 );
