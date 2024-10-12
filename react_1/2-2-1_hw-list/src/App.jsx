@@ -1,7 +1,12 @@
 import styles from '../style/App.module.css';
 import '../style/index.css';
+import React from 'react';
 
 export default function App() {
+	const [value, setValue] = React.useState('');
+	const [list, setList] = React.useState([]);
+	const [error, setError] = React.useState('');
+
 	return (
 		<div className={styles.app}>
 			<h1 className={styles['page-heading']}>Ввод значения</h1>
