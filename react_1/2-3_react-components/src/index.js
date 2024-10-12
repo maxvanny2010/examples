@@ -5,6 +5,7 @@ import { ComponentState } from './components/ComponentState';
 import { ComponentImmutable } from './components/ComponentImmutable';
 import { ComponentListRender } from './components/ComponentListRender';
 import { ComponentListener } from './components/ComponentListenerEvent';
+import { ComponentConditionalRendering } from './components/ComponentConditionalRendering';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -16,5 +17,6 @@ root.render(
 		<ComponentImmutable />
 		<ComponentListRender />
 		<ComponentListener />
+		<ComponentConditionalRendering />
 	</React.StrictMode>,
 );
