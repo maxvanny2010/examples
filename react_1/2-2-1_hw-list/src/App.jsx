@@ -7,6 +7,11 @@ export default function App() {
 	const [list, setList] = React.useState([]);
 	const [error, setError] = React.useState('');
 
+	const onInputButtonClick = () => {
+		const promptValue = prompt('Введите значение:');
+		console.log(promptValue);
+
+	};
 	return (
 		<div className={styles.app}>
 			<h1 className={styles['page-heading']}>Ввод значения</h1>
@@ -17,7 +22,12 @@ export default function App() {
 			</p>
 			<div className={styles.error}>Введенное значение должно содержать минимум 3 символа</div>
 			<div className={styles['buttons-container']}>
-				<button className={styles.button}>Ввести новое</button>
+				<button
+					className={styles.button}
+					onClick={onInputButtonClick}
+				>
+					Ввести новое
+				</button>
 				<button className={styles.button}
 						disabled>Добавить в список
 				</button>
