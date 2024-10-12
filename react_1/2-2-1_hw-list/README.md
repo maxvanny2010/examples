@@ -1,3 +1,11 @@
-## Модуль 1: React
+## Module 1: React
 
-### 1. 🎉 Vite
+#### Working with:
+
+1. 🎉 List
+2. 🎉 Listeners
+3. 🎉 Event
+4. 🎉 CSS module
+5. 🎉 State
+6. 🎉 Component
+7. 🎉 Vite
