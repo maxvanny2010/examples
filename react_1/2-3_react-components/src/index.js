@@ -4,7 +4,7 @@ import { ComponentAndJSX, ComponentWithNull } from './components/Components';
 import { ComponentState } from './components/ComponentState';
 import { ComponentImmutable } from './components/ComponentImmutable';
 import { ComponentListRender } from './components/ComponentListRender';
-import { ComponentListener } from './components/ComponentListenerEvent';
+import { ComponentListenerEvent } from './components/ComponentListenerEvent';
 import { ComponentConditionalRendering } from './components/ComponentConditionalRendering';
 import { ComponentModules } from './components/ComponentModules';
 
@@ -17,7 +17,7 @@ root.render(
 		<ComponentState />
 		<ComponentImmutable />
 		<ComponentListRender />
-		<ComponentListener />
+		<ComponentListenerEvent />
 		<ComponentConditionalRendering />
 		<ComponentModules />
 	</React.StrictMode>,

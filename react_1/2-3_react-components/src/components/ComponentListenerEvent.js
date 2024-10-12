@@ -1,6 +1,8 @@
 import React from 'react';
+import app from '../styles/App.module.css';
+import style from '../styles/ComponentListRender.module.css';
 
-export const ComponentListener = () => {
+export const ComponentListenerEvent = () => {
 	const [value, setValue] = React.useState(0);
 	/*
 		only last increment value to put in render
@@ -42,19 +44,20 @@ export const ComponentListener = () => {
 	};
 
 	return (
-		<>
-			<div style={{ width: '300px', border: '1px solid cyan' }}>
-				<div>{value}</div>
-				{/*<button onClick={() => setValue(value + 1)}>*/}
-				{/* only the last increment value to put in render*
+		<div className={`${app.block} ${style.color}`}>
+			Listener OnClick Event With/Out reduce
+			<hr className={style.hr} />
+			<div>{value}</div>
+			{/*<button onClick={() => setValue(value + 1)}>*/}
+			{/* only the last increment value to put in render*
 				it is +1 and not +3 at one time*/}
-				{/*<button onClick={onClickWithoutReduce}>*/}
+			{/*<button onClick={onClickWithoutReduce}>*/}
 
-				{/*<button onClick={onClickWithReduce}>*/}
-				<button onClick={onClickWithReduce}>
-					Прибавить +3
-				</button>
-			</div>
-		</>
+			{/*<button onClick={onClickWithReduce}>*/}
+			<button className={app.button}
+					onClick={onClickWithReduce}>
+				Прибавить +3
+			</button>
+		</div>
 	);
 };

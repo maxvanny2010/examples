@@ -5,3 +5,12 @@
 .white {
 	color: white;
 }
+
+.color {
+	border: 1px dotted #7c375b;
+}
+
+.hr {
+	width: 100%;
+	border-top: 1px dotted #7c375b;
+}
