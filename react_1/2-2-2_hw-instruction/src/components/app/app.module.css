@@ -15,6 +15,7 @@
 	background-color: hsl(var(--accent-color-hue), var(--accent-color-saturation), 92%);
 	font-size: 18px;
 	border: none;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	transition: background-color 0.15s ease;
 }
 
@@ -32,6 +33,7 @@
 	border: 2px solid hsl(var(--accent-color-hue), var(--accent-color-saturation), 92%);
 	border-radius: 15px;
 	padding: 15px 20px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .steps-list {
@@ -58,6 +60,7 @@
 	background: #cccccc;
 	border: none;
 	margin-bottom: 0.25rem;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .steps-item.active .steps-item-button,

@@ -9,3 +9,4 @@
 5. 🎉 State
 6. 🎉 Component
 7. 🎉 Vite
+8. 🎉 JSON
