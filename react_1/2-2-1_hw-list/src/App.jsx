@@ -2,24 +2,32 @@ import styles from '../style/App.module.css';
 import '../style/index.css';
 import React from 'react';
 
+const messageError = 'Введенное значение должно содержать минимум 3 символа';
+const messagePrompt = 'Введите значение:';
+
 export default function App() {
 	const [value, setValue] = React.useState('');
 	const [list, setList] = React.useState([]);
 	const [error, setError] = React.useState('');
 
 	const onInputButtonClick = () => {
-		const promptValue = prompt('Введите значение:');
-		setValue(promptValue);
+		const promptValue = prompt(messagePrompt);
+		if (promptValue.trim().length <= 3) setError(messageError);
+		else {
+			setValue(promptValue);
+			setError('');
+		}
 	};
+	let isError = error !== '';
 	return (
 		<div className={styles.app}>
 			<h1 className={styles['page-heading']}>Ввод значения</h1>
-			<p className={styles['no-margin-text']}>
+			{!isError && <p className={styles['no-margin-text']}>
 				Текущее значение <code>value</code>: "
 				<output className={styles['current-value']}>{value}</output>
 				"
-			</p>
-			<div className={styles.error}>Введенное значение должно содержать минимум 3 символа</div>
+			</p>}
+			{isError && <div className={styles.error}>{error}</div>}
 			<div className={styles['buttons-container']}>
 				<button
 					className={styles.button}
