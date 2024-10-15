@@ -1,0 +1,33 @@
+.red {
+	color: red;
+}
+
+.white {
+	color: white;
+}
+
+.color {
+	border: 1px dotted #7c375b;
+}
+
+.hr {
+	width: 100%;
+	border-top: 1px dotted #7c375b;
+}
+
+.button {
+	padding: 10px;
+	background: #7c375b;
+	border-radius: 5px;
+	border-style: none;
+	color: #d7d3d3;
+}
+
+.button:hover {
+	background: #7c375b;
+}
+
+.h4 {
+	padding: 5px;
+	font-weight: 700;
+}
