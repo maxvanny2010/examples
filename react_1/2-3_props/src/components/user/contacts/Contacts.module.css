@@ -1,0 +1,12 @@
+.color {
+	border: 1px dotted rgb(229, 11, 11);
+}
+
+.hr {
+	width: 100%;
+	border-top: 1px dotted rgb(229, 11, 11);
+}
+
+.contact {
+	border: 1px dotted rgb(253, 102, 102);
+}
