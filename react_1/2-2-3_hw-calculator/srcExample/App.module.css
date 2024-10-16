@@ -1,0 +1,47 @@
+.app {
+	width: 350px;
+	padding: 20px;
+	font-size: 40px;
+	color: white;
+	background-color: #282c34;
+}
+
+.screen {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	height: 120px;
+	padding: 0 10px;
+}
+
+.screenResult {
+	color: blue;
+}
+
+.buttons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.buttonsGroupLeft {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	width: 240px;
+}
+
+.buttonsGroupRight {
+	display: flex;
+	flex-direction: column;
+}
+
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 60px;
+	height: 60px;
+	margin: 10px;
+	font-size: 40px;
+}
