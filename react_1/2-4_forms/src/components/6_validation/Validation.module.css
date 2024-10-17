@@ -1,0 +1,11 @@
+.button {
+	margin-left: 5px;
+}
+
+.label {
+	color: #bffdbf;
+}
+
+.errorLabel {
+	color: red;
+}

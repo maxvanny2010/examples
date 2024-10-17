@@ -1,0 +1,17 @@
+.button {
+	background-color: #2367f5;
+	margin-left: 5px;
+}
+
+.button:hover, .button:focus {
+	border-color: red;
+}
+
+.label {
+	color: #bffdbf;
+}
+
+.errorLabel {
+	white-space: pre-line;
+	color: red;
+}

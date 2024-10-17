@@ -1,0 +1,23 @@
+.button {
+	background-color: #2367f5;
+	margin-left: 5px;
+}
+
+.button:hover {
+	border-color: red;
+}
+
+button:focus,
+button:focus-visible {
+	color: white;
+	outline: 4px auto -webkit-focus-ring-color;
+}
+
+.label {
+	color: #bffdbf;
+}
+
+.errorLabel {
+	white-space: pre-line;
+	color: red;
+}
