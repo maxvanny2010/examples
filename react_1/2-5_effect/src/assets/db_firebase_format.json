@@ -1,0 +1,16 @@
+{
+	"products": {
+		"001": {
+			"name": "TV",
+			"price": 39000
+		},
+		"002": {
+			"name": "Phone",
+			"price": 5900
+		},
+		"003": {
+			"name": "Laptop",
+			"price": 1749
+		}
+	}
+}
