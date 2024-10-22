@@ -11,42 +11,47 @@
 	z-index: 1000;
 }
 
-.deleteModal {
+.updateModal {
 	background-color: #1a1a1a;
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 	text-align: center;
+	width: 300px;
 }
 
-.deleteModalQuestion {
-	margin-bottom: 20px;
-	color: #b7b7b7;
-}
-
-.ModalButtons {
+.formContainer {
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
 }
 
-.SubmitButton {
+.inputField {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+}
+
+.modalButtons {
+	display: flex;
+	flex-direction: column;
+}
+
+.submitButton {
+	width: 100%;
+	padding: 10px;
 	border-radius: 8px;
 	border: 1px solid transparent;
-	padding: 0.6em 1.2em;
-	font-size: 1em;
-	font-weight: 500;
-	font-family: inherit;
-	background-color: #1a1a1a;
 	cursor: pointer;
 	transition: border-color 0.25s;
-	width: 100%;
-	margin-bottom: 10px;
+	box-sizing: border-box;
 }
 
 .cancelButton {
 	background-color: #4c0865;
 	color: rgba(255, 255, 255, 0.87);
+	margin-bottom: 5px;
 }
 
 .confirmButton {
@@ -54,7 +59,14 @@
 	color: #fff;
 }
 
-.SubmitButton:focus,
-.SubmitButton:focus-visible {
-	outline: 4px auto -webkit-focus-ring-color;
+.submitButton:hover {
+	border: 2px solid #646cff;
+}
+
+.cancelButton:hover {
+	background-color: #5b167b;
+}
+
+.confirmButton:hover {
+	background-color: #e24e39;
 }
