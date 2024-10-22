@@ -1,0 +1,21 @@
+.checked {
+	color: #5f5f5f;
+	text-decoration: line-through;
+}
+
+.unchecked {
+	text-decoration: none;
+}
+
+.cellTask {
+	width: 200px;
+	height: auto;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	text-align: left;
+	white-space: normal;
+	word-wrap: break-word;
+	word-break: break-word;
+}
