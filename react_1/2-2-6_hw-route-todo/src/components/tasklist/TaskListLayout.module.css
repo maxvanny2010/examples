@@ -1,0 +1,15 @@
+.centerTable {
+	margin-top: 20px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.centerTable th {
+	color: #b7b7b7;
+	background-color: #4c0865;
+}
+
+.centerTable th, .centerTable td {
+	border: 1px dotted #ca2ffd;
+	padding: 10px;
+}

@@ -1,0 +1,78 @@
+.checked {
+	color: #5f5f5f;
+	text-decoration: line-through;
+}
+
+.unchecked {
+	text-decoration: none;
+}
+
+.headerTodo {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 10px;
+	color: #b7b7b7;
+}
+
+.headerTask {
+	width: 100%;
+	text-align: center;
+	position: relative;
+	padding: 10px;
+	border-top: 1px dotted #ca2ffd;
+	margin-bottom: 10px;
+	color: #b7b7b7;
+}
+
+.headerTask:after {
+	content: "";
+	display: block;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 1px;
+	width: 40px;
+	background: #ca2ffd;
+	text-align: center;
+}
+
+.fieldTask {
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	display: flex;
+	text-align: left;
+	white-space: normal;
+	word-wrap: break-word;
+	word-break: break-word;
+	border-bottom: 1px dotted #ca2ffd;
+	margin-bottom: 10px;
+}
+
+.container {
+	max-width: 600px;
+	margin: 0 auto;
+	align-items: center;
+	padding: 50px 10px 10px;
+}
+
+.footer {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: end;
+}
+
+.footerButtons {
+	width: 70%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.link {
+	text-decoration: none;
+}
