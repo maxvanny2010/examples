@@ -1,0 +1,36 @@
+.cellTask {
+	width: 550px;
+	padding: 10px;
+	display: flex;
+	align-items: baseline;
+	white-space: nowrap;
+	color: whitesmoke;
+}
+
+.completed {
+	color: #5ef836;
+	margin-right: 10px;
+}
+
+.uncompleted {
+	margin-right: 10px;
+}
+
+.link {
+	color: whitesmoke;
+	text-decoration: none;
+	overflow: hidden;
+}
+
+a:visited {
+	color: inherit;
+	text-decoration: none;
+}
+
+.ellipsis {
+	width: 550px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+}

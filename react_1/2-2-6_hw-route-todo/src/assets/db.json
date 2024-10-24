@@ -1,0 +1,34 @@
+{
+  "todos": [
+    {
+      "task": "Drink a cup of coffee to kickstart your day.",
+      "completed": false,
+      "id": 10
+    },
+    {
+      "task": "Finish the online course you've been working on.",
+      "completed": false,
+      "id": 11
+    },
+    {
+      "task": "Take a contrast shower to refresh and energize yourself.",
+      "completed": true,
+      "id": 12
+    },
+    {
+      "task": "Schedule time to read at least one chapter of a book you've been meaning to start. Setting aside even 15 minutes a day can help you build a solid reading habit.",
+      "completed": false,
+      "id": 13
+    },
+    {
+      "task": "Organize your workspace by decluttering and arranging everything neatly, so you can focus better and be more productive throughout the day. A tidy space always boosts concentration and creativity",
+      "completed": false,
+      "id": 14
+    },
+    {
+      "task": "a",
+      "completed": false,
+      "id": 15
+    }
+  ]
+}
