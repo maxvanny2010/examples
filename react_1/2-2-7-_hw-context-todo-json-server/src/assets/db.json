@@ -1,0 +1,24 @@
+{
+	"todos": [
+		{
+			"id": 4,
+			"task": "I wake up at 7 AM and start my day with a refreshing shower.",
+			"completed": false
+		},
+		{
+			"id": 7,
+			"task": "After breakfast, I usually spend some time reading or checking emails.",
+			"completed": false
+		},
+		{
+			"id": 8,
+			"task": "In the afternoon, I go for a walk or exercise to stay active and energized",
+			"completed": true
+		},
+		{
+			"id": 10,
+			"task": "Before going to bed, I like to relax by watching a movie or reading a book.",
+			"completed": false
+		}
+	]
+}
