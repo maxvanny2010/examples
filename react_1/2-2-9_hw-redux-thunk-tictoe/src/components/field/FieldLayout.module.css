@@ -1,0 +1,14 @@
+.cell, .marked {
+	height: 100px;
+	width: 100px;
+	text-align: center;
+	vertical-align: center;
+	border: 1px solid #646cff;
+}
+
+.marked {
+	background-color: #646cff;
+	color: #c7c6c6;
+	font-weight: 600;
+	font-size: 3em;
+}
