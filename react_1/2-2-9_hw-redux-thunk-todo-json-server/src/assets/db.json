@@ -1,0 +1,24 @@
+{
+	"todos": [
+		{
+			"id": 1,
+			"task": "A.the cat sleeps all day.",
+			"completed": false
+		},
+		{
+			"id": 2,
+			"task": "B.birds fly high in skies.",
+			"completed": false
+		},
+		{
+			"id": 3,
+			"task": "C.she reads books every night.",
+			"completed": true
+		},
+		{
+			"task": "D.they eat lunch at noon",
+			"completed": false,
+			"id": 4
+		}
+	]
+}
