@@ -3,7 +3,7 @@ import style from './InformationLayot.module.css';
 import { PLAYER } from '../../constants/PLAYER.jsx';
 import { useSelector } from 'react-redux';
 
-const startNewGame = `START NEW GAME - PRESS BUTTON \'START\'`;
+const startNewGame = `START NEW GAME - PRESS BUTTON 'START'`;
 const draw = 'Draw!';
 
 export const Information = () => {

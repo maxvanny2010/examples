@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 export const GameLayout = ({
 							   onClick,
@@ -14,3 +15,6 @@ export const GameLayout = ({
 	);
 };
 
+GameLayout.propTypes = {
+	onClick: PropTypes.func.isRequired,
+};

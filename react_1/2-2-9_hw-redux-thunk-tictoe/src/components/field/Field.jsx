@@ -1,5 +1,4 @@
 import { FieldLayout } from './FieldLayout.jsx';
-import React from 'react';
 import { TYPE } from '../../constants/TYPE.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 

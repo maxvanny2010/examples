@@ -1,5 +1,6 @@
 import styles from './FieldLayout.module.css';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 export const FieldLayout = ({ onClick }) => {
 	const fields = useSelector((state) => state.stateFields);
@@ -41,4 +42,7 @@ export const FieldLayout = ({ onClick }) => {
 		</table>
 	)
 		;
+};
+FieldLayout.propTypes = {
+	onClick: PropTypes.func.isRequired,
 };
