@@ -1,0 +1,18 @@
+.container {
+	max-width: 600px;
+	display: flex;
+	flex-direction: row;
+	margin: 0 auto;
+	align-items: center;
+}
+
+.header {
+	max-width: 600px;
+	display: flex;
+	justify-content: center;
+	padding: 20px 10px 10px;
+}
+
+.element {
+	margin-right: 10px;
+}

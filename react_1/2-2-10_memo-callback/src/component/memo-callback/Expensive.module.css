@@ -1,0 +1,12 @@
+.container {
+	max-width: 600px;
+	display: flex;
+	flex-direction: row;
+	margin: 20px auto;
+	align-items: center;
+
+}
+
+.counter {
+	margin-left: 10px;
+}

@@ -1,0 +1,12 @@
+.container {
+	max-width: 600px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	color: #989696;
+	margin-bottom: 10px;
+}
+
+.element {
+	margin-right: 10px;
+}
