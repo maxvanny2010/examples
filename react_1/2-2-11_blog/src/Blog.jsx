@@ -1,25 +1,25 @@
 import { Route, Routes } from 'react-router-dom';
-import { Header } from './component/index.jsx';
+import { Footer, Header } from './component/index.jsx';
 
 import styled from 'styled-components';
 
 const AppColumn = styled.div`
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 1000px;
-	height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #282c34;
+    width: 1000px;
+    height: 100vh;
+
 `;
 const Content = styled.div`
-	padding: 120px 0;
+    padding: 120px 0;
 `;
 const H2 = styled.h2`
-	text-align: center;
+    text-align: center;
 `;
 
-
-const Footer = () => <div>Footer</div>;
 
 export default function Blog() {
 

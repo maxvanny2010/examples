@@ -8,3 +8,5 @@ export * from './constants/bd/URL_BD.jsx';
 export * from './constants/role/Role.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './constants/requests/REQUEST.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './constants/data/DATA.jsx';
