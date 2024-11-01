@@ -1,0 +1,158 @@
+{
+	"users": [
+		{
+			"id": 1,
+			"login": "user1",
+			"password": "password123",
+			"registered_at": "2024-01-01",
+			"role_id": 1
+		},
+		{
+			"id": 2,
+			"login": "user2",
+			"password": "password123",
+			"registered_at": "2024-01-01",
+			"role_id": 2
+		},
+		{
+			"id": 3,
+			"login": "user3",
+			"password": "password123",
+			"registered_at": "2024-01-05",
+			"role_id": 3
+		},
+		{
+			"id": 4,
+			"login": "user4",
+			"password": "password123",
+			"registered_at": "2024-01-10",
+			"role_id": 3
+		},
+		{
+			"id": 5,
+			"login": "user5",
+			"password": "password123",
+			"registered_at": "2024-01-20",
+			"role_id": 3
+		}
+	],
+	"roles": [
+		{
+			"id": 1,
+			"name": "admin"
+		},
+		{
+			"id": 2,
+			"name": "moderator"
+		},
+		{
+			"id": 3,
+			"name": "writer"
+		},
+		{
+			"id": 4,
+			"name": "guest"
+		}
+	],
+	"posts": [
+		{
+			"id": "001",
+			"title": "Where does it come from?",
+			"image_url": "https://fastly.picsum.photos/id/501/375/206.jpg?hmac=75q7rc1GOeaoM-81Dx1warag8BEbLwIBIWvEsFAfu0s",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-03",
+			"user_id": 1
+		},
+		{
+			"id": "002",
+			"title": "Second Article",
+			"image_url": "https://fastly.picsum.photos/id/918/375/206.jpg?hmac=iUZEDzRpOYHSHnoTMHveK93yfJ8h8Rw4XUEKjDZHf9Y",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-04",
+			"user_id": 2
+		},
+		{
+			"id": "003",
+			"title": "Third Article",
+			"image_url": "https://fastly.picsum.photos/id/122/375/206.jpg?hmac=dvlFQXwP35KaOivmdotxncw-KPX-T6nOfp93vFUW2cw",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-05",
+			"user_id": 2
+		},
+		{
+			"id": "004",
+			"title": "Fourth Article",
+			"image_url": "https://fastly.picsum.photos/id/456/375/206.jpg?hmac=RUDkT1xU1MlHkSoZUMi4tLUkQwOBF5H1m2w-tR2Wkfs",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-06",
+			"user_id": 3
+		},
+		{
+			"id": "005",
+			"title": "Fifth Article",
+			"image_url": "https://fastly.picsum.photos/id/789/375/206.jpg?hmac=9IK4R8bHcT2mK7wC8G5PEUjTF4FdV4K5Y72bM4X9bBg",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-07",
+			"user_id": 3
+		},
+		{
+			"id": "006",
+			"title": "Sixth Article",
+			"image_url": "https://fastly.picsum.photos/id/159/375/206.jpg?hmac=5qAfmWqT5i3O7Fb5l6DZZ8ek9PS15GvOgLRhhWcnWhI",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-08",
+			"user_id": 3
+		},
+		{
+			"id": "007",
+			"title": "Seventh Article",
+			"image_url": "https://fastly.picsum.photos/id/111/375/206.jpg?hmac=KmX0ZlMd76zqjp8KxGpBhEV3KSoikmMnJK5RH4Jke3o",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-09",
+			"user_id": 4
+		},
+		{
+			"id": "008",
+			"title": "Eighth Article",
+			"image_url": "https://fastly.picsum.photos/id/202/375/206.jpg?hmac=o4Nl9E6K1r7Q1LkgH6DQtpx3khoRP-0JKP7qXqzwoKk",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-10",
+			"user_id": 4
+		},
+		{
+			"id": "009",
+			"title": "Ninth Article",
+			"image_url": "https://fastly.picsum.photos/id/345/375/206.jpg?hmac=dZVqV5fFQ4L6ja8Vo1lMY_AclW2ZKp3mo9h4UlW_FC0",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-11",
+			"user_id": 4
+		},
+		{
+			"id": "010",
+			"title": "Tenth Article",
+			"image_url": "https://fastly.picsum.photos/id/123/375/206.jpg?hmac=L5D1EHSZ1ayBIFxi3EzbGfo0FQ8A0eU_CV2A-7LFvqs",
+			"content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old...",
+			"published_at": "2024-01-12",
+			"user_id": 5
+		}
+	],
+	"comments": [
+		{
+			"id": 1,
+			"title": "First Comment",
+			"user_id": 1,
+			"post_id": 1,
+			"published_at": "2024-01-05",
+			"content": "Great article!"
+		},
+		{
+			"id": 2,
+			"title": "Second Comment",
+			"user_id": 2,
+			"post_id": 1,
+			"published_at": "2024-01-06",
+			"content": "Very informative."
+		}
+	]
+}
+
