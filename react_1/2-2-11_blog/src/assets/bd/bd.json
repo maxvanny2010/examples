@@ -33,7 +33,7 @@
 			"login": "user5",
 			"password": "password123",
 			"registered_at": "2024-01-20",
-			"role_id": 3
+			"role_id": 4
 		}
 	],
 	"roles": [
@@ -47,7 +47,7 @@
 		},
 		{
 			"id": 3,
-			"name": "writer"
+			"name": "reader"
 		},
 		{
 			"id": 4,
