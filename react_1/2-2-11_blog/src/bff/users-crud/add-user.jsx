@@ -13,5 +13,5 @@ export const addUser = (login, password) => {
 				role_id: 3,
 			},
 		),
-	});
+	}).then(createdUser => createdUser.json());
 };

@@ -29,14 +29,14 @@ export const server = {
 		};
 	},
 	async register(regLogin, regPassword) {
-		const user = await getUser(regLogin);
-		if (user) {
+		const existUser = await getUser(regLogin);
+		if (existUser) {
 			return {
 				error: 'This login is busy',
 				res: null,
 			};
 		}
-		await addUser(regLogin, regPassword);
+		const user = await addUser(regLogin, regPassword);
 
 		return {
 			error: null,

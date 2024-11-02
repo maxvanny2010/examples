@@ -1,53 +1,20 @@
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector, useStore } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 
-import { server } from '../bff';
-import { setUser } from '../redux/action';
-import { selectUserRole } from '../redux/selectors';
-import { Button, Icon, Input } from '../component';
-import { ROLE } from '../utils';
+import { AuthErrorForm, Button, Icon, Input } from '../../component';
+import { selectUserRole } from '../../redux/selectors';
+import { setUser } from '../../redux/action';
+import { useResetForm } from '../../hooks';
+import { server } from '../../bff';
+import { ROLE } from '../../utils';
 import styled from 'styled-components';
 
-const StyledSignup = styled.div`
-	margin-top: 10px;
-	font-size: 14px;
-	display: inline-block;
-
-`;
-const StyledLink = styled(Link)`
-	text-decoration: none;
-	text-align: center;
-	margin: 10px 0 0 8px;
-	font-size: 16px;
-	color: #8cc718;
-	display: inline-block;
-	transition: transform 0.1s ease;
-
-	&:hover {
-		color: #a5f804;
-	}
-
-	&:active {
-		transform: scale(0.95);
-	}
-
-`;
-const ErrorMessage = styled.div`
-	margin: 10px 0 0;
-	padding: 10px;
-	font-size: 14px;
-	border-radius: 4px;
-	background: rgba(145, 67, 115, 0.17);
-	display: flex;
-	flex-direction: row;
-	justify-content: start;
-`;
-const authFormSchema = yup.object().shape({
+const regFormSchema = yup.object().shape({
 	login: yup.string()
 		.required('Login is required')
 		.matches(/^\w+$/, 'Login is not correct')
@@ -58,8 +25,12 @@ const authFormSchema = yup.object().shape({
 		.matches(/^[\w#%]+$/, 'Password is not correct')
 		.min(6, 'Password: min 6 symbols')
 		.max(30, 'Password: max 30 symbols'),
+	passcheck: yup.string()
+		.required('Password is required')
+		.oneOf([yup.ref('password'), null],
+			'Password is not same'),
 });
-const AuthorizationContainer = ({ className }) => {
+const RegistrationContainer = ({ className }) => {
 	const {
 		register,
 		reset,
@@ -69,20 +40,16 @@ const AuthorizationContainer = ({ className }) => {
 		defaultValue: {
 			login: '',
 			password: '',
+			passcheck: '',
 		},
-		resolver: yupResolver(authFormSchema),
+		resolver: yupResolver(regFormSchema),
 	});
 	const [serverError, setServerError] = useState(null);
 	const roleId = useSelector(selectUserRole);
 	const dispatch = useDispatch();
-	const store = useStore();
-	useEffect(() => {
-		return store.subscribe(() => {
-			if (store.getState().app.isLogout) reset();
-		});
-	}, [reset, store]);
+	useResetForm(reset);
 	const onSubmit = ({ login, password }) => {
-		server.authorize(login, password).then(({ error, res }) => {
+		server.register(login, password).then(({ error, res }) => {
 			if (error) {
 				setServerError(`${error}`);
 				return;
@@ -91,7 +58,9 @@ const AuthorizationContainer = ({ className }) => {
 		});
 	};
 	const errorForm =
-		errors?.login?.message || errors?.password?.message;
+		errors?.login?.message
+		|| errors?.password?.message
+		|| errors?.passcheck?.message;
 	const errorMessage = errorForm || serverError;
 
 	if (roleId !== ROLE.GUEST) return <Navigate to={'/'} />;
@@ -112,24 +81,21 @@ const AuthorizationContainer = ({ className }) => {
 					   placeholder="Password..." {...register('password', {
 					onChange: () => setServerError(null),
 				})} />
+				<Input type="password"
+					   placeholder="Repeat password..." {...register('passcheck', {
+					onChange: () => setServerError(null),
+				})} />
 				<Button type="submit"
-						disabled={!!errorForm}>Log in
+						disabled={!!errorForm}>Sign in
 				</Button>
 				{errorMessage &&
-					<ErrorMessage>{errorMessage}</ErrorMessage>
+					<AuthErrorForm>{errorMessage}</AuthErrorForm>
 				}
-				<StyledSignup>
-					Don’t you have an account?
-					<StyledLink to={'/register'}>
-						Sign up
-					</StyledLink>
-				</StyledSignup>
 			</form>
 		</div>
-	)
-		;
+	);
 };
-export const Authorization = styled(AuthorizationContainer)`
+export const Registration = styled(RegistrationContainer)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -140,6 +106,6 @@ export const Authorization = styled(AuthorizationContainer)`
 		width: 260px;
 	}
 `;
-AuthorizationContainer.propTypes = {
+RegistrationContainer.propTypes = {
 	className: PropTypes.string,
 };
