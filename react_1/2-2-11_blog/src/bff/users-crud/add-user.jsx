@@ -1,4 +1,4 @@
-import { generateDate, REQUEST, TABLE_NAME, URL_BD } from '../utils/index.jsx';
+import { generateDate, REQUEST, TABLE_NAME, URL_BD } from '../../utils';
 
 
 export const addUser = (login, password) => {

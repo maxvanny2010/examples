@@ -10,3 +10,5 @@ export * from './constants/role/Role.jsx';
 export * from './constants/requests/REQUEST.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './constants/data/DATA.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './constants/types/ACTION_TYPE.jsx';

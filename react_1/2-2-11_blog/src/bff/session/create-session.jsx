@@ -1,5 +1,5 @@
-import { removeComment } from './session/index.jsx';
-import { ROLE } from '../utils/index.jsx';
+import { removeComment } from './index.jsx';
+import { ROLE } from '../../utils';
 
 export const createSession = (roleId) => {
 	const session = {

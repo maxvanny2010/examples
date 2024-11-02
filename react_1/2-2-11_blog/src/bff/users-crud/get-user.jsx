@@ -1,4 +1,4 @@
-import { getUsers } from './get-users.jsx';
+import { getUsers } from '../index.jsx';
 
 export const getUser = async (loginToFind) => {
 	const users = await getUsers();

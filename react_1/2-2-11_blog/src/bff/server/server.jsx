@@ -1,15 +1,14 @@
-import { getUser } from './get-user.jsx';
-import { addUser } from './add-user.jsx';
-import { createSession } from './create-session.jsx';
+import { addUser, getUser, sessions } from '../index.jsx';
 
 export const server = {
-
+	async logout(session) {
+		await sessions.delete(session);
+	},
 	async authorize(authLogin, authPassword) {
 		const user = await getUser(authLogin);
-
 		if (!user) {
 			return {
-				error: 'There is no user with login',
+				error: 'The login doesn\'t match our records',
 				res: null,
 			};
 		}
@@ -19,11 +18,14 @@ export const server = {
 				res: null,
 			};
 		}
-
 		return {
 			error: null,
-			res: createSession(user.role_id),
-
+			res: {
+				id: user.id,
+				login: user.login,
+				role_id: user.role_id,
+				session: sessions.create(user),
+			},
 		};
 	},
 	async register(regLogin, regPassword) {
@@ -38,7 +40,12 @@ export const server = {
 
 		return {
 			error: null,
-			res: createSession(user.role_id),
+			res: {
+				id: user.id,
+				login: user.login,
+				role_id: user.role_id,
+				session: sessions.create(user),
+			},
 		};
 	},
 };

@@ -10,3 +10,7 @@ export * from './header/components/control-panel/control-panel.jsx';
 export * from './header/components/icon/icon.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './footer/footer.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './input/input.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './button/button.jsx';

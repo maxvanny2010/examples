@@ -1,13 +1,13 @@
-import { DATA, DATA_Q, URL_WEATHER } from '../../utils/index.jsx';
-import { SpanGreen } from '../../component/index.jsx';
 import { useEffect, useState } from 'react';
+import { DATA, DATA_Q, URL_WEATHER } from '../../utils';
+import { SpanGreen } from '../../component/index.jsx';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const FooterContainer = ({ className }) => {
-	const [city, setCity] = useState('');
+	const [city, setCity] = useState('Cork');
 	const [temperature, setTemperature] = useState(0);
-	const [weather, setWeather] = useState('');
+	const [weather, setWeather] = useState('sun');
 
 	useEffect(() => {
 		fetch(`${URL_WEATHER}${DATA_Q}${DATA}`)
@@ -42,7 +42,7 @@ export const Footer = styled(FooterContainer)`
     align-items: baseline;
     justify-content: space-between;
     width: 1000px;
-    padding: 20px 40px;
+    padding: 20px 30px;
     border-radius: 4px;
     background-color: #282c34;
     border-top: 2px solid #8DCC0A;

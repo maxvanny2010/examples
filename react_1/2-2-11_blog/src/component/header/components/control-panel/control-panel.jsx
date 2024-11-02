@@ -1,69 +1,95 @@
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Icon } from '../icon/icon.jsx';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Icon } from './../../../index.jsx';
+import { selectUserLogin, selectUserRole, selectUserSession } from '../../../../redux/selectors';
 
-const RightAligned = styled.div`
-	display: flex;
-	justify-content: flex-end;
+import { logout } from '../../../../redux/action';
+import { ROLE } from '../../../../utils';
+import styled from 'styled-components';
+
+const LoggingRow = styled.div`
+    display: flex;
+    justify-content: flex-end;
 `;
-const StyledLink = styled(Link)`
-	width: 120px;
-	font-size: 1em;
-	font-weight: 500;
-	font-family: inherit;
-	text-align: center;
+const LogoutRow = styled.div`
+    display: flex;
+    justify-content: space-around;
+`;
 
-	background-color: #1a1a1a;
-
-	padding: 0.6em 1.2em;
-	border-radius: 6px;
-	border: 1px solid transparent;
-	transition: border-color 0.25s;
-
-	&:hover {
-		color: lightgray;
-		border: 1px solid #8DCC0A;
-	}
-
-	&:active {
-		color: #8DCC0A;
-		border-color: #8DCC0A;
-		transform: scale(0.95);
-	}
+const ManagerRow = styled.div`
+    display: flex;
+    justify-content: space-around;
+`;
+const IconNavigate = styled.div`
+    margin: 0;
+`;
+const IconStyled = styled.div`
+`;
+const UserLogin = styled.div`
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 20px;
 `;
 const ControlPanelContainer = ({ className }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const roleId = useSelector(selectUserRole);
+	const login = useSelector(selectUserLogin);
+	const session = useSelector(selectUserSession);
 	return (
 		<div className={className}>
-			<RightAligned>
-				<StyledLink to={'/login'}>Login</StyledLink>
-			</RightAligned>
-			<RightAligned>
-				<div onClick={() => navigate(-1)}>
+			{roleId === ROLE.GUEST
+				? (
+					<LoggingRow>
+						<Button width="120px">
+							<Link to={'/login'}> Login </Link>
+						</Button>
+					</LoggingRow>
+				)
+				: (
+					<LogoutRow>
+						<UserLogin>{login}</UserLogin>
+						<IconStyled onClick={() => {
+							dispatch(logout(session));
+							navigate('/');
+						}}>
+							<Icon
+								size="24px"
+								id="fa-sign-out"
+							/>
+						</IconStyled>
+					</LogoutRow>
+				)
+			}
+
+			<ManagerRow>
+				<IconNavigate onClick={() => navigate(-1)}>
 					<Icon
 						size="24px"
 						id="fa-backward"
-						margin="5px 5px 0 0"
+						margin="0 5px 0 0"
 					/>
-				</div>
+				</IconNavigate>
 				<Link to="/post">
 					<Icon size="24px"
 						  id="fa-file-text-o"
-						  margin="5px 5px 0 0" />
+						  margin="0 5px 0 0" />
 				</Link>
 				<Link to="/users">
 					<Icon size="24px"
 						  id="fa-users"
-						  margin="5px 5px 0 0" />
+						  margin="0 5px 0 0" />
 				</Link>
-			</RightAligned>
+			</ManagerRow>
 		</div>
 	);
 };
 
 export const ControlPanel =
-	styled(ControlPanelContainer)``;
+	styled(ControlPanelContainer)`
+        margin: 12px 0 0 50px;
+	`;
 
 ControlPanelContainer.propTypes = {
 	className: PropTypes.string,
