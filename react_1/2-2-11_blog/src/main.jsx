@@ -7,7 +7,7 @@ import Blog from './Blog.jsx';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
+console.log('Initial Redux store state:', store.getState());
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
