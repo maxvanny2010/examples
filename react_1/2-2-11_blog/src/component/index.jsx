@@ -16,3 +16,5 @@ export * from './input/input.jsx';
 export * from './button/button.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './auth-error/auth-error-form.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './content/content.jsx';

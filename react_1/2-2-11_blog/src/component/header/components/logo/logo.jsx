@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
+import { SpanGreen } from '../elements/span-green/span-green.jsx';
+import { Icon } from '../icon/icon.jsx';
 import { Link } from 'react-router-dom';
-import { Icon, SpanGreen } from '../../../index.jsx';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 

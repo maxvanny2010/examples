@@ -1,35 +1,34 @@
-import PropTypes from 'prop-types';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Icon } from './../../../index.jsx';
 import { selectUserLogin, selectUserRole, selectUserSession } from '../../../../redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+import { Button } from '../../../button/button.jsx';
+import { Icon } from '../icon/icon.jsx';
 import { logout } from '../../../../redux/action';
 import { ROLE } from '../../../../utils';
 import styled from 'styled-components';
 
 const LoggingRow = styled.div`
-    display: flex;
-    justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 `;
 const LogoutRow = styled.div`
-    display: flex;
-    justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 `;
 
 const ManagerRow = styled.div`
-    display: flex;
-    justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 `;
 const IconNavigate = styled.div`
-    margin: 0;
-`;
-const IconStyled = styled.div`
+	margin: 0;
 `;
 const UserLogin = styled.div`
-    margin-top: 10px;
-    margin-left: 20px;
-    font-size: 20px;
+	margin-top: 10px;
+	margin-left: 20px;
+	font-size: 20px;
 `;
 const ControlPanelContainer = ({ className }) => {
 	const navigate = useNavigate();
@@ -42,23 +41,24 @@ const ControlPanelContainer = ({ className }) => {
 			{roleId === ROLE.GUEST
 				? (
 					<LoggingRow>
-						<Button width="120px">
-							<Link to={'/login'}> Login </Link>
-						</Button>
+						<Link to={'/login'}>
+							<Button width="120px">
+								Login
+							</Button>
+						</Link>
 					</LoggingRow>
 				)
 				: (
 					<LogoutRow>
 						<UserLogin>{login}</UserLogin>
-						<IconStyled onClick={() => {
-							dispatch(logout(session));
-							navigate('/');
-						}}>
-							<Icon
-								size="24px"
-								id="fa-sign-out"
-							/>
-						</IconStyled>
+						<Icon
+							size="24px"
+							id="fa-sign-out"
+							onClick={() => {
+								dispatch(logout(session));
+								navigate('/');
+							}}
+						/>
 					</LogoutRow>
 				)
 			}
@@ -88,7 +88,7 @@ const ControlPanelContainer = ({ className }) => {
 
 export const ControlPanel =
 	styled(ControlPanelContainer)`
-        margin: 12px 0 0 50px;
+		margin: 12px 0 0 50px;
 	`;
 
 ControlPanelContainer.propTypes = {

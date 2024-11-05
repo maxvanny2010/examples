@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DATA, DATA_Q, URL_WEATHER } from '../../utils';
-import { SpanGreen } from '../../component/index.jsx';
+import { SpanGreen } from '../header/components/elements/span-green/span-green.jsx';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 

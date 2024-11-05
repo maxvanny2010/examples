@@ -4,9 +4,10 @@ const initialUserState = {
 	id: null,
 	login: null,
 	session: null,
-	role_id: ROLE.GUEST,
+	roleId: ROLE.GUEST,
 };
 export const userReducer = (state = initialUserState, action) => {
+	/*console.log("user state:", state);*/
 	switch (action.type) {
 		case ACTION_TYPE.SET_USER:
 			return {

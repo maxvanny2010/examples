@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { ControlPanel, Logo, SpanGreen } from '../../component/index.jsx';
+import { Logo } from './components/logo/logo.jsx';
+import { SpanGreen } from './components/elements/span-green/span-green.jsx';
+import { ControlPanel } from './components/control-panel/control-panel.jsx';
 
 const Description = styled.div`
     font-style: italic;

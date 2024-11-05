@@ -1,4 +1,5 @@
-import { generateDate, REQUEST, TABLE_NAME, URL_BD } from '../../utils';
+import { REQUEST, TABLE_NAME, URL_BD } from '../../utils';
+import { generateDate } from '../utils';
 
 
 export const addUser = (login, password) => {
