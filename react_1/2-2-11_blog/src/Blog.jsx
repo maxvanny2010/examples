@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Footer, Header } from './component';
 
 import styled from 'styled-components';
-import { Authorization, Registration, Users } from './pages';
+import { Authorization, Post, Registration, Users } from './pages';
 
 const AppColumn = styled.div`
     margin: 0 auto;
@@ -34,8 +34,8 @@ export default function Blog() {
 						   element={<Registration />}></Route>
 					<Route path="/users"
 						   element={<Users />}></Route>
-					<Route path="/post/:postid"
-						   element={<div>Post</div>}></Route>
+					<Route path="/post/:id"
+						   element={<Post />}></Route>
 					<Route path="/post"
 						   element={<div>New Post</div>}></Route>
 					<Route path="*"

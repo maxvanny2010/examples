@@ -1,3 +1,6 @@
-export { server } from './server.jsx';
+import * as server from './operation';
+
+export { server };
+
 export { sessions } from './sessions.jsx';
 

@@ -1,4 +1,4 @@
 // eslint-disable-next-line react-refresh/only-export-components
-export * from './dto-user.jsx';
+export * from './comments/comments.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
-export * from './dto-post.jsx';
+export * from './post-content/post-content.jsx';
