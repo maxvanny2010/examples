@@ -23,7 +23,10 @@ export const PostContainer = ({ className }) => {
 		</div>
 	);
 };
-export const Post = styled(PostContainer)` `;
+export const Post = styled(PostContainer)`
+	padding: 0 80px;
+	margin: 40px 0;
+`;
 PostContainer.propTypes = {
 	className: PropTypes.string,
 };
