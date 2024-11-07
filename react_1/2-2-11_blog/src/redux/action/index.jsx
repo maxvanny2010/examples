@@ -6,3 +6,5 @@ export * from './logout.jsx';
 export * from './load-post-async.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './set-post-data.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './add-comment-async.jsx';

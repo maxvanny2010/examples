@@ -15,6 +15,11 @@ export const postReducer = (state = initialPostState, action) => {
 				...state,
 				...action.payload,
 			};
+		case ACTION_TYPE.SET_POST_COMMENT_DATA:
+			return {
+				...state,
+				comments: action.payload,
+			};
 		default:
 			return state;
 	}

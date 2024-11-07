@@ -18,3 +18,7 @@ export * from './add-session.jsx';
 export * from './get-session.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './delete-session.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './add-comment.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './get-comments.jsx';

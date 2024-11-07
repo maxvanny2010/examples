@@ -16,4 +16,5 @@ export * from './update-role.jsx';
 export * from './remove-user.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './fetch-post.jsx';
-
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './add-post-comment.jsx';
