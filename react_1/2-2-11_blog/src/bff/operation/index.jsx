@@ -18,3 +18,5 @@ export * from './remove-user.jsx';
 export * from './fetch-post.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './add-post-comment.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './remove-post-comment.jsx';

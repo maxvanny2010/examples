@@ -17,6 +17,7 @@ export const postReducer = (state = initialPostState, action) => {
 				...action.payload,
 			};
 		case ACTION_TYPE.SET_POST_COMMENT_DATA:
+		case ACTION_TYPE.POST_COMMENT_REMOVE:
 			return {
 				...state,
 				comments: action.payload,

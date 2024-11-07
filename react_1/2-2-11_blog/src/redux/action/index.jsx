@@ -8,3 +8,7 @@ export * from './load-post-async.jsx';
 export * from './set-post-data.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './add-comment-async.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './remove-comment-async.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './remove-comment.jsx';
