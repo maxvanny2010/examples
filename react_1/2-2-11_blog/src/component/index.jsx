@@ -18,3 +18,5 @@ export * from './button/button.jsx';
 export * from './auth-error/auth-error-form.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './content/content.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './modal/modal.jsx';

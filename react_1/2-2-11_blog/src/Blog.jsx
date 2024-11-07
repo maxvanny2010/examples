@@ -1,11 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
-import { Footer, Header } from './component';
-
 import styled from 'styled-components';
-import { Authorization, Post, Registration, Users } from './pages';
-import { useLayoutEffect } from 'react';
-import { setUser } from './redux/action/index.jsx';
+import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useLayoutEffect } from 'react';
+
+import { Authorization, Post, Registration, Users } from './pages';
+import { Footer, Header, Modal } from './component';
+import { setUser } from './redux/action';
 
 const AppColumn = styled.div`
     margin: 0 auto;
@@ -56,6 +56,7 @@ export default function Blog() {
 				</Routes>
 			</Page>
 			<Footer />
+			<Modal />
 		</AppColumn>
 	);
 };

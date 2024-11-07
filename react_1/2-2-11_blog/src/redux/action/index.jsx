@@ -12,3 +12,7 @@ export * from './add-comment-async.jsx';
 export * from './remove-comment-async.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './remove-comment.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './close-modal.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './open-modal.jsx';

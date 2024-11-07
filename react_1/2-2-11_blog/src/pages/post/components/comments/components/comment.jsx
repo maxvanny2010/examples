@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Icon } from '../../../../../component';
 import { useServerRequest } from '../../../../../hooks';
-import { removeCommentAsync } from '../../../../../redux/action';
+import { CLOSE_MODAL, openModal, removeCommentAsync } from '../../../../../redux/action';
 
 const CommentContainer = ({
 							  className,
@@ -16,7 +16,16 @@ const CommentContainer = ({
 	const serverRequest = useServerRequest();
 	const dispatch = useDispatch();
 	const onCommentRemove = (id) => {
-		dispatch(removeCommentAsync(serverRequest, postId, id));
+		dispatch(openModal(
+			{
+				text: 'Remove comment?',
+				onConfirm: () => {
+					dispatch(removeCommentAsync(serverRequest, postId, id));
+					dispatch(CLOSE_MODAL);
+				},
+				onCancel: () => dispatch(CLOSE_MODAL),
+			},
+		));
 	};
 	return (
 		<div className={className}>
