@@ -3,6 +3,9 @@ import { Footer, Header } from './component';
 
 import styled from 'styled-components';
 import { Authorization, Post, Registration, Users } from './pages';
+import { useLayoutEffect } from 'react';
+import { setUser } from './redux/action/index.jsx';
+import { useDispatch } from 'react-redux';
 
 const AppColumn = styled.div`
     margin: 0 auto;
@@ -15,12 +18,22 @@ const AppColumn = styled.div`
 `;
 
 const Page = styled.div`
-    padding: 120px 0;
+    padding: 120px 0 20px;
 `;
 
 
 export default function Blog() {
-
+	const dispatch = useDispatch();
+	useLayoutEffect(() => {
+		const userData = sessionStorage.getItem('userData');
+		if (!userData) return;
+		const currentUser = JSON.parse(userData);
+		dispatch(setUser(
+			{
+				...currentUser,
+				roleId: Number(currentUser.roleId),
+			}));
+	}, [dispatch]);
 	return (
 		<AppColumn>
 			<Header />

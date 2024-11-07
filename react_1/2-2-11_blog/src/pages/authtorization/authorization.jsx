@@ -15,27 +15,27 @@ import { ROLE } from '../../utils';
 import styled from 'styled-components';
 
 const StyledSignup = styled.div`
-	margin-top: 10px;
-	font-size: 14px;
-	display: inline-block;
+    margin-top: 10px;
+    font-size: 14px;
+    display: inline-block;
 
 `;
 const StyledLink = styled(Link)`
-	text-decoration: none;
-	text-align: center;
-	margin: 10px 0 0 8px;
-	font-size: 16px;
-	color: #8cc718;
-	display: inline-block;
-	transition: transform 0.1s ease;
+    text-decoration: none;
+    text-align: center;
+    margin: 10px 0 0 8px;
+    font-size: 16px;
+    color: #8cc718;
+    display: inline-block;
+    transition: transform 0.1s ease;
 
-	&:hover {
-		color: #a5f804;
-	}
+    &:hover {
+        color: #a5f804;
+    }
 
-	&:active {
-		transform: scale(0.95);
-	}
+    &:active {
+        transform: scale(0.95);
+    }
 
 `;
 const authFormSchema = yup.object().shape({
@@ -74,6 +74,7 @@ const AuthorizationContainer = ({ className }) => {
 				return;
 			}
 			dispatch(setUser(res));
+			sessionStorage.setItem('userData', JSON.stringify(res));
 		});
 	};
 	const errorForm =
@@ -115,15 +116,15 @@ const AuthorizationContainer = ({ className }) => {
 	);
 };
 export const Authorization = styled(AuthorizationContainer)`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-	& > form {
-		display: flex;
-		flex-direction: column;
-		width: 260px;
-	}
+    & > form {
+        display: flex;
+        flex-direction: column;
+        width: 260px;
+    }
 `;
 AuthorizationContainer.propTypes = {
 	className: PropTypes.string,

@@ -10,25 +10,25 @@ import { ROLE } from '../../../../utils';
 import styled from 'styled-components';
 
 const LoggingRow = styled.div`
-	display: flex;
-	justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 `;
 const LogoutRow = styled.div`
-	display: flex;
-	justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 `;
 
 const ManagerRow = styled.div`
-	display: flex;
-	justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 `;
 const IconNavigate = styled.div`
-	margin: 0;
+    margin: 0;
 `;
 const UserLogin = styled.div`
-	margin-top: 10px;
-	margin-left: 20px;
-	font-size: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 20px;
 `;
 const ControlPanelContainer = ({ className }) => {
 	const navigate = useNavigate();
@@ -36,6 +36,11 @@ const ControlPanelContainer = ({ className }) => {
 	const roleId = useSelector(selectUserRole);
 	const login = useSelector(selectUserLogin);
 	const session = useSelector(selectUserSession);
+	const onLogout = () => {
+		dispatch(logout(session));
+		sessionStorage.removeItem('userData');
+		navigate('/');
+	};
 	return (
 		<div className={className}>
 			{roleId === ROLE.GUEST
@@ -54,10 +59,7 @@ const ControlPanelContainer = ({ className }) => {
 						<Icon
 							size="24px"
 							id="fa-sign-out"
-							onClick={() => {
-								dispatch(logout(session));
-								navigate('/');
-							}}
+							onClick={onLogout}
 						/>
 					</LogoutRow>
 				)
@@ -88,7 +90,7 @@ const ControlPanelContainer = ({ className }) => {
 
 export const ControlPanel =
 	styled(ControlPanelContainer)`
-		margin: 12px 0 0 50px;
+        margin: 12px 0 0 50px;
 	`;
 
 ControlPanelContainer.propTypes = {
