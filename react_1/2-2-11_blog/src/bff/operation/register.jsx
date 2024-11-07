@@ -17,7 +17,7 @@ export const register = async (regLogin, regPassword) => {
 			id: user.id,
 			login: user.login,
 			role_id: user.role_id,
-			session: sessions.create(user),
+			session: await sessions.create(user),
 		},
 	};
 };

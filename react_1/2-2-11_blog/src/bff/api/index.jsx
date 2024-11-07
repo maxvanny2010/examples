@@ -12,3 +12,9 @@ export * from './set-role.jsx';
 export * from './delete-user.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './get-post.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './add-session.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './get-session.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './delete-session.jsx';

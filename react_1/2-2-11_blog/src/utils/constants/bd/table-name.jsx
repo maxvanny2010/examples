@@ -3,4 +3,5 @@ export const TABLE_NAME = {
 	POSTS: 'posts',
 	COMMENTS: 'comments',
 	ROLES: 'roles',
+	SESSIONS: 'sessions',
 };

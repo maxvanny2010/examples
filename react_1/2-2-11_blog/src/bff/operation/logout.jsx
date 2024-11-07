@@ -1,5 +1,5 @@
 import { sessions } from '../sessions.jsx';
 
-export const logout = async (userSession) => {
-	sessions.delete(userSession);
+export const logout = async (hash) => {
+	await sessions.delete(hash);
 };
