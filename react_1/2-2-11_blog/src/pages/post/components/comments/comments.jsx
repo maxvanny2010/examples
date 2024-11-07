@@ -18,6 +18,7 @@ export const CommentContainer = ({ className, comments, postId }) => {
 	const [newComment, setNewComment] = useState('');
 	const onNewCommentAdd = (userId, postId, content) => {
 		dispatch(addCommentAsync(serverRequest, userId, postId, content));
+		setNewComment('');
 	};
 	const isUserGuest = roleId === ROLE.GUEST;
 	return (
@@ -43,11 +44,11 @@ export const CommentContainer = ({ className, comments, postId }) => {
 			) : null}
 			<div className="comments">
 				{
-					comments.map(({ id, author, content, publishAt }) => (
+					comments.map(({ id, author, content, publishedAt }) => (
 						<Comment key={id}
 								 author={author}
 								 content={content}
-								 publishAt={publishAt} />
+								 publishedAt={publishedAt} />
 					))
 				}
 			</div>
@@ -55,7 +56,6 @@ export const CommentContainer = ({ className, comments, postId }) => {
 	);
 };
 export const Comments = styled(CommentContainer)`
-    display: flex;
     width: 580px;
     margin: 0 auto;
 
@@ -63,13 +63,13 @@ export const Comments = styled(CommentContainer)`
         display: flex;
         width: 100%;
         margin: 20px 0 0;
-        height: 120px;
     }
 
     & .new-comment textarea {
-        width: 100%;
+        width: 550px;
         resize: none;
         font-size: 16px;
+        height: 120px;
     }
 `;
 CommentContainer.propTypes = {

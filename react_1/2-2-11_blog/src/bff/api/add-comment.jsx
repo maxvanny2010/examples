@@ -10,7 +10,7 @@ export const addComment = (userId, postId, content) => {
 			{
 				post_id: postId,
 				author_id: userId,
-				registered_at: generateDate(),
+				published_at: generateDate(),
 				content,
 			},
 		),
