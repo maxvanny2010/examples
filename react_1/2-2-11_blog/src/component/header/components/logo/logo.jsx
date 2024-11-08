@@ -24,7 +24,7 @@ const LogoContainer = ({ className }) => (
 			<Icon size="48px"
 				  id="fa-forumbee"
 				  margin="25px 20px 0 0"
-				  color="#8DCC0A"
+				  color="#6b9317"
 			/>
 		</Link>
 		<div>
@@ -39,7 +39,7 @@ const LogoContainer = ({ className }) => (
 export const Logo =
 	styled(LogoContainer)`
         display: flex;
-        margin-top: 2px;
+        margin: 2px 0 0 12px;
 	`;
 LogoContainer.propTypes = {
 	className: PropTypes.string,

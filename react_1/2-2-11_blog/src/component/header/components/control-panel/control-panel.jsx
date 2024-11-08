@@ -90,7 +90,7 @@ const ControlPanelContainer = ({ className }) => {
 
 export const ControlPanel =
 	styled(ControlPanelContainer)`
-        margin: 12px 0 0 50px;
+        margin: 12px 28px 0 50px;
 	`;
 
 ControlPanelContainer.propTypes = {
