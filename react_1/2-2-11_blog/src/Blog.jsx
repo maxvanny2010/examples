@@ -49,6 +49,8 @@ export default function Blog() {
 						   element={<Users />}></Route>
 					<Route path="/post/:id"
 						   element={<Post />}></Route>
+					<Route path="/post/:id/edit"
+						   element={<Post />}></Route>
 					<Route path="/post"
 						   element={<div>New Post</div>}></Route>
 					<Route path="*"

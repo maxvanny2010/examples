@@ -24,3 +24,5 @@ export * from './add-comment.jsx';
 export * from './get-comments.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './delete-comment.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './update-post.jsx';

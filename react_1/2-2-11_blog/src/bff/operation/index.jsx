@@ -20,3 +20,5 @@ export * from './fetch-post.jsx';
 export * from './add-post-comment.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './remove-post-comment.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './save-post.jsx';
