@@ -26,9 +26,11 @@ const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
 	return (
 		<div className={className}>
 			<div className="published-at">
-				<Icon id="fa-calendar-o"
-					  margin="0 10px 0 0"
-					  padding="0"
+				<Icon
+					inactive="true"
+					id="fa-calendar-o"
+					margin="0 10px 0 0"
+					padding="0"
 				/>
 				{publishedAt}
 			</div>
@@ -45,18 +47,18 @@ const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
 	);
 };
 export const SpecialPanel = styled(SpecialPanelContainer)`
-	display: flex;
-	justify-content: space-between;
-	margin: ${({ margin }) => margin};
+    display: flex;
+    justify-content: space-between;
+    margin: ${({ margin }) => margin};
 
-	& .published-at {
-		display: flex;
-		align-items: center;
-	}
+    & .published-at {
+        display: flex;
+        align-items: center;
+    }
 
-	& .post-buttons {
-		display: flex;
-	}
+    & .post-buttons {
+        display: flex;
+    }
 `;
 SpecialPanelContainer.propTypes = {
 	className: PropTypes.string,

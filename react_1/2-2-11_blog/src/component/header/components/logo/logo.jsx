@@ -7,13 +7,14 @@ import styled from 'styled-components';
 
 const LargeText = styled.div`
     font-size: 48px;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 48px;
     margin-top: 17px;
+    letter-spacing: .1em;
 `;
 const SmallText = styled.div`
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
 `;
 
 
@@ -27,7 +28,7 @@ const LogoContainer = ({ className }) => (
 			/>
 		</Link>
 		<div>
-			<LargeText>Blogs</LargeText>
+			<LargeText>BLOG</LargeText>
 			<SmallText>web
 				<SpanGreen>-</SpanGreen>
 				developer
