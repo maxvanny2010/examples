@@ -27,7 +27,7 @@ export const Icon = styled(IconContainer)`
 	}
 
 	&:active {
-		color: ${({ inactive }) => (inactive ? 'lightgrey' : '#8DCC0A')};
+		color: ${({ inactive }) => (inactive ? 'lightgrey' : '#6b9317')};
 		transform: ${({ inactive }) => (inactive ? 'default' : 'scale(0.95)')};
 	}
 `;

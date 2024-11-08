@@ -30,7 +30,7 @@ export const Header = styled(HeaderContainer)`
     padding: 10px 20px;
     border-radius: 4px;
     background-color: #282c34;
-    border-bottom: 2px solid #8DCC0A;
+    border-bottom: 2px solid #6b9317;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
 `;
 HeaderContainer.propTypes = {

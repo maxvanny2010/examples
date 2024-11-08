@@ -45,7 +45,7 @@ export const Footer = styled(FooterContainer)`
     padding: 20px 30px;
     border-radius: 4px;
     background-color: #282c34;
-    border-top: 2px solid #8DCC0A;
+    border-top: 2px solid #6b9317;
     box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.5);
 `;
 FooterContainer.propTypes = {

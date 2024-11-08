@@ -29,7 +29,7 @@ export const Input = styled(InputContainer)`
 	background-color: lightgray;
 
 	&:focus {
-		border-color: #8DCC0A;
+		border-color: #6b9317;
 		outline: none;
 	}
 `;
