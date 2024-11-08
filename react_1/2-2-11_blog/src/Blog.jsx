@@ -3,22 +3,22 @@ import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLayoutEffect } from 'react';
 
-import { Authorization, Post, Registration, Users } from './pages';
+import { Authorization, Main, Post, Registration, Users } from './pages';
 import { Footer, Header, Modal } from './component';
 import { setUser } from './redux/action';
 
 const AppColumn = styled.div`
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	background-color: #282c34;
-	width: 1000px;
-	height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #282c34;
+    width: 1000px;
+    height: 100vh;
 `;
 
 const Page = styled.div`
-	padding: 120px 0 20px;
+    padding: 120px 0 20px;
 `;
 
 
@@ -40,7 +40,7 @@ export default function Blog() {
 			<Page>
 				<Routes>
 					<Route path="/"
-						   element={<div>Home page</div>}></Route>
+						   element={<Main />}></Route>
 					<Route path="/login"
 						   element={<Authorization />}></Route>
 					<Route path="/signup"

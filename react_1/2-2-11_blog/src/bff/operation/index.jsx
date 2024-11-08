@@ -24,3 +24,5 @@ export * from './remove-post-comment.jsx';
 export * from './save-post.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './remove-post.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './fetch-posts.jsx';

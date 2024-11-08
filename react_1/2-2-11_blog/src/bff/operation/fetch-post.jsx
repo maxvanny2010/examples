@@ -11,6 +11,7 @@ export const fetchPost = async (postId) => {
 			author: user?.login,
 		};
 	});
+	console.log(post);
 	return {
 		error: null,
 		res: {

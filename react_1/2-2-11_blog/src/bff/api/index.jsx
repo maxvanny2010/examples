@@ -30,3 +30,5 @@ export * from './update-post.jsx';
 export * from './delete-post.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './add-post.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './get-posts.jsx';
