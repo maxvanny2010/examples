@@ -18,3 +18,7 @@ export * from './close-modal.jsx';
 export * from './open-modal.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './save-post-async.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './remove-post-async.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './reset-post-data.jsx';

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useMatch, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Comments, PostContent, PostForm } from './components';
 import { useServerRequest } from '../../hooks';
-import { loadPostAsync } from '../../redux/action';
 import { selectPost } from '../../redux/selectors';
+import { Comments, PostContent, PostForm } from './components';
+import { loadPostAsync, RESET_POST_DATA } from '../../redux/action';
 
 export const PostContainer = ({ className }) => {
 	const params = useParams();
@@ -14,6 +14,9 @@ export const PostContainer = ({ className }) => {
 	const isEditing = useMatch('/post/:id/edit');
 	const serverRequest = useServerRequest();
 	const post = useSelector(selectPost);
+	useLayoutEffect(() => {
+		dispatch(RESET_POST_DATA);
+	}, [dispatch]);
 	useEffect(() => {
 		dispatch(loadPostAsync(serverRequest, params.id));
 	}, [params.id, dispatch, serverRequest]);

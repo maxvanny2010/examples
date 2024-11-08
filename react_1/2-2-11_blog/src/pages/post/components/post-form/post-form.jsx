@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { SanitizeContent } from './utils/index.jsx';
+import { SanitizeContent } from './utils';
 import { Icon, Input } from '../../../../component';
 import { useServerRequest } from '../../../../hooks/';
 import { savePostAsync } from '../../../../redux/action';
@@ -47,16 +47,18 @@ export const PostFormContainer = ({
 			<Input ref={titleRef}
 				   defaultValue={title}
 				   placeholder="Title..." />
-			<SpecialPanel publishedAt={publishedAt}
-						  margin="10px 0 20px"
-						  editButton={
-							  <Icon id={'fa-floppy-o'}
-									margin="0 10px 0 0"
-									padding="0"
-									size="24px"
-									onClick={onSave}
-							  />
-						  }
+			<SpecialPanel
+				id={id}
+				publishedAt={publishedAt}
+				margin="10px 0 20px"
+				editButton={
+					<Icon id={'fa-floppy-o'}
+						  margin="0 10px 0 0"
+						  padding="0"
+						  size="24px"
+						  onClick={onSave}
+					/>
+				}
 			/>
 			<div
 				ref={contentRef}

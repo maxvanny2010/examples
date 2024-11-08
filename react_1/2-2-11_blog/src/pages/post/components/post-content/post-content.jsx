@@ -20,16 +20,18 @@ export const PostContentContainer = ({
 			<img src={imageUrl}
 				 alt={title} />
 			<h2>{title}</h2>
-			<SpecialPanel publishedAt={publishedAt}
-						  margin="-20px 0 20px"
-						  editButton={
-							  <Icon id={'fa-pencil-square-o'}
-									margin="0 10px 0 0"
-									padding="0"
-									size="24px"
-									onClick={() => navigate(`/post/${id}/edit`)}
-							  />
-						  }
+			<SpecialPanel
+				id={id}
+				publishedAt={publishedAt}
+				margin="-20px 0 20px"
+				editButton={
+					<Icon id={'fa-pencil-square-o'}
+						  margin="0 10px 0 0"
+						  padding="0"
+						  size="24px"
+						  onClick={() => navigate(`/post/${id}/edit`)}
+					/>
+				}
 			/>
 			<div className="post-text">{content}</div>
 		</div>
