@@ -26,39 +26,45 @@ const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
 	return (
 		<div className={className}>
 			<div className="published-at">
-				<Icon
-					inactive="true"
-					id="fa-calendar-o"
-					margin="0 10px 0 0"
-					padding="0"
-				/>
+				{
+					publishedAt &&
+					<Icon
+						inactive="true"
+						id="fa-calendar-o"
+						margin="0 10px 0 0"
+						padding="0"
+					/>
+				}
 				{publishedAt}
 			</div>
 			<div className="post-buttons">
 				{editButton}
-				<Icon id="fa-trash-o"
-					  margin="0 10px 0 0"
-					  padding="0"
-					  size="24px"
-					  onClick={() => onPostRemove(id)}
-				/>
+				{
+					publishedAt &&
+					<Icon id="fa-trash-o"
+						  margin="0 10px 0 0"
+						  padding="0"
+						  size="24px"
+						  onClick={() => onPostRemove(id)}
+					/>
+				}
 			</div>
 		</div>
 	);
 };
 export const SpecialPanel = styled(SpecialPanelContainer)`
-    display: flex;
-    justify-content: space-between;
-    margin: ${({ margin }) => margin};
+	display: flex;
+	justify-content: space-between;
+	margin: ${({ margin }) => margin};
 
-    & .published-at {
-        display: flex;
-        align-items: center;
-    }
+	& .published-at {
+		display: flex;
+		align-items: center;
+	}
 
-    & .post-buttons {
-        display: flex;
-    }
+	& .post-buttons {
+		display: flex;
+	}
 `;
 SpecialPanelContainer.propTypes = {
 	className: PropTypes.string,

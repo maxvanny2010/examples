@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useMatch, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useServerRequest } from '../../hooks';
@@ -12,16 +12,18 @@ export const PostContainer = ({ className }) => {
 	const params = useParams();
 	const dispatch = useDispatch();
 	const isEditing = useMatch('/post/:id/edit');
+	const isCreating = useMatch('/post');
 	const serverRequest = useServerRequest();
 	const post = useSelector(selectPost);
-	useLayoutEffect(() => {
-		dispatch(RESET_POST_DATA);
-	}, [dispatch]);
 	useEffect(() => {
-		dispatch(loadPostAsync(serverRequest, params.id));
-	}, [params.id, dispatch, serverRequest]);
+		if (isCreating) {
+			dispatch(RESET_POST_DATA);
+		} else {
+			dispatch(loadPostAsync(serverRequest, params.id));
+		}
+	}, [params.id, dispatch, serverRequest, isCreating]);
 	return (<div className={className}>
-		{isEditing ? (<PostForm post={post} />
+		{isEditing || isCreating ? (<PostForm post={post} />
 		) : (
 			<>
 				<PostContent post={post} />
@@ -33,8 +35,8 @@ export const PostContainer = ({ className }) => {
 	</div>);
 };
 export const Post = styled(PostContainer)`
-    padding: 0 80px;
-    margin: 40px 0;
+	padding: 0 80px;
+	margin: 40px 0;
 `;
 PostContainer.propTypes = {
 	className: PropTypes.string,

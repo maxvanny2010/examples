@@ -8,17 +8,17 @@ import { Footer, Header, Modal } from './component';
 import { setUser } from './redux/action';
 
 const AppColumn = styled.div`
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: #282c34;
-    width: 1000px;
-    height: 100vh;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background-color: #282c34;
+	width: 1000px;
+	height: 100vh;
 `;
 
 const Page = styled.div`
-    padding: 120px 0 20px;
+	padding: 120px 0 20px;
 `;
 
 
@@ -47,12 +47,15 @@ export default function Blog() {
 						   element={<Registration />}></Route>
 					<Route path="/users"
 						   element={<Users />}></Route>
-					<Route path="/post/:id"
-						   element={<Post />}></Route>
-					<Route path="/post/:id/edit"
-						   element={<Post />}></Route>
 					<Route path="/post"
-						   element={<div>New Post</div>}></Route>
+						   element={<Post />}>
+						<Route index
+							   element={<Post />} />
+						<Route path=":id"
+							   element={<Post />} />
+						<Route path=":id/edit"
+							   element={<Post />} />
+					</Route>
 					<Route path="*"
 						   element={<div>404</div>}></Route>
 				</Routes>
