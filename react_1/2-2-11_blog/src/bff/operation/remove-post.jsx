@@ -2,7 +2,7 @@ import { sessions } from '../sessions.jsx';
 import { ROLE } from '../constants';
 import { deleteComment, deletePost, getComments } from '../api';
 
-export const removePost = async ([hash, id]) => {
+export const removePost = async (hash, id) => {
 	const access = await sessions.access(hash, [ROLE.ADMIN]);
 	if (!access) {
 		return {
