@@ -2,15 +2,21 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useServerRequest } from '../../hooks';
-import { PostCard } from './components';
+import { Pagination, PostCard } from './components';
+import { PAGINATION_LIMIT } from '../../bff/constants';
 
 const MainComponent = ({ className }) => {
 	const [posts, setPosts] = useState([]);
+	const [page, setPage] = useState(1);
+	const [pageLast, setPageLast] = useState(1);
 	const serverRequest = useServerRequest();
 	useEffect(() => {
-		serverRequest('fetchPosts')
-			.then((posts) => setPosts(posts.res));
-	}, [serverRequest]);
+		serverRequest('fetchPosts', page, PAGINATION_LIMIT)
+			.then(({ res, totalPages }) => {
+				setPosts(res);
+				setPageLast(totalPages);
+			});
+	}, [serverRequest, page, pageLast]);
 	return (
 		<div className={className}>
 			<div className="post-list">
@@ -25,7 +31,9 @@ const MainComponent = ({ className }) => {
 						/>)
 				}
 			</div>
-
+			{pageLast > 1 && <Pagination page={page}
+										 pageLast={pageLast}
+										 setPage={setPage} />}
 		</div>
 	);
 };
@@ -36,9 +44,6 @@ export const Main = styled(MainComponent)`
 		flex-wrap: wrap;
 	}
 `;
-MainComponent.propTypes = {
-	className: PropTypes.string,
-};
 MainComponent.propTypes = {
 	className: PropTypes.string,
 };

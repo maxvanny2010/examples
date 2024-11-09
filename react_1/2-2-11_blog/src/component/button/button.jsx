@@ -15,20 +15,22 @@ export const Button = styled(ButtonContainer)`
 
 	background-color: #1a1a1a;
 
-	padding: 0.6em 1.2em;
+	padding: ${({ padding = '0.6em 1.2em' }) => padding};;
 	border-radius: 6px;
 	border: 1px solid transparent;
 	transition: border-color 0.25s;
 
 	&:hover {
-		color: lightgray;
-		border: 1px solid #8DCC0A;
+		color: ${({ disabled }) => (disabled ? '' : 'lightgray')};
+		border: ${({ disabled }) => (disabled ? '1px solid transparent' : '1px solid #8DCC0A')};
+		cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 	}
 
 	&:active {
-		color: #8DCC0A;
-		border-color: #8DCC0A;
-		transform: scale(0.95);
+		color: ${({ disabled }) => (disabled ? '' : '#8DCC0A')};
+		border-color: ${({ disabled }) => (disabled ? 'transparent' : '#8DCC0A')};
+		transform: ${({ disabled }) => (disabled ? 'none' : 'scale(0.95)')};
+		cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 	}
 `;
 ButtonContainer.propTypes = {
