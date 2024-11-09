@@ -32,6 +32,7 @@ export const Header = styled(HeaderContainer)`
     background-color: #282c34;
     border-bottom: 2px solid #6b9317;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+    z-index: 10;
 `;
 HeaderContainer.propTypes = {
 	className: PropTypes.string,
