@@ -56,10 +56,13 @@ export const Main = styled(MainComponent)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: calc(100vh - 200px);
 
     & .post-list {
         display: flex;
         flex-wrap: wrap;
+        min-height: 60vh;
+        padding-bottom: 50px;
     }
 
     & .post-not-found {
@@ -67,6 +70,7 @@ export const Main = styled(MainComponent)`
         margin: 40px auto;
         text-align: center;
     }
+
 `;
 MainComponent.propTypes = {
 	className: PropTypes.string,

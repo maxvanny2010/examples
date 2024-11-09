@@ -14,7 +14,7 @@ const AppColumn = styled.div`
     justify-content: space-between;
     background-color: #282c34;
     width: 1000px;
-    height: 100vh;
+    min-height: 100vh;
 `;
 
 const Page = styled.div`

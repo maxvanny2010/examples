@@ -13,6 +13,7 @@ const PaginationComponent = ({
 			<Button
 				disabled={page === 1}
 				width="20px"
+				margin="4px 4px 0 0"
 				onClick={() => setPage(1)}> {'['} </Button>
 			<Button
 				disabled={page === 1}
@@ -33,6 +34,7 @@ const PaginationComponent = ({
 export const Pagination = styled(PaginationComponent)`
     display: flex;
     justify-content: center;
+    width: 100%;
     margin: 10px 0;
     padding: 0 3px;
 
@@ -41,7 +43,7 @@ export const Pagination = styled(PaginationComponent)`
         height: 30px;
         display: flex;
         font-size: 16px;
-		margin: 7px 4px 0 0;
+        margin: 7px 4px 0 0;
         align-items: center;
         justify-content: center;
         background-color: #6b9317;
