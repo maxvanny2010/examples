@@ -4,3 +4,5 @@ export * from './generateDay.jsx';
 export * from './get-comments-count.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './get-last-page-links.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './debounce.jsx';

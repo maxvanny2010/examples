@@ -1,8 +1,16 @@
 import { TABLE_NAME, URL_BD } from '../../utils';
 import { dtoPost } from '../dto';
 
-export const getPosts = async (page, limit) => {
-	return fetch(`${URL_BD}/${TABLE_NAME.POSTS}?_page=${page}&_limit=${limit}`)
+
+export const getPosts = async (searchPhrase, page, limit) => {
+	const URL = `${URL_BD}/${TABLE_NAME.POSTS}`;
+	const params = new URLSearchParams({
+		title_like: searchPhrase,
+		_page: page,
+		_limit: limit,
+	});
+	const url = `${URL}?${params.toString()}`;
+	return fetch(url)
 		.then(loadedPosts =>
 			Promise.all([
 				loadedPosts.json(),
