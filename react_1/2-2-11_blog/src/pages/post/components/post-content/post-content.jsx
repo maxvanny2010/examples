@@ -26,7 +26,7 @@ export const PostContentContainer = ({
 				margin="-20px 0 20px"
 				editButton={
 					<Icon id={'fa-pencil-square-o'}
-						  margin="0 10px 0 0"
+						  margin="0 25px 0 0"
 						  padding="0"
 						  size="24px"
 						  onClick={() => navigate(`/post/${id}/edit`)}
@@ -40,12 +40,13 @@ export const PostContentContainer = ({
 export const PostContent = styled(PostContentContainer)`
     & img {
         float: left;
-        margin: 0 20px 10px 0;
+        margin: 10px 20px 10px 50px;
     }
 
     & .post-text {
         font-size: 18px;
         white-space: pre-line;
+        padding: 0 50px 0 50px;
     }
 `;
 

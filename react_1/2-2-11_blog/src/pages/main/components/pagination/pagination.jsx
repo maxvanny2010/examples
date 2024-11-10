@@ -35,7 +35,6 @@ export const Pagination = styled(PaginationComponent)`
     display: flex;
     justify-content: center;
     width: 100%;
-    margin: 10px 0;
     padding: 0 3px;
 
     & button {

@@ -10,6 +10,7 @@ export const TableRow = styled(TableRowContainer)`
 	align-items: center;
 	border: ${({ border }) => (border ? '1px solid #435E0A' : 'none')};
 	border-radius: 5px;
+	width: 100%;
 
 	& > select {
 		height: 20px;
@@ -18,7 +19,6 @@ export const TableRow = styled(TableRowContainer)`
 	& > div {
 		display: flex;
 		padding: 0 10px;
-
 	}
 
 	& .login-column {

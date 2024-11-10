@@ -82,6 +82,9 @@ export const PostFormContainer = ({
 	);
 };
 export const PostForm = styled(PostFormContainer)`
+	max-width: 670px;
+	margin: 0 auto;
+
 	& img {
 		float: left;
 		margin: 0 20px 10px 0;
@@ -95,7 +98,8 @@ export const PostForm = styled(PostFormContainer)`
 		border-radius: 5px;
 		font-size: 18px;
 		background-color: #dedada;
-		color: #171616
+		color: #171616;
+		max-width: 670px;
 	}
 
 	.post-text:empty::before {
