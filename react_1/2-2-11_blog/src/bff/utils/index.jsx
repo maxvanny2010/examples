@@ -6,3 +6,5 @@ export * from './get-comments-count.jsx';
 export * from './get-last-page-links.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './debounce.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './get-post-comments-with-author.jsx';

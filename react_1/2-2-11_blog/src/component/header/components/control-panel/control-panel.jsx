@@ -1,13 +1,14 @@
-import { selectUserLogin, selectUserRole, selectUserSession } from '../../../../redux/selectors';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
+import { selectUserLogin, selectUserRole, selectUserSession } from '../../../../redux/selectors';
+import { checkAccess } from '../../../../redux/utils';
 import { Button } from '../../../button/button.jsx';
-import { Icon } from '../icon/icon.jsx';
 import { logout } from '../../../../redux/action';
 import { ROLE } from '../../../../utils';
-import styled from 'styled-components';
+import { Icon } from '../icon/icon.jsx';
 
 const LoggingRow = styled.div`
     display: flex;
@@ -17,13 +18,12 @@ const LogoutRow = styled.div`
     display: flex;
     justify-content: space-around;
 `;
-
+const IconNavigate = styled.div`
+    margin: 0;
+`;
 const ManagerRow = styled.div`
     display: flex;
     justify-content: space-around;
-`;
-const IconNavigate = styled.div`
-    margin: 0;
 `;
 const UserLogin = styled.div`
     margin-top: 10px;
@@ -36,6 +36,7 @@ const ControlPanelContainer = ({ className }) => {
 	const roleId = useSelector(selectUserRole);
 	const login = useSelector(selectUserLogin);
 	const session = useSelector(selectUserSession);
+	const isAdmin = checkAccess([ROLE.ADMIN], roleId);
 	const onLogout = () => {
 		dispatch(logout(session));
 		sessionStorage.removeItem('userData');
@@ -73,16 +74,22 @@ const ControlPanelContainer = ({ className }) => {
 						margin="0 5px 0 0"
 					/>
 				</IconNavigate>
-				<Link to="/post">
-					<Icon size="24px"
-						  id="fa-file-text-o"
-						  margin="0 5px 0 0" />
-				</Link>
-				<Link to="/users">
-					<Icon size="24px"
-						  id="fa-users"
-						  margin="0 5px 0 0" />
-				</Link>
+				{isAdmin && (
+					<>
+						<Link to="/post">
+							<Icon size="24px"
+								  id="fa-file-text-o"
+								  margin="0 5px 0 0"
+							/>
+						</Link>
+						<Link to="/users">
+							<Icon size="24px"
+								  id="fa-users"
+								  margin="0 5px 0 0"
+							/>
+						</Link>
+					</>
+				)}
 			</ManagerRow>
 		</div>
 	);

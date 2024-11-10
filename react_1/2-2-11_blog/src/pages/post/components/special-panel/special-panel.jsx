@@ -1,15 +1,21 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '../../../../component';
-import { useServerRequest } from '../../../../hooks';
+
 import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../redux/action';
+import { selectUserRole } from '../../../../redux/selectors';
+import { checkAccess } from '../../../../redux/utils';
+import { useServerRequest } from '../../../../hooks';
+import { Icon } from '../../../../component';
+import { ROLE } from '../../../../utils';
 
 const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
 	const navigate = useNavigate();
 	const serverRequest = useServerRequest();
 	const dispatch = useDispatch();
+	const roleId = useSelector(selectUserRole);
+	const isAdmin = checkAccess([ROLE.ADMIN], roleId);
 	const onPostRemove = (id) => {
 		dispatch(openModal(
 			{
@@ -31,24 +37,25 @@ const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
 					<Icon
 						inactive="true"
 						id="fa-calendar-o"
-						margin="0 10px 0 0"
+						margin="0 10px 0 1px"
 						padding="0"
 					/>
 				}
 				{publishedAt}
 			</div>
-			<div className="post-buttons">
-				{editButton}
-				{
-					publishedAt &&
-					<Icon id="fa-trash-o"
-						  margin="0 10px 0 0"
-						  padding="0"
-						  size="24px"
-						  onClick={() => onPostRemove(id)}
-					/>
-				}
-			</div>
+			{
+				isAdmin && (
+					<div className="post-buttons">
+						{editButton}
+						<Icon id="fa-trash-o"
+							  margin="0 1px 0 0"
+							  padding="0"
+							  size="24px"
+							  onClick={() => onPostRemove(id)}
+						/>
+					</div>
+				)
+			}
 		</div>
 	);
 };
@@ -64,6 +71,7 @@ export const SpecialPanel = styled(SpecialPanelContainer)`
 
 	& .post-buttons {
 		display: flex;
+		padding-right: 55px;
 	}
 `;
 SpecialPanelContainer.propTypes = {

@@ -17,6 +17,10 @@ export * from './button/button.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './auth-error/auth-error-form.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
-export * from './content/content.jsx';
-// eslint-disable-next-line react-refresh/only-export-components
 export * from './modal/modal.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './error/error.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './forumbee/forumbee.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './private-content/private-content.jsx';

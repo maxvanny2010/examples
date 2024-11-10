@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+
 import { Comment } from './index.jsx';
 import { Icon } from '../../../../component';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +9,7 @@ import { selectUserId, selectUserRole } from '../../../../redux/selectors';
 import { useServerRequest } from '../../../../hooks';
 import { addCommentAsync } from '../../../../redux/action';
 import { ROLE } from '../../../../utils';
+import { checkAccess } from '../../../../redux/utils';
 
 
 export const CommentContainer = ({ className, comments, postId }) => {
@@ -15,15 +17,15 @@ export const CommentContainer = ({ className, comments, postId }) => {
 	const userId = useSelector(selectUserId);
 	const roleId = useSelector(selectUserRole);
 	const serverRequest = useServerRequest();
+	const isGuest = checkAccess([ROLE.GUEST], roleId);
 	const [newComment, setNewComment] = useState('');
 	const onNewCommentAdd = (userId, postId, content) => {
 		dispatch(addCommentAsync(serverRequest, userId, postId, content));
 		setNewComment('');
 	};
-	const isUserGuest = roleId === ROLE.GUEST;
 	return (
 		<div className={className}>
-			{!isUserGuest ? (
+			{!isGuest ? (
 				<div className="new-comment">
 			<textarea
 				name="comment"
@@ -58,21 +60,21 @@ export const CommentContainer = ({ className, comments, postId }) => {
 	);
 };
 export const Comments = styled(CommentContainer)`
-    width: 580px;
-    margin: 0 auto;
+	width: 580px;
+	margin: 0 auto;
 
-    & .new-comment {
-        display: flex;
-        width: 100%;
-        margin: 20px 0 0;
-    }
+	& .new-comment {
+		display: flex;
+		width: 100%;
+		margin: 20px 0 0;
+	}
 
-    & .new-comment textarea {
-        width: 550px;
-        resize: none;
-        font-size: 16px;
-        height: 120px;
-    }
+	& .new-comment textarea {
+		width: 550px;
+		resize: none;
+		font-size: 16px;
+		height: 120px;
+	}
 `;
 CommentContainer.propTypes = {
 	className: PropTypes.string,

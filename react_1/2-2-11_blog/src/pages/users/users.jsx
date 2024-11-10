@@ -1,20 +1,24 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Content, Icon } from '../../component';
+
+import { selectUserRole } from '../../redux/selectors';
+import { Forumbee, PrivateContent } from '../../component';
 import { TableRow, UserRow } from './components';
 import { useServerRequest } from '../../hooks';
+import { checkAccess } from '../../redux/utils';
 import { ROLE } from '../../utils/';
-import { useNavigate } from 'react-router-dom';
 
 export const UsersContainer = ({ className }) => {
-	const navigate = useNavigate();
 	const requestServer = useServerRequest();
+	const userRole = useSelector(selectUserRole);
 	const [roles, setRoles] = useState([]);
 	const [users, setUsers] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [shouldUpdateUsers, setShouldUpdateUsers] = useState(false);
 	useEffect(() => {
+		if (!checkAccess([ROLE.ADMIN], userRole)) return;
 		Promise.all(
 			[requestServer('fetchUsers'),
 				requestServer('fetchRoles'),
@@ -30,43 +34,39 @@ export const UsersContainer = ({ className }) => {
 			setErrorMessage(error.message);
 		});
 
-	}, [requestServer, shouldUpdateUsers]);
+	}, [requestServer, shouldUpdateUsers, userRole]);
 
 	const onUserRemove = (userId) => {
+		if (!checkAccess([ROLE.ADMIN], userRole)) return;
 		requestServer('removeUser', userId)
 			.then(() => setShouldUpdateUsers(!shouldUpdateUsers));
 	};
 	return (
-		<div className={className}>
-			<Icon size="24px"
-				  id="fa-forumbee"
-				  margin="25px 20px 0 0"
-				  color="#8DCC0A"
-				  onClick={() => navigate('/')}
-			/>
-			<Content error={errorMessage}>
-				<div>
-					<TableRow>
-						<div className="login-column">Login</div>
-						<div className="registered-at-column">Date of registration</div>
-						<div className="role-column">Role</div>
-					</TableRow>
-					{
-						users.map(({ id, login, registeredAt, roleId }) => (
-							<UserRow
-								key={id}
-								id={id}
-								login={login}
-								registeredAt={registeredAt}
-								roleId={roleId}
-								roles={roles.filter(({ id: roleId }) => roleId !== ROLE.GUEST)}
-								onUserRemove={() => onUserRemove(id)}
-							/>
-						))
-					}
-				</div>
-			</Content>
-		</div>
+		<PrivateContent access={[ROLE.ADMIN]}
+						errorServer={errorMessage}>
+			<div className={className}>
+				<Forumbee size="24px"
+						  id={'forumbee'} />
+				<TableRow>
+					<div className="login-column">Login</div>
+					<div className="registered-at-column">Date of registration</div>
+					<div className="role-column">Role</div>
+				</TableRow>
+				{
+					users.map(({ id, login, registeredAt, roleId }) => (
+						<UserRow
+							key={id}
+							id={id}
+							login={login}
+							registeredAt={registeredAt}
+							roleId={roleId}
+							roles={roles.filter(({ id: roleId }) => roleId !== ROLE.GUEST)}
+							onUserRemove={() => onUserRemove(id)}
+						/>
+					))
+				}
+			</div>
+		</PrivateContent>
 	);
 };
 export const Users =
@@ -76,8 +76,6 @@ export const Users =
 		flex-direction: column;
 		align-items: center;
 		width: 570px;
-		font-size: 18px;
-
 	`;
 UsersContainer.propTypes = {
 	className: PropTypes.string,

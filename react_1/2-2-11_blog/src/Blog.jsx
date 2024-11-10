@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux';
 import { useLayoutEffect } from 'react';
 
 import { Authorization, Main, Post, Registration, Users } from './pages';
-import { Footer, Header, Modal } from './component';
+import { Error, Footer, Header, Modal } from './component';
 import { setUser } from './redux/action';
+import { ERROR } from './bff/constants';
 
 const AppColumn = styled.div`
     margin: 0 auto;
@@ -57,7 +58,7 @@ export default function Blog() {
 							   element={<Post />} />
 					</Route>
 					<Route path="*"
-						   element={<div>404</div>}></Route>
+						   element={<Error error={ERROR.PAGE_NOT_EXIT} />}></Route>
 				</Routes>
 			</Page>
 			<Footer />
