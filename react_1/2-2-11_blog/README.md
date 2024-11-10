@@ -1,3 +1,15 @@
+# React Module 1
+## Project: Blog
+
+### User Login Credentials 🔐
+
+| Role        | Username | Password       |
+|-------------|----------|----------------|
+| **Admin**   | user1    | password123    |
+| **Moderator** | user2 | password123    |
+| **Reader**  | user3    | password123    |
+
+### Project details: 🏠
 npm i -g json-server
 npm i
 styled-components
@@ -33,7 +45,35 @@ Schema for redux store:
 
 1. user: id / login / role_id / session
 2. posts-array:
-   2.1. post: id / user_id / published_at / title / image_url / content / commentsCount
-   2.2. comments-array: id / author / content / publishedAt
-   2.3. users-array: id / login / registeredAt / role
+	- post: id / user_id / published_at / title / image_url / content / commentsCount
+	- comments-array:
+		- id / author / content / publishedAt
+	- users-array:
+		- id / login / registeredAt / role
 
+#### [index page]
+![index](src\assets\img\page_index.jpg)
+
+#### [index page permit all]
+![permit all](src\assets\img\page_index_permit_all.jpg)
+
+#### [search]
+![seacrch](src\assets\img\page_search.jpg)
+
+#### [password error]
+![password_error](src\assets\img\page_password_error.jpg)
+
+####  [admin index]
+![admin index](src\assets\img\page_admin_index.jpg)
+
+#### [admin manager roles]
+![admin roles](src\assets\img\page_admin_manager_roles.jpg)
+
+#### [admin post comments]
+![admin post comments](src\assets\img\page_admin_post_comment.jpg)
+
+#### [admin post edit]
+![admin post edit](src\assets\img\page_admin_post_edit.jpg)
+
+#### [admin post new]
+![admin post new](src\assets\img\page_admin_post_new.jpg)
