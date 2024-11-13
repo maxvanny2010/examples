@@ -5,12 +5,6 @@ const chalk = require('chalk');
 const DB_URL = path.join(__dirname, 'db.json');
 
 async function addNote(title) {
-	// const notes = require(BD_URL)
-	/* get Buffer */
-	/* const buffer = fs.readFile(BD_URL)
-	 const notes = Buffer.from(buffer).toString('utf8'); */
-	/*const notes = fs.readFile(BD_URL, {encoding: 'utf-8'})
-	console.log(JSON.stringify(notes));*/
 	console.log(Date.now().toString());
 	const notes = await getNotes();
 	const note = {
@@ -25,8 +19,6 @@ async function addNote(title) {
 
 async function getNotes() {
 	const notes = await fs.readFile(DB_URL, { encoding: 'utf-8' });
-	// console.log(typeof notes)
-	// console.log(typeof JSON.parse(notes))
 	return Array.isArray(JSON.parse(notes)) ? JSON.parse(notes) : [];
 }
 
