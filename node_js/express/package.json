@@ -1,0 +1,26 @@
+{
+  "name": "note-app",
+  "version": "1.0.0",
+  "description": "note app",
+  "main": "index.js",
+  "scripts": {
+    "start": "start node.js",
+    "server": "nodemon index.js"
+  },
+  "keywords": [
+    "simple",
+    "note",
+    "app"
+  ],
+  "author": "maxvanny2010",
+  "license": "ISC",
+  "dependencies": {
+
+    "chalk": "^4.1.2",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/yargs": "^17.0.33",
+    "nodemon": "^3.1.7"
+  }
+}
