@@ -1,35 +1,48 @@
-const http = require('http');
-const fs = require('fs/promises');
-const path = require('path');
-const chalk = require('chalk');
-const { addNote } = require('./notes.controller');
+const express = require('express')
+const chalk = require('chalk')
+const path = require('path')
+const {addNote, getNotes, removeNote, editNote} = require('./notes.controller')
 
-const port = 3000;
+let port = 3000;
 
-const basePath = path.join(__dirname, 'pages');
+const app = express()
+app.set('view engine', 'ejs')
+app.set('views', 'pages')
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+app.use(express.static(path.resolve(__dirname, 'public')))
 
-const server = http.createServer(async (req, res) => {
-	if (req.method === 'GET') {
-		const content = await fs.readFile(path.join(basePath, 'index.html'));
-		// res.setHeader('Content-Type', 'text/html');
-		res.writeHead(200, { 'Content-Type': 'text/html;charset=UTF-8' });
-		res.end(content);
-	}
-	if (req.method === 'POST') {
-		const body = [];
-		res.writeHead(200, { 'Content-Type': 'text/html;charset=UTF-8' });
-		req.on('data', (data) => {
-			//  console.log('data',data) data-buffer
-			body.push(Buffer.from(data));
-		});
-		req.on('end', () => {
-			const title = body.toString().split('=')[1]
-				.replaceAll('+', ' ');
-			addNote(title);
-			res.end(`Title: ${title}`);
-		});
-	}
+app.get('/', async (req, res) => {
+	res.render('index', {
+		title: 'Express App',
+		notes: await getNotes(),//[] No notes
+		message: '',
+	})
+})
+app.post('/', async (req, res) => {
+	const result = await addNote(req.body.title)
+	res.render('index', {
+		title: 'Express App',
+		notes: await getNotes(),
+		message: result ? 'Note has been created' : ''
+	})
 });
-server.listen(port, () => {
+
+app.delete('/:id', async (req, res) => {
+	const result = await removeNote(req.params.id)
+	res.render( 'index', {
+		title: 'Express App',
+		notes: await getNotes(),
+		message: result ? 'deleted' : ''
+	})
+})
+
+app.put('/:id', async (req, res) => {
+	const title = await editNote(req.params.id, req.body.title)
+	if (title) res.json({message: title,})
+	else res.status(404).send('Error editing note')
+})
+
+app.listen(port, () => {
 	console.log(chalk.green(`Server listening on port ${port}...`));
 })
