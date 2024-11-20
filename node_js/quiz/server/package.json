@@ -1,0 +1,25 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"start": "start node.js",
+		"server": "nodemon index.js"
+	},
+	"keywords": [],
+	"author": "maxvanny2010",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"chalk": "^4.1.2",
+		"cors": "^2.8.5",
+		"express": "^4.21.1",
+		"mongoose": "^8.8.1"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.15.0",
+		"eslint": "^9.15.0",
+		"globals": "^15.12.0",
+		"nodemon": "^3.1.7"
+	}
+}
