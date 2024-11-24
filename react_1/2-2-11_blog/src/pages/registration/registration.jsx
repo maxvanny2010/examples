@@ -37,7 +37,7 @@ const RegistrationContainer = ({ className }) => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
-		defaultValue: {
+		defaultValues: {
 			login: '',
 			password: '',
 			passcheck: '',
