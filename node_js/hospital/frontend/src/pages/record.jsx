@@ -86,7 +86,7 @@ const RecordComponent = ({ className }) => {
 		if (errorMessage) {
 			const timeout = setTimeout(() => {
 				setErrorMessage('');
-			}, 1000);
+			}, 2000);
 			return () => clearTimeout(timeout);
 		}
 	}, [errorMessage]);
