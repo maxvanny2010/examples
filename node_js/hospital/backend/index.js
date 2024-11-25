@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const PATH = require('./contants/path/path');
 const cookieParser = require('cookie-parser');
 const { addRecord, getRecords } = require('./record.controller');
-const { addUser, loginUser, logoutUser } = require('./user.controller');
+const { addUser, loginUser } = require('./user.controller');
 const auth = require('./middlewares/auth');
 
 const port = 3000;
@@ -88,7 +88,7 @@ app.get(`${PATH.RECORDS}`, async (req, res) => {
 	}
 });
 mongoose.connect(
-	'mongodb+srv://Mongodb1974:Mongodb1974@cluster0.voq8c.mongodb.net/record?retryWrites=true&w=majority&appName=Cluster0',
+	'mongodb+srv://Y1vkkJaVE5U6w3pS:Y1vkkJaVE5U6w3pS@cluster0.voq8c.mongodb.net/record?retryWrites=true&w=majority&appName=Cluster0',
 ).then(() => {
 	app.listen(port, () => {
 		console.log(chalk.green(`Server has been started on port ${port}...`));
