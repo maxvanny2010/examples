@@ -84,7 +84,7 @@ app.put(`/${PAGE.EDIT}/:id`, async (req, res) => {
 	}
 });
 
-mongoose.connect('mongodb+srv://Mongodb1974:Mongodb1974@cluster0.voq8c.mongodb.net/tests?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://Y1vkkJaVE5U6w3pS:Y1vkkJaVE5U6w3pS@cluster0.voq8c.mongodb.net/tests?retryWrites=true&w=majority&appName=Cluster0')
 	.then(() => {
 		app.listen(port, () => {
 			console.log(chalk.green(`Server listening on port ${port}...`));
