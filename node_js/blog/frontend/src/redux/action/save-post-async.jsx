@@ -1,5 +1,5 @@
 import { setPostData } from './set-post-data.jsx';
-import { PATH, METHOD, requests, proxy } from '../../utils/';
+import { METHOD, PATH, proxy, requests } from '../../utils/';
 
 export const savePostAsync = (id, newPostData) => (dispatch) => {
 	const saveRequest = id

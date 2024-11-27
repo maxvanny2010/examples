@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { TableRow } from '../table-row/table-row.jsx';
 import { StyleSelect } from '../select/style-select.jsx';
 import { useState } from 'react';
-import { PATH, METHOD, requests, proxy } from '../../../../utils';
+import { METHOD, PATH, proxy, requests } from '../../../../utils';
 
 export const UserRowContainer = ({
 									 className,

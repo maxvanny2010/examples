@@ -90,7 +90,8 @@ export const PostCard = styled(PostCardComponent)`
 		align-items: center;
 		padding-right: 8px;
 	}
-	& a:hover{
+
+	& a:hover {
 		color: rgba(255, 255, 255, 0.87);
 	}
 

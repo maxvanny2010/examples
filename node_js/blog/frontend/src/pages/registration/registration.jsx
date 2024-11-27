@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-import { PATH, METHOD, requests, ROLE, STORAGE_USER_DATA, proxy } from '../../utils';
+import { METHOD, PATH, proxy, requests, ROLE, STORAGE_USER_DATA } from '../../utils';
 import { AuthErrorForm, Button, Icon, Input } from '../../component';
 import { selectUserRole } from '../../redux/selectors';
 import { setUser } from '../../redux/action';

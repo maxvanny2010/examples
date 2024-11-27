@@ -1,5 +1,5 @@
 import { removeComment } from './remove-comment.jsx';
-import { PATH, METHOD, requests, proxy } from '../../utils';
+import { METHOD, PATH, proxy, requests } from '../../utils';
 
 export const removeCommentAsync = (postId, commentId) => (dispatch) => {
 	let url = `${proxy}${PATH.POSTS}/${postId}${PATH.COMMENTS}/${commentId}`;

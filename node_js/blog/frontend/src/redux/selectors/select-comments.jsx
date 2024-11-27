@@ -1,1 +1,1 @@
-export const selectComments = ({post}) => post.comments;
+export const selectComments = ({ post }) => post.comments;

@@ -7,7 +7,7 @@ import { selectUserRole } from '../../redux/selectors';
 import { Forumbee, PrivateContent } from '../../component';
 import { TableRow, UserRow } from './components';
 import { checkAccess } from '../../redux/utils';
-import { PATH, METHOD, requests, ROLE, proxy } from '../../utils/';
+import { METHOD, PATH, proxy, requests, ROLE } from '../../utils/';
 
 export const UsersContainer = ({ className }) => {
 	const userRole = useSelector(selectUserRole);

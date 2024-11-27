@@ -11,19 +11,19 @@ import { logout } from '../../../../redux/action';
 import { Icon } from '../icon/icon.jsx';
 
 const LoggingRow = styled.div`
-    display: flex;
-    justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 `;
 const LogoutRow = styled.div`
-    display: flex;
-    justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 `;
 const IconNavigate = styled.div`
-    margin: 0;
+	margin: 0;
 `;
 const ManagerRow = styled.div`
-    display: flex;
-    justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 `;
 const UserLogin = styled.div`
 	margin-top: 10px;

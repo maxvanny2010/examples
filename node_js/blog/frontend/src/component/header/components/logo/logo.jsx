@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 
 const LargeText = styled.div`
-	font-family: Inter,serif;
+	font-family: Inter, serif;
 	font-size: 48px;
 	font-weight: 400;
 	line-height: 48px;

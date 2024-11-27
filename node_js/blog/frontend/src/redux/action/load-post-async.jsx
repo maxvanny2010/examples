@@ -1,5 +1,5 @@
 import { setPostData } from './set-post-data.jsx';
-import { PATH, requests, proxy } from '../../utils';
+import { PATH, proxy, requests } from '../../utils';
 
 export const loadPostAsync = (postId) => (dispatch) => {
 	return requests(`${proxy}${PATH.POSTS}/${postId}`).then((response) => {

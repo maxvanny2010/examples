@@ -41,16 +41,16 @@ export const PostContentContainer = ({
 	);
 };
 export const PostContent = styled(PostContentContainer)`
-    & img {
-        float: left;
-        margin: 10px 20px 10px 50px;
-    }
+	& img {
+		float: left;
+		margin: 10px 20px 10px 50px;
+	}
 
-    & .post-text {
-        font-size: 18px;
-        white-space: pre-line;
-        padding: 0 50px 0 50px;
-    }
+	& .post-text {
+		font-size: 18px;
+		white-space: pre-line;
+		padding: 0 50px 0 50px;
+	}
 `;
 
 PostContentContainer.propTypes = {
