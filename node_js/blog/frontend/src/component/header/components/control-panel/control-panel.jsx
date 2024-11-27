@@ -48,7 +48,7 @@ const ControlPanelContainer = ({ className }) => {
 			{roleId === ROLE.GUEST
 				? (
 					<LoggingRow>
-						<Link to={'/login'}>
+						<Link to={`${PATH.LOGIN}`}>
 							<Button width="120px">
 								Login
 							</Button>

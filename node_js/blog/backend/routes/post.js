@@ -28,12 +28,14 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', authenticated, hasRole([ADMIN]), async (req, res) => {
-	const { newPostData: { title, content, imageUrl: image } } = req.body;
+	const { newPostData } = req.body;
+	const { title, content, imageUrl: image } = newPostData ? newPostData : req.body;
 	const newPost = await addPost({ title, content, image });
 	return res.send({ data: { post: dtoPost(newPost) } });
 });
 router.patch('/:id', authenticated, hasRole([ADMIN]), async (req, res) => {
-	const { newPostData: { title, content, imageUrl: image } } = req.body;
+	const { newPostData } = req.body;
+	const { title, content, imageUrl: image } = newPostData ? newPostData : req.body;
 	try {
 		const newPost = await updatePost(req.params.id, {
 			title, content, image,
