@@ -1,13 +1,24 @@
-import { FormEvent, MouseEvent, useState } from 'react';
+import { FormEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
 import { Counter } from './components';
 import { useUser } from './context';
 
+function useUserInfo<T>(props: { name: T }): T {
+	return props.name;
+}
+
 function App() {
 	const [count, setCount] = useState(0);
 	const { user, createUser } = useUser();
+
+	const ref = useRef<HTMLDivElement | null>(null);
+	const ref1 = useRef<string>('');
+
+	console.log(ref1.current);
+	const users = useUserInfo<number>({ name: 1 });
+	console.log(users);
 
 	function handleClickCount(event: MouseEvent<HTMLButtonElement>) {
 		console.log(event.screenX);
@@ -24,8 +35,18 @@ function App() {
 		console.log(event.timeStamp);
 	}
 
+	useEffect(() => {
+		window.user = {
+			email: 'test@example.com',
+			password: '123456',
+			id: '1',
+		};
+		console.log('Current user:', window.user);
+	}, []);
+
 	return (
 		<>
+			<div ref={ref}></div>
 			<Counter id="123"
 					 name="Some counter"
 					 user={user}
