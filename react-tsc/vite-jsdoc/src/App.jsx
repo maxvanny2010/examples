@@ -1,13 +1,25 @@
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
+import { createUser, getPersons, getUseData, getUsers, sum } from './utils/index';
 import viteLogo from '/vite.svg';
 import './App.css';
+import { User } from './components/User.jsx';
 
 function App() {
 	const [count, setCount] = useState(0);
-
+	console.log('###: sum', sum(1, 2));
+	createUser('Max', 34);
+	getUsers();
+	getPersons();
+	getUseData(1).then(user => console.log(user));
 	return (
 		<>
+
+			<User name={'max'}
+				  age={35}
+				  sex={2}
+			/>
+
 			<div>
 				<a href="https://vite.dev"
 				   target="_blank">

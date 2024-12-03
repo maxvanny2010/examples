@@ -1,10 +1,29 @@
-# React + Vite
+npm i -g jsdoc
+npm i -d jsdoc
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### tags:
 
-Currently, two official plugins are available:
+[allowUnknownTags]: разрешает использование неизвестных тегов.
+[dictionaries]: указывает на словарь для анализа тегов, в данном случае, это словарь JSDoc для документирования
+JavaScript кода.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md)
-  uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast
-  Refresh
+#### source:
+
+[include]: указывает на директорию src, где находятся исходные файлы.
+[includePattern]: регулярное выражение для включения файлов с расширениями .js или .docx.
+[excludePattern]: регулярное выражение для исключения файлов, начинающихся с символа подчеркивания (_).
+
+#### opts:
+
+[destination]: указывает директорию ./docs/, где будут сохраняться сгенерированные документы.
+[recurse]: включает рекурсивный поиск файлов в указанной директории.
+[template]: указывает на шаблон для генерации документации.
+
+#### plugins:
+
+[plugins/markdown]: подключает плагин для обработки Markdown файлов.
+
+#### templates:
+
+[cleverLinks, monospaceLinks, includeDate]: различные настройки для шаблонов, такие как включение дат или использование
+специальных ссылок.
