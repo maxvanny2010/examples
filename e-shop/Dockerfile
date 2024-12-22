@@ -10,6 +10,10 @@ RUN npm run build
 WORKDIR /usr/src/app/backend
 RUN npm i
 
+ENV NODE_ENV=production
+ENV API_PREFIX=/api
+ENV PORT=3001
+
 EXPOSE 3001
 
-CMD [ "node", "app.js" ]
+CMD ["npm", "run", "start"]
