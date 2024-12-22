@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProduct, selectUserRole } from '../../../../redux/selectors';
 import { Counter } from '../counter/counter.jsx';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Comments } from '../comments/comments.jsx';
 import { ROLE, SYMBOLS } from '../../../../utils/index.jsx';
-import { addProductCartAsync, CLEAR_PRODUCT } from '../../../../redux/action/index.jsx';
+import { addProductCartAsync } from '../../../../redux/action/index.jsx';
 
 export const ProductContentContainer = ({
 											className,
@@ -31,9 +31,6 @@ export const ProductContentContainer = ({
 		event.preventDefault();
 		dispatch(addProductCartAsync(id, counters));
 	};
-	useEffect(() => {
-		dispatch(CLEAR_PRODUCT);
-	}, [dispatch]);
 	const toggleCharacteristics = () => setIsOpenedCharacteristics(!isOpenedCharacteristics);
 	const toggleReviews = () => setIsOpenedReviews(!isOpenedReviews);
 	return (
