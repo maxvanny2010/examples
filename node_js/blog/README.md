@@ -39,7 +39,7 @@ npm i
 
 #### [index page]
 
-![index](src/assets/img/page_index.jpg)
+![index](frontend/src/assets/img/page_index.jpg)
 
 #### [index page permit all]
 
@@ -47,7 +47,7 @@ npm i
 
 #### [search]
 
-![seacrch](frontend/src/assets/img/page_search.jpg)
+![search](frontend/src/assets/img/page_search.jpg)
 
 #### [password error]
 
