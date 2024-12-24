@@ -3,6 +3,18 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const StyledLinkComponent = ({ className, to, children, ...props }) => {
+	const isExternal = to.startsWith('http://') || to.startsWith('https://');
+
+	if (isExternal) {
+		return (
+			<a href={to}
+			   className={className} {...props}
+			   target="_blank"
+			   rel="noopener noreferrer">
+				{children}
+			</a>
+		);
+	}
 	return (
 		<Link to={to}
 			  className={className} {...props}>

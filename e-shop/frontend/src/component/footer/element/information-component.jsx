@@ -13,18 +13,19 @@ const FooterInformationContainer = ({ className }) => {
 		<div className={className}>
 			<FooterTitle className="bolder">Information </FooterTitle>
 			<ul className="information-list">
-				<StyledLink to={`/#`}>
+				<StyledLink to={`http://surl.li/lvxovt`}>
 					<li className="information-item">About us</li>
 				</StyledLink>
 				<StyledLink to={`${PATH.OFFICE}`}>
 					<li className="information-item">Find a store</li>
 				</StyledLink>
-				<StyledLink to={`/#`}>
+				<StyledLink to={`http://surl.li/tzduza`}>
 					<li className="information-item">Terms & conditions</li>
 				</StyledLink>
 			</ul>
 		</div>
-	);
+	)
+		;
 };
 export const FooterInformation = styled(FooterInformationContainer)`
 	flex-grow: 1;
