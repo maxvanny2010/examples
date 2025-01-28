@@ -1,8 +1,8 @@
-import { SOUND } from '../data/sound';
-import { AudioPlayer } from './index';
-import { CLASSES } from '../data/classes.js';
-import { BACKGROUND } from '../data/background';
-import { ICONS } from '../data/icons.js';
+import { SOUND } from './data/sound.js';
+import { AudioPlayer } from './utils/player.js';
+import { CLASSES } from './data/classes.js';
+import { BACKGROUND } from './data/background.js';
+import { ICONS } from './data/icons.js';
 
 let currentClassName = 'empty';
 
