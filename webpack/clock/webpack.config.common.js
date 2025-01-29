@@ -4,7 +4,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import postcssPresetEnv from 'postcss-preset-env';
-import ESLintPlugin from 'eslint-webpack-plugin';
+//import ESLintPlugin from 'eslint-webpack-plugin';
 
 export default {
 	context: path.resolve(process.cwd(), 'src'),
@@ -65,11 +65,11 @@ export default {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new ESLintPlugin({
+		/*new ESLintPlugin({
 			extensions: ['js', 'jsx'],
 			overrideConfigFile: path.resolve(process.cwd(), 'eslint.config.js'),
 			emitWarning: true,
-		}),
+		}),*/
 		new HtmlWebpackPlugin({
 			template: path.resolve(process.cwd(), 'public/index.html'),
 			favicon: path.resolve(process.cwd(), 'public/favicon.ico'),
