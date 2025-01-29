@@ -17,7 +17,7 @@ export class AudioPlayer {
 		const volumeControl = document.getElementById('volume');
 		const volumeDisplay = document.getElementById('currentVolume');
 
-		let playingAudio = AudioPlayer.currentAudio;
+		const playingAudio = AudioPlayer.currentAudio;
 		if (playingAudio && playingAudio.src.endsWith(url)) {
 			if (playingAudio.paused) {
 				playingAudio.play().then(() => {
@@ -60,7 +60,7 @@ export class AudioPlayer {
 	}
 
 	static startProgressUpdater(progressElement, timeDisplay) {
-		let playingAudio = AudioPlayer.currentAudio;
+		const playingAudio = AudioPlayer.currentAudio;
 		if (!playingAudio) return;
 
 		AudioPlayer.progressInterval = setInterval(() => {
