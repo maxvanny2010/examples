@@ -9,6 +9,7 @@ export default merge(commonConfig, {
 		static: {
 			directory: path.resolve(process.cwd(), 'dist'),
 		},
+		compress: true,
 		port: 3000,
 		hot: true,
 		open: true,

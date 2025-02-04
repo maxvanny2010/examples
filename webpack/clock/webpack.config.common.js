@@ -74,18 +74,8 @@ export default {
 			template: path.resolve(process.cwd(), 'public/index.html'),
 			favicon: path.resolve(process.cwd(), 'public/favicon.ico'),
 		}),
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: 'assets',
-					to: 'assets',
-				},
-				{
-					from: 'css',
-					to: 'css',
-				},
-			],
+		new MiniCssExtractPlugin({
+			filename: 'css/[name].[contenthash].css',
 		}),
-		new MiniCssExtractPlugin(),
 	],
 };

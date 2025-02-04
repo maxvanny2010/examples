@@ -1,6 +1,6 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
+//import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import postcssPresetEnv from 'postcss-preset-env';
@@ -8,15 +8,23 @@ import postcssPresetEnv from 'postcss-preset-env';
 
 export default {
 	context: path.resolve(process.cwd(), 'src'),
-	entry: './index.js',
+	entry: './index.ts',
 	output: {
 		filename: '[name].[contenthash].js',
 		path: path.resolve(process.cwd(), 'dist'),
 		assetModuleFilename: 'assets/[name].[contenthash][ext]',
 		clean: true,
 	},
+	resolve: {
+		extensions: ['.js', '.ts'],
+	},
 	module: {
 		rules: [
+			{
+				test: /\.ts$/,
+				use: 'ts-loader',
+				exclude: /node_modules/,
+			},
 			{
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader'],
@@ -74,18 +82,8 @@ export default {
 			template: path.resolve(process.cwd(), 'public/index.html'),
 			favicon: path.resolve(process.cwd(), 'public/favicon.ico'),
 		}),
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: 'assets',
-					to: 'assets',
-				},
-				{
-					from: 'css',
-					to: 'css',
-				},
-			],
+		new MiniCssExtractPlugin({
+			filename: 'css/[name].[contenthash].css',
 		}),
-		new MiniCssExtractPlugin(),
 	],
 };

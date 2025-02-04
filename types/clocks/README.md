@@ -1,6 +1,6 @@
-# Module 2
+# Module 3
 
-## WEBPACK
+## WEBPACK TYPESCRIPT
 
 ## Project: WEATHER
 
