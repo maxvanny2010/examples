@@ -7,7 +7,7 @@ export class AudioPlayer {
         return AudioPlayer._isPaused;
     }
 
-    private static set isPaused(value: boolean) {
+    public static set isPaused(value: boolean) {
         AudioPlayer._isPaused = value;
     }
 
