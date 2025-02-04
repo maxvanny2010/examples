@@ -3,10 +3,23 @@ import { AudioPlayer } from './utils/player.js';
 import { CLASSES } from './data/classes.js';
 import { BACKGROUND } from './data/background.js';
 import { ICONS } from './data/icons.js';
+import './css/style.css';
 
 let currentClassName = 'empty';
 
 document.addEventListener('DOMContentLoaded', () => {
+	const rainButton = document.querySelector('.rain');
+	const winterButton = document.querySelector('.winter');
+	const summerButton = document.querySelector('.summer');
+
+	// Проверяем, что кнопки существуют
+	if (!rainButton || !winterButton || !summerButton) return;
+
+	// Добавляем иконки в кнопки
+	addIconToButton(rainButton, ICONS.RAIN);
+	addIconToButton(winterButton, ICONS.WINTER);
+	addIconToButton(summerButton, ICONS.SUMMER);
+
 	const main = document.querySelector('main');
 	const title = document.querySelector('.main-title');
 
@@ -35,7 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			currentClassName = CLASSES.SUMMER;
 		});
 });
-
+function addIconToButton(button, icon) {
+	const img = document.createElement('img');
+	img.src = icon;
+	img.alt = 'Icon';
+	button.appendChild(img);
+}
 function updateBackground(classes) {
 	switch (classes) {
 		case CLASSES.RAIN:
