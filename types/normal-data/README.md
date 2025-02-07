@@ -1,4 +1,4 @@
-# TS Module 1
+# TS Module 2
 
 ## Project: Normalize Data
 
