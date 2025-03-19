@@ -3,6 +3,7 @@ import { CustomInputs } from './CustomInputs.jsx';
 import { MultiInputs } from './MultiInputs.jsx';
 import { ControlInputs } from './ControlInputs.jsx';
 import { NotControlInputsRef } from './NotControlInputsRef.jsx';
+import { FormInputs } from './FormInputs.jsx';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,5 +14,6 @@ root.render(
 		<MultiInputs />
 		<ControlInputs />
 		<NotControlInputsRef />
+		<FormInputs />
 	</>,
 );
