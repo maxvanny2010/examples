@@ -15,7 +15,7 @@ export function CustomInputs() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<h6>useArray</h6>
+				<h6>Input</h6>
 				<div className="button-container">
 					<input type="text"
 						   onChange={handleChange} />

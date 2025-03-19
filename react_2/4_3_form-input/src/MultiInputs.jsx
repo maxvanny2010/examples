@@ -43,7 +43,7 @@ export function MultiInputs() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<h6>useArray</h6>
+				<h6>Multi inputs</h6>
 				<div className="button-container">
 					<input type="text"
 						   name="name"
