@@ -5,6 +5,7 @@ import { ControlInputs } from './ControlInputs.jsx';
 import { NotControlInputsRef } from './NotControlInputsRef.jsx';
 import { FormInputs } from './FormInputs.jsx';
 import { FormInputsReset } from './FormInputsReset.jsx';
+import { FormInputsFocusBlur } from './FormInputsFocusBlur.jsx';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,5 +18,6 @@ root.render(
 		<NotControlInputsRef />
 		<FormInputs />
 		<FormInputsReset />
+		<FormInputsFocusBlur />
 	</>,
 );
