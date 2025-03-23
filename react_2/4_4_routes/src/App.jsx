@@ -5,6 +5,8 @@ import { BookList } from './pages/BookList.jsx';
 import { Contact } from './pages/Contact.jsx';
 import { Book } from './pages/Book.jsx';
 import './App.css';
+import { NewBook } from './pages/NewBook.jsx';
+import { NotFound } from './pages/NotFound.jsx';
 
 export const App = () => {
 	return (<>
@@ -28,8 +30,12 @@ export const App = () => {
 				   element={<BookList />}></Route>
 			<Route path="/books/:id/:img?"
 				   element={<Book />}></Route>
+			<Route path="/books/new"
+				   element={<NewBook />}></Route>
 			<Route path="/contact"
 				   element={<Contact />}></Route>
+			<Route path="*"
+				   element={<NotFound />}></Route>
 		</Routes>
 	</>);
 };
