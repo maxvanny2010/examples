@@ -3,6 +3,7 @@ import { Home } from './pages/Home.jsx';
 import { About } from './pages/About.jsx';
 import { BookList } from './pages/BookList.jsx';
 import { Contact } from './pages/Contact.jsx';
+import { Book } from './pages/Book.jsx';
 import './App.css';
 
 export const App = () => {
@@ -25,6 +26,8 @@ export const App = () => {
 				   element={<About />}></Route>
 			<Route path="/books"
 				   element={<BookList />}></Route>
+			<Route path="/books/:id/:img?"
+				   element={<Book />}></Route>
 			<Route path="/contact"
 				   element={<Contact />}></Route>
 		</Routes>
