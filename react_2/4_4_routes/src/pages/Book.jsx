@@ -4,5 +4,10 @@ export function Book() {
 	const { id } = useParams();
 	const contextOutlet = useOutletContext();
 	console.log('####: contextOutlet', contextOutlet);
-	return (<h1>Book {id} {contextOutlet.name}</h1>);
+	return (
+		<div>
+			<h2>Book {id}</h2>
+			<p>Context Name: {contextOutlet ? contextOutlet.name : 'No context available'}</p>
+		</div>
+	);
 }

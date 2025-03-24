@@ -1,12 +1,10 @@
 import { Link, Route, Routes } from 'react-router-dom';
-import { Book } from './pages/Book.jsx';
 import { Home } from './pages/Home.jsx';
 import { About } from './pages/About.jsx';
 import { Contact } from './pages/Contact.jsx';
-import { NewBook } from './pages/NewBook.jsx';
 import { NotFound } from './pages/NotFound.jsx';
+import { BookRoutes } from './pages/BookRoutes.jsx';
 import './App.css';
-import { BookLayout } from './pages/BookLayout.jsx';
 
 export const App = () => {
 	return (<>
@@ -23,20 +21,15 @@ export const App = () => {
 		</div>
 		<Routes>
 			<Route path="/"
-				   element={<Home />}></Route>
+				   element={<Home />} />
 			<Route path="/about"
-				   element={<About />}></Route>
-			<Route path="/books"
-				   element={<BookLayout />}>
-				<Route path=":id"
-					   element={<Book />}></Route>
-				<Route path="new"
-					   element={<NewBook />}></Route>
-			</Route>
+				   element={<About />} />
+			<Route path="/books/*"
+				   element={<BookRoutes />} />
 			<Route path="/contact"
-				   element={<Contact />}></Route>
+				   element={<Contact />} />
 			<Route path="*"
-				   element={<NotFound />}></Route>
+				   element={<NotFound />} />
 		</Routes>
 	</>);
 };
