@@ -13,7 +13,7 @@ export function BookLayout() {
 				</ul>
 			</div>
 			<div className="block">
-				<Outlet />
+				<Outlet context={{ name: 'React' }} />
 			</div>
 		</>
 	);
