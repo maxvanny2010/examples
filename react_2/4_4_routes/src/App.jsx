@@ -5,8 +5,8 @@ import { About } from './pages/About.jsx';
 import { Contact } from './pages/Contact.jsx';
 import { NewBook } from './pages/NewBook.jsx';
 import { NotFound } from './pages/NotFound.jsx';
-import { BookList } from './pages/BookList.jsx';
 import './App.css';
+import { BookLayout } from './pages/BookLayout.jsx';
 
 export const App = () => {
 	return (<>
@@ -22,14 +22,12 @@ export const App = () => {
 			</div>
 		</div>
 		<Routes>
-			<!-- Wrong Routes don't support -> <h1></h1>-->
 			<Route path="/"
 				   element={<Home />}></Route>
 			<Route path="/about"
 				   element={<About />}></Route>
-			<Route path="/books">
-				<Route index
-					   element={<BookList />}></Route>
+			<Route path="/books"
+				   element={<BookLayout />}>
 				<Route path=":id"
 					   element={<Book />}></Route>
 				<Route path="new"

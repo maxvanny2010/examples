@@ -36,9 +36,8 @@ ul {
 
 .block {
 	display: flex;
-	justify-content: center;
-	margin: 0 auto;
-	width: 100%;
+	max-width: 1000px;
+	align-items: center;
 }
 
 .li-item:last-child {
