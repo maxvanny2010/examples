@@ -27,6 +27,14 @@ ul {
 	text-shadow: 2px 2px 5px rgba(38, 36, 36, 0.7);
 }
 
+.white {
+	color: white;
+}
+
+.active {
+	color: green;
+}
+
 .li-item-page {
 	width: 100%;
 	list-style: none;
