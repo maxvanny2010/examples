@@ -16,6 +16,8 @@ export const App = () => {
 						<NavLink
 							style={getNavLinkStyle}
 							to="/"
+							//	state={{ path: '/' }}
+							state="Hi state"
 						>
 							Home
 						</NavLink>
