@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { getNavLinkStyle } from './LinkStyle.jsx';
 import PropTypes from 'prop-types';
+import { internalPaths } from '../util/internalPaths.jsx';
 
 export function BookList({ value }) {
 	return (
@@ -23,7 +24,7 @@ export function BookList({ value }) {
 					<li className="li-item-page">
 						<NavLink
 							style={getNavLinkStyle}
-							to={`/books/${value}`}>Book{value} Low Priority
+							to={internalPaths.book(value)}>Book{value} Low Priority
 						</NavLink>
 					</li>
 					<li className="li-item-page">

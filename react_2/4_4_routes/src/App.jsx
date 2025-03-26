@@ -6,6 +6,7 @@ import { NotFound } from './pages/NotFound.jsx';
 import { BookRoutes } from './pages/BookRoutes.jsx';
 import { getNavLinkStyle } from './pages/LinkStyle.jsx';
 import './App.css';
+import { internalPaths } from './util/internalPaths.jsx';
 
 export const App = () => {
 	return (<>
@@ -15,7 +16,7 @@ export const App = () => {
 					<li className="li-item">
 						<NavLink
 							style={getNavLinkStyle}
-							to="/"
+							to={internalPaths.home}
 							//	state={{ path: '/' }}
 							state="Hi state"
 						>
@@ -29,31 +30,41 @@ export const App = () => {
 								color: 'red',
 							} : {};
 						}}
-						to="/about">About</NavLink></li>
+						to={internalPaths.about}
+					>
+						About
+					</NavLink>
+					</li>
 					<li className="li-item">
 						<NavLink
 							className={({ isActive }) => (
 								isActive ? 'white' : ''
 							)}
-							to="/books"
+							to={internalPaths.books}
 							end
 						>
 							{({ isActive }) => isActive ? 'BookList' : 'Books'}
 						</NavLink>
 					</li>
-					<li className="li-item"><NavLink to="/contact">Contact</NavLink></li>
+					<li className="li-item">
+						<NavLink
+							to={internalPaths.contact}
+						>
+							Contact
+						</NavLink>
+					</li>
 
 				</ul>
 			</div>
 		</div>
 		<Routes>
-			<Route path="/"
+			<Route path={internalPaths.home}
 				   element={<Home />} />
-			<Route path="/about"
+			<Route path={internalPaths.about}
 				   element={<About />} />
-			<Route path="/books/*"
+			<Route path={internalPaths.books + '/*'}
 				   element={<BookRoutes />} />
-			<Route path="/contact"
+			<Route path={internalPaths.contact}
 				   element={<Contact />} />
 			<Route path="*"
 				   element={<NotFound />} />
