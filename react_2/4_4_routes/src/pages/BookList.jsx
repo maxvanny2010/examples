@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { getNavLinkStyle } from './LinkStyle.jsx';
+import PropTypes from 'prop-types';
 
-export function BookList() {
+export function BookList({ value }) {
 	return (
 		<>
 			<div className="block"><h1>BookList</h1></div>
@@ -22,7 +23,7 @@ export function BookList() {
 					<li className="li-item-page">
 						<NavLink
 							style={getNavLinkStyle}
-							to="/books/3">Book3 Low Priority
+							to={`/books/${value}`}>Book{value} Low Priority
 						</NavLink>
 					</li>
 					<li className="li-item-page">
@@ -36,3 +37,7 @@ export function BookList() {
 		</>
 	);
 }
+
+BookList.propTypes = {
+	value: PropTypes.number.isRequired,
+};
