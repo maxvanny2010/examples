@@ -31,6 +31,10 @@ ul {
 	color: white;
 }
 
+.blue {
+	color: #8ed7ed;
+}
+
 .active {
 	color: green;
 }
