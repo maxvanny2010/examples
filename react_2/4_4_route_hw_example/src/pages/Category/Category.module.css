@@ -1,0 +1,23 @@
+.listItem {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.listItem img {
+    width: 100px;
+    height: 100px;
+}
+
+.subheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.sortWrap {
+    display: flex;
+    gap: 12px;
+}

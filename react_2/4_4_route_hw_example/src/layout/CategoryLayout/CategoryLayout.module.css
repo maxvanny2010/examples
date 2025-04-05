@@ -1,0 +1,18 @@
+.root {
+    display: flex;
+    gap: 24px;
+}
+
+.aside {
+    padding-left: 24px;
+    font-size: 24px;
+    width: 100%;
+    min-width: 245px;
+    flex-grow: 1;
+    max-width: 245px;
+}
+
+.main {
+    width: 100%;
+    flex-grow: 2;
+}
