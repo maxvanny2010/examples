@@ -1,23 +1,19 @@
-# React Module 2 Routers
+# React Module 2 Context
 
 ## Project: Rick and Morty
 
 #### [index page]
 
 ![index](src/assets/img/index.png)
+#### [sign in page]
+
+![sign in](src/assets/img/register.jpg)
 
 #### [episodes page]
 
-![index](src/assets/img/episodes.png)
+![episodes](src/assets/img/login.jpg)
 
 #### [locations page]
 
-![index](src/assets/img/locations.png)
+![locations](src/assets/img/logout.jpg)
 
-#### [heroes page]
-
-![index](src/assets/img/heroes.png)
-
-#### [hero page]
-
-![index](src/assets/img/hero.png)

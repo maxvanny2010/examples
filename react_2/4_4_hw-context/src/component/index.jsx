@@ -12,3 +12,7 @@ export * from './card-episodes.jsx';
 export * from './cards-styles.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './header-page.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './button.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './input.jsx';

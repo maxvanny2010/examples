@@ -1,12 +1,31 @@
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { LinkExtended } from './';
+import { Button, LinkExtended } from './';
 import { PAGE } from '../constants';
+import { useAuth, useAuthCookie } from '../context';
 
 const HeaderComponent = ({ className }) => {
+	const auth = useAuth();
+	const authCookie = useAuthCookie();
+	const navigate = useNavigate();
+
 	useEffect(() => {
 	}, []);
+	const handleLogout = () => {
+		authCookie.removeItem();
+		auth.signout(() => navigate(PAGE.HOME));
+	};
+
+	function handleSingUp() {
+		navigate(PAGE.SIGNUP);
+	}
+
+	function handleSingIn() {
+		navigate(PAGE.LOGIN);
+	}
+
 	return (
 		<div className={className}>
 			<div className="header">
@@ -15,9 +34,11 @@ const HeaderComponent = ({ className }) => {
 						<li className="li-item">
 							<LinkExtended to={PAGE.HOME}>Home</LinkExtended>
 						</li>
-						<li className="li-item">
-							<LinkExtended to={PAGE.HEROES}>Heroes</LinkExtended>
-						</li>
+						{auth.user && (
+							<li className="li-item">
+								<LinkExtended to={PAGE.HEROES}>Heroes</LinkExtended>
+							</li>
+						)}
 						<li className="li-item">
 							<LinkExtended to={PAGE.LOCATIONS}>Locations</LinkExtended>
 						</li>
@@ -25,6 +46,37 @@ const HeaderComponent = ({ className }) => {
 							<LinkExtended to={PAGE.EPISODES}>Episodes</LinkExtended>
 						</li>
 					</ul>
+				</div>
+				<div className="block">
+					{auth.user === null ? (
+						<>
+							<div className="block-inner">
+								<Button width="80px"
+										padding="4px"
+										fontSize="0.7em"
+										onClick={handleSingUp}
+								>Sign up
+								</Button>
+							</div>
+							<div>
+								<Button width="80px"
+										padding="4px"
+										fontSize="0.7em"
+										onClick={handleSingIn}
+								>Log in
+								</Button>
+							</div>
+						</>
+					) : (
+						<div>
+							<Button width="80px"
+									padding="4px"
+									fontSize="0.7em"
+									onClick={handleLogout}
+							>Logout
+							</Button>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
@@ -64,6 +116,11 @@ export const Header = styled(HeaderComponent)`
 		margin-right: 0;
 	}
 
+	.block {
+		display: flex;
+		justify-content: flex-end;
+		gap: 10px;
+	}
 `;
 
 HeaderComponent.propTypes = {

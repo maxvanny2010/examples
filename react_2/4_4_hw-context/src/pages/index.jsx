@@ -10,3 +10,7 @@ export * from './HeroDetail.jsx';
 export * from './Locations.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './Episodes.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './SingUp.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './SingIn.jsx';

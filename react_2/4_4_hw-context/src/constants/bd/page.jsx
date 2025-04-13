@@ -4,4 +4,6 @@ export const PAGE = {
 	HEROES: '/heroes',
 	HERO: '/hero',
 	HOME: '/',
+	LOGIN: '/login',
+	SIGNUP: '/signup',
 };
