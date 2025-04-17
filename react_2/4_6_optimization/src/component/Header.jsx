@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import { getNavLinkStyle } from '../pages/LinkStyle.jsx';
-import { internalPaths } from '../util/internalPaths.jsx';
+import { getNavLinkStyle } from '../pages';
+import { internalPaths } from '../util';
 
 export const Header = () => {
 	return (
