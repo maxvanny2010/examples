@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import { Admin } from '../component';
+import { lazy, useState } from 'react';
+
+const Admin = lazy(() => import('../component/Admin.jsx'));
 
 export function Home() {
 	const [admin, setAdmin] = useState(false);
+
 	const handleClick = async () => {
 		const { sum } = await import(/*@vite-ignore*/'../lazy/sum.jsx');
 		alert(sum(2, 2));
