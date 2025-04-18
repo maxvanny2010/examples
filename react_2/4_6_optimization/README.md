@@ -1,10 +1,13 @@
-# React + Vite
+# React Module 2 Optimisation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### [index page]
 
-Currently, two official plugins are available:
+![index](src/assets/index.jpg)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md)
-  uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast
-  Refresh
+#### [scroll in page]
+
+![scroll](src/assets/scroll.jpg)
+
+#### [dynamic components]
+
+![scroll](src/assets/dynamic_components.jpg)
