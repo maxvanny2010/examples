@@ -1,5 +1,6 @@
 import { useEffect, useState, useTransition } from 'react';
 import { Component, LoadingFallback } from '../component/admin/Component.jsx';
+import ErrorBoundary from '../boundary/ErrorBoundary.jsx';
 
 
 export function Home() {
@@ -23,6 +24,7 @@ export function Home() {
 	};
 	return (
 		<>
+
 			<h1>Home</h1>
 			<button onClick={handleClick}>Plus 2+2
 			</button>
@@ -33,12 +35,17 @@ export function Home() {
 				Toggle Admin
 			</button>
 			{isPending && <LoadingFallback />}
-			{admin ? <Component name="Admin" /> : <h2>Not Admin</h2>}
+			<ErrorBoundary>
+				{admin ? <Component name="Admin" /> : <h2>Not Admin</h2>}
+			</ErrorBoundary>
 			{
 				render.map((item, index) =>
-					<Component key={index}
-							   name={item} />)
+					<ErrorBoundary key={index}>
+						<Component name={item} />
+					</ErrorBoundary>,
+				)
 			}
+
 		</>
 	);
 }
