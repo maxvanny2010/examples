@@ -1,6 +1,6 @@
-import { lazy, Suspense, useState, useTransition } from 'react';
+import { useState, useTransition } from 'react';
+import { Component, LoadingFallback } from '../component/Component.jsx';
 
-const Admin = lazy(() => import('../component/Admin.jsx'));
 
 export function Home() {
 	const [admin, setAdmin] = useState(false);
@@ -21,10 +21,8 @@ export function Home() {
 			>
 				Toggle Admin
 			</button>
-			{isPending && <p>isLoading...</p>}
-			<Suspense>
-				{admin ? <Admin /> : <h2>Not Admin</h2>}
-			</Suspense>
+			{isPending && <LoadingFallback />}
+			{admin ? <Component name="Admin" /> : <h2>Not Admin</h2>}
 		</>
 	);
 }
