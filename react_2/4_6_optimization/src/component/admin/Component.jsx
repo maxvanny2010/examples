@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-export const LoadingFallback = () => <div>⏳ Loading component...</div>;
+export const LoadingFallback = () => <div className="loading">⏳ Loading component...</div>;
 const ComponentName = (name) => {
 	return lazy(
 		() => import(`../admin/${name}.jsx`)

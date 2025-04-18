@@ -17,7 +17,7 @@ export const Header = () => {
 					</li>
 					<li className="li-item"><NavLink
 						style={getNavLinkStyle}
-						to={internalPaths.about}
+						to={internalPaths.infinity}
 					>
 						About
 					</NavLink>

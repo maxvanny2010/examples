@@ -1,6 +1,6 @@
 export const internalPaths = {
 	home: '/',
-	about: '/about',
+	infinity: '/infinity',
 	contact: '/contact',
 	books: '/books',
 	book: (alias) => `/books/${alias}`,
