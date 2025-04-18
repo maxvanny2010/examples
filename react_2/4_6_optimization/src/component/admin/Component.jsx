@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const LoadingFallback = () => <div>⏳ Loading component...</div>;
 const ComponentName = (name) => {
 	return lazy(
-		() => import(`../component/${name}.jsx`)
+		() => import(`../admin/${name}.jsx`)
 			.then(module => ({ default: module[name] })),
 	);
 };
