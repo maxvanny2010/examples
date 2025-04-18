@@ -1,4 +1,4 @@
-import { lazy, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 
 const Admin = lazy(() => import('../component/Admin.jsx'));
 
@@ -15,7 +15,9 @@ export function Home() {
 			<button onClick={handleClick}>Plus 2+2
 			</button>
 			<button onClick={() => setAdmin(s => !s)}>Toggle Admin</button>
-			{admin ? <Admin /> : <h2>Not Admin</h2>}
+			<Suspense fallback="Loading...">
+				{admin ? <Admin /> : <h2>Not Admin</h2>}
+			</Suspense>
 		</>
 	);
 }
