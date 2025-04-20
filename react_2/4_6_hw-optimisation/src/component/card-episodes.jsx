@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import { Card, CardBlock, Image, Info, Name } from './';
+import ErrorBoundary from '../boundary/ErrorBoundary.jsx';
 
 export function CardEpisode({ episode }) {
 	return (
@@ -25,8 +26,9 @@ export function EpisodesList({ episodes }) {
 	return (
 		<CardBlock ref={cardBlockRef}>
 			{episodes.map(episode => (
-				<CardEpisode key={episode.id}
-							 episode={episode} />
+				<ErrorBoundary key={episode.id}>
+					<CardEpisode episode={episode} />
+				</ErrorBoundary>
 			))}
 		</CardBlock>
 	);

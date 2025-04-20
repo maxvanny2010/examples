@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { SuspenseFallback } from './SuspenseFallback.jsx';
+import ErrorBoundary from '../boundary/ErrorBoundary.jsx';
 
 const componentMap = {
 	Locations: lazy(() =>
@@ -24,9 +25,11 @@ export function Component({ name, ...rest }) {
 		return <div>❌ Unknown component: {name}</div>;
 	}
 	return (
-		<Suspense fallback={<SuspenseFallback />}>
-			<DynamicComponent {...rest} />
-		</Suspense>
+		<ErrorBoundary>
+			<Suspense fallback={<SuspenseFallback />}>
+				<DynamicComponent {...rest} />
+			</Suspense>
+		</ErrorBoundary>
 	);
 }
 

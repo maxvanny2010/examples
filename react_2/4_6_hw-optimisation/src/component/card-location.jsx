@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import { Card, CardBlock, Image, Info, Name } from './';
+import ErrorBoundary from '../boundary/ErrorBoundary.jsx';
 
 export function CardLocation({ location }) {
 
@@ -26,16 +27,32 @@ export function LocationsList({ locations }) {
 	return (
 		<CardBlock ref={cardBlockRef}>
 			{locations.map(location => (
-				<CardLocation key={location.id}
-							  location={location} />
+				<ErrorBoundary key={location.id}>
+					<CardLocation location={location} />
+				</ErrorBoundary>
 			))}
 		</CardBlock>
 	);
 }
 
 CardLocation.propTypes = {
-	location: PropTypes.object,
+	location: PropTypes.shape({
+		id: PropTypes.number.isRequired,
+		name: PropTypes.string.isRequired,
+		image: PropTypes.string.isRequired,
+		type: PropTypes.string.isRequired,
+		dimension: PropTypes.string.isRequired,
+	}).isRequired,
 };
+
 LocationsList.propTypes = {
-	locations: PropTypes.array,
+	locations: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number.isRequired,
+			name: PropTypes.string.isRequired,
+			image: PropTypes.string.isRequired,
+			type: PropTypes.string.isRequired,
+			dimension: PropTypes.string.isRequired,
+		}),
+	).isRequired,
 };

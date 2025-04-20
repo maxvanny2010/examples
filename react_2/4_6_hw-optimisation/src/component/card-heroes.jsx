@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PAGE } from '../constants';
 import { Card, CardBlock, Image, Info, Name } from './';
+import ErrorBoundary from '../boundary/ErrorBoundary.jsx';
 
 export function CardHero({ hero }) {
 	const navigate = useNavigate();
@@ -33,16 +34,34 @@ export function HeroesList({ heroes }) {
 	return (
 		<CardBlock ref={cardBlockRef}>
 			{heroes.map(hero => (
-				<CardHero key={hero.id}
-						  hero={hero} />
+				<ErrorBoundary key={hero.id}>
+					<CardHero hero={hero} />
+				</ErrorBoundary>
 			))}
 		</CardBlock>
 	);
 }
 
 CardHero.propTypes = {
-	hero: PropTypes.object,
+	hero: PropTypes.shape({
+		id: PropTypes.number.isRequired,
+		name: PropTypes.string.isRequired,
+		image: PropTypes.string.isRequired,
+		status: PropTypes.string.isRequired,
+		species: PropTypes.string.isRequired,
+		gender: PropTypes.string.isRequired,
+	}).isRequired,
 };
+
 HeroesList.propTypes = {
-	heroes: PropTypes.array,
+	heroes: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number.isRequired,
+			name: PropTypes.string.isRequired,
+			image: PropTypes.string.isRequired,
+			status: PropTypes.string.isRequired,
+			species: PropTypes.string.isRequired,
+			gender: PropTypes.string.isRequired,
+		}),
+	).isRequired,
 };

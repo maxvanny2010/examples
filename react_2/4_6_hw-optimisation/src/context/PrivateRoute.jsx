@@ -10,7 +10,6 @@ export function PrivateRoute({ children }) {
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (!auth.user) {
-			console.log('HERE');
 			navigate(PAGE.LOGIN, { state: { from: location.pathname }, replace: true });
 		}
 	}, [auth.user, location.pathname, navigate]);
