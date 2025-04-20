@@ -31,7 +31,7 @@ export function HeroesList({ heroes }) {
 		}
 	}, [heroes]);
 	return (
-		<CardBlock>
+		<CardBlock ref={cardBlockRef}>
 			{heroes.map(hero => (
 				<CardHero key={hero.id}
 						  hero={hero} />

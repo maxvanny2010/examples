@@ -24,7 +24,7 @@ export function LocationsList({ locations }) {
 		}
 	}, [locations]);
 	return (
-		<CardBlock>
+		<CardBlock ref={cardBlockRef}>
 			{locations.map(location => (
 				<CardLocation key={location.id}
 							  location={location} />

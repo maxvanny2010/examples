@@ -23,7 +23,7 @@ export function EpisodesList({ episodes }) {
 		}
 	}, [episodes]);
 	return (
-		<CardBlock>
+		<CardBlock ref={cardBlockRef}>
 			{episodes.map(episode => (
 				<CardEpisode key={episode.id}
 							 episode={episode} />
