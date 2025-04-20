@@ -13,11 +13,11 @@ export function PrivateRoute({ children }) {
 			console.log('HERE');
 			navigate(PAGE.LOGIN, { state: { from: location.pathname }, replace: true });
 		}
-	}, []);
+	}, [auth.user, location.pathname, navigate]);
 
 	return children;
 }
 
 PrivateRoute.propTypes = {
-	children: PropTypes.node.isRequire,
+	children: PropTypes.node.isRequired,
 };
