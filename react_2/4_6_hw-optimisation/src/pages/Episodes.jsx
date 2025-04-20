@@ -8,18 +8,13 @@ import { fetchData } from '../util';
 
 const EpisodePage = ({ className }) => {
 	const [episodes, setEpisodes] = useState([]);
-	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		const fetchLocations = async () => {
 			const data = await fetchData(TABLE_NAME.EPISODES, dtoEpisode);
 			setEpisodes(data.items);
-			setLoading(false);
 		};
 		fetchLocations().then(r => r);
 	}, []);
-	if (loading) {
-		return <HeaderPage title={TITLE.LOADING} />;
-	}
 	return (
 		<div className={className}>
 			<HeaderPage title={TITLE.EPISODES} />
@@ -27,11 +22,11 @@ const EpisodePage = ({ className }) => {
 		</div>
 	);
 };
-export const Episodes = styled(EpisodePage)`
+const Episodes = styled(EpisodePage)`
 	padding: 50px;
 	height: 100%;
 `;
-
+export default Episodes;
 EpisodePage.propTypes = {
 	className: PropTypes.string,
 };

@@ -25,7 +25,7 @@ const NotFoundPage = ({ className }) => {
 		</div>
 	);
 };
-export const NotFound = styled(NotFoundPage)`
+const NotFound = styled(NotFoundPage)`
 	padding: 50px;
 	height: 100%;
 
@@ -49,7 +49,7 @@ export const NotFound = styled(NotFoundPage)`
 		box-sizing: border-box;
 	}
 `;
-
+export default NotFound;
 NotFoundPage.propTypes = {
 	className: PropTypes.string,
 };

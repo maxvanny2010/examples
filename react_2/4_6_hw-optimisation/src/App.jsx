@@ -2,8 +2,7 @@ import './App.css';
 import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 import { PAGE } from './constants';
-import { Header } from './component';
-import { Episodes, HeroDetail, Heroes, Locations, Main, NotFound, SignIn, SignUp } from './pages';
+import { Component, Header } from './component';
 import { AuthCookieProvider, AuthProvider, PrivateRoute } from './context';
 
 const AppColumn = styled.div`
@@ -25,21 +24,21 @@ export const App = () => {
 					<Header />
 					<Routes>
 						<Route path={PAGE.HOME}
-							   element={<Main />} />
+							   element={<Component name="Main" />} />
 						<Route path="*"
-							   element={<NotFound />} />
+							   element={<Component name="NotFound" />} />
 						<Route path={PAGE.LOCATIONS}
-							   element={<Locations />} />
+							   element={<Component name="Locations" />} />
 						<Route path={PAGE.EPISODES}
-							   element={<Episodes />} />
+							   element={<Component name="Episodes" />} />
 						<Route path={PAGE.HEROES}
-							   element={<PrivateRoute><Heroes /></PrivateRoute>} />
+							   element={<PrivateRoute><Component name="Heroes" /></PrivateRoute>} />
 						<Route path={`${PAGE.HERO}/:id`}
-							   element={<PrivateRoute><HeroDetail /></PrivateRoute>} />
+							   element={<PrivateRoute><Component name="HeroDetail" /></PrivateRoute>} />
 						<Route path={`${PAGE.LOGIN}`}
-							   element={<SignIn />} />
+							   element={<Component name="SignIn" />} />
 						<Route path={PAGE.SIGNUP}
-							   element={<SignUp />} />
+							   element={<Component name="SignUp" />} />
 					</Routes>
 				</AppColumn>
 			</AuthProvider>

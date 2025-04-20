@@ -43,7 +43,7 @@ export const SignInContainer = ({ className }) => {
 		</div>
 	);
 };
-export const SignIn = styled(SignInContainer)`
+const SignIn = styled(SignInContainer)`
 	z-index: 3;
 	position: fixed;
 	display: flex;
@@ -77,6 +77,7 @@ export const SignIn = styled(SignInContainer)`
 		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 	}
 `;
+export default SignIn;
 SignInContainer.propTypes = {
 	onSubmit: PropTypes.func,
 	className: PropTypes.string,

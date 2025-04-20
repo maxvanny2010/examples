@@ -8,18 +8,13 @@ import { fetchData } from '../util';
 
 const LocationsPage = ({ className }) => {
 	const [locations, setLocations] = useState([]);
-	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		const fetchLocations = async () => {
 			const data = await fetchData(TABLE_NAME.LOCATIONS, dtoLocation);
 			setLocations(data.items);
-			setLoading(false);
 		};
 		fetchLocations().then(r => r);
 	}, []);
-	if (loading) {
-		return <HeaderPage title={TITLE.LOADING} />;
-	}
 	return (
 		<div className={className}>
 			<HeaderPage title={TITLE.LOCATIONS} />
@@ -27,11 +22,11 @@ const LocationsPage = ({ className }) => {
 		</div>
 	);
 };
-export const Locations = styled(LocationsPage)`
+const Locations = styled(LocationsPage)`
 	padding: 50px;
 	height: 100%;
 `;
-
+export default Locations;
 LocationsPage.propTypes = {
 	className: PropTypes.string,
 };

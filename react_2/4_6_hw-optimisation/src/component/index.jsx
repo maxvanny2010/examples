@@ -16,3 +16,5 @@ export * from './header-page.jsx';
 export * from './button.jsx';
 // eslint-disable-next-line react-refresh/only-export-components
 export * from './input.jsx';
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './Component.jsx';

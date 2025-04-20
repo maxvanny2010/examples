@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import mainImage from '../assets/img/morty.webp';
 
-
 const MainComponent = ({ className }) => {
 	useEffect(() => {
 	}, []);
@@ -15,7 +14,7 @@ const MainComponent = ({ className }) => {
 		</div>
 	);
 };
-export const Main = styled(MainComponent)`
+const Main = styled(MainComponent)`
 	padding: 50px;
 	height: 100%;
 	color: rgba(255, 255, 255, 0.87);
@@ -58,7 +57,7 @@ export const Main = styled(MainComponent)`
 		border-bottom: 1px dotted #ededee;
 	}
 `;
-
+export default Main;
 
 MainComponent.propTypes = {
 	className: PropTypes.string,

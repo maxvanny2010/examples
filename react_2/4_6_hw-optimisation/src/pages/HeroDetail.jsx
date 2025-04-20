@@ -11,19 +11,16 @@ export function HeroDetailContainer({ className }) {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const [hero, setHero] = useState(null);
-	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchHero = async () => {
 			const data = await fetchData(TABLE_NAME.HEROES, dtoHero);
 			const selectedHero = data.items.find(h => Number(h.id) === Number(id));
 			setHero(selectedHero);
-			setLoading(false);
 		};
 		fetchHero().then(r => r);
 	}, [id]);
 
-	if (loading) return <p>{TITLE.LOADING}</p>;
 	if (!hero) return <p>{TITLE.HERO_NOT_FOUND}</p>;
 
 	return (
@@ -50,7 +47,7 @@ export function HeroDetailContainer({ className }) {
 	);
 }
 
-export const HeroDetail = styled(HeroDetailContainer)`
+const HeroDetail = styled(HeroDetailContainer)`
 	position: relative;
 	max-width: 600px;
 	margin: 0 auto;
@@ -102,9 +99,8 @@ export const HeroDetail = styled(HeroDetailContainer)`
 			background-color: #535bf2;
 		}
 	}
-
-
 `;
+export default HeroDetail;
 HeroDetailContainer.propTypes = {
 	className: PropTypes.string,
 };
