@@ -1,4 +1,4 @@
-# React Module 2 Context
+# React Module 2 Infinity Scroll
 
 ## Project: Rick and Morty
 
@@ -6,15 +6,34 @@
 
 ![index](src/assets/img/index.png)
 
+#### [episodes page]
+
+![episodes](src/assets/img/episodes.png)
+
+#### [locations page]
+
+![locations](src/assets/img/locations.png)
+
+#### [heroes page]
+
+![heroes](src/assets/img/workout.png)
+
+#### [hero page]
+
+![hero](src/assets/img/hero.png)
+
+#### [sign page]
+
+![sign](src/assets/img/index.png)
+
 #### [sign in page]
 
 ![sign in](src/assets/img/register.jpg)
 
-#### [episodes page]
+#### [login page]
 
-![episodes](src/assets/img/login.jpg)
+![login](src/assets/img/login.jpg)
 
-#### [locations page]
+#### [logout page]
 
-![locations](src/assets/img/logout.jpg)
-
+![logout](src/assets/img/logout.jpg)
