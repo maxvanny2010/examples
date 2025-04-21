@@ -1,30 +1,29 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { EpisodesList, HeaderPage } from '../component';
-import { TABLE_NAME, TITLE } from '../constants';
 import { dtoEpisode } from '../dto';
-import { fetchData } from '../util';
+import { usePaginatedItems } from '../hooks';
+import { TABLE_NAME, TITLE } from '../constants';
+import { EpisodesList, HeaderPage } from '../component';
 
 const EpisodePage = ({ className }) => {
-	const [episodes, setEpisodes] = useState([]);
-	useEffect(() => {
-		const fetchLocations = async () => {
-			const data = await fetchData(TABLE_NAME.EPISODES, dtoEpisode);
-			setEpisodes(data.items);
-		};
-		fetchLocations().then(r => r);
-	}, []);
+	const {
+		items,
+		observerRef,
+	} = usePaginatedItems(TABLE_NAME.EPISODES, dtoEpisode);
 	return (
 		<div className={className}>
 			<HeaderPage title={TITLE.EPISODES} />
-			<EpisodesList episodes={episodes} />
+			<EpisodesList items={items}
+						  ref={observerRef}
+			/>
 		</div>
 	);
 };
 const Episodes = styled(EpisodePage)`
-	padding: 50px;
-	height: 100%;
+	padding-top: 50px;
+	min-height: 100vh;
+	box-sizing: border-box;
+	max-width: 1000px;
 `;
 export default Episodes;
 EpisodePage.propTypes = {

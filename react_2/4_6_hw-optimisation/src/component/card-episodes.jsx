@@ -1,42 +1,56 @@
+import { forwardRef, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
-import { Card, CardBlock, Image, Info, Name } from './';
-import ErrorBoundary from '../boundary/ErrorBoundary.jsx';
+import { IMAGELINK } from '../constants';
+import { Card, CardBlock, CardList, Image, Info, Name } from './';
 
-export function CardEpisode({ episode }) {
+const CardEpisode = forwardRef(({ episode }, ref) => {
 	return (
-		<Card>
-			<Image src={episode.image}
+		<Card ref={ref}>
+			<Image src={IMAGELINK.EPISODE}
 				   alt={episode.name} />
 			<Name>{episode.name}</Name>
 			<Info>Air date: {episode.air}</Info>
 			<Info>Episode: {episode.episode}</Info>
 		</Card>
 	);
-}
+});
+CardEpisode.displayName = 'CardEpisode';
 
-export function EpisodesList({ episodes }) {
+export const EpisodesList = forwardRef((props, ref) => {
 	const cardBlockRef = useRef(null);
-
-	useEffect(() => {
-		if (cardBlockRef.current) {
-			cardBlockRef.current.scrollTop = 0;
-		}
-	}, [episodes]);
 	return (
 		<CardBlock ref={cardBlockRef}>
-			{episodes.map(episode => (
-				<ErrorBoundary key={episode.id}>
-					<CardEpisode episode={episode} />
-				</ErrorBoundary>
-			))}
+			<CardList
+				{...props}
+				ref={ref}
+				renderItem={(episode, ref) => (
+					<CardEpisode episode={episode}
+								 ref={ref} />
+				)}
+			/>
 		</CardBlock>
 	);
-}
+});
+
+CardEpisode.displayName = 'CardEpisode';
+EpisodesList.displayName = 'EpisodesList';
 
 CardEpisode.propTypes = {
-	episode: PropTypes.object,
+	episode: PropTypes.shape({
+		id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+		name: PropTypes.string.isRequired,
+		image: PropTypes.string,
+		air: PropTypes.string,
+		episode: PropTypes.string,
+	}).isRequired,
 };
+
 EpisodesList.propTypes = {
-	episodes: PropTypes.array,
+	items: PropTypes.arrayOf(PropTypes.shape({
+		id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+		name: PropTypes.string.isRequired,
+		image: PropTypes.string,
+		air: PropTypes.string,
+		episode: PropTypes.string,
+	})).isRequired,
 };

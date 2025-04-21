@@ -1,52 +1,49 @@
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
-import { Card, CardBlock, Image, Info, Name } from './';
-import ErrorBoundary from '../boundary/ErrorBoundary.jsx';
+import { IMAGELINK } from '../constants';
+import { Card, CardBlock, CardList, Image, Info, Name } from './';
 
-export function CardLocation({ location }) {
+const CardLocation = forwardRef(({ location }, ref) => {
 
 	return (
-		<Card>
-			<Image src={location.image}
+		<Card ref={ref}>
+			<Image src={IMAGELINK.LOCATION}
 				   alt={location.name} />
 			<Name>{location.name}</Name>
 			<Info>Type: {location.type}</Info>
 			<Info>Dimension: {location.dimension}</Info>
 		</Card>
 	);
-}
+});
 
-export function LocationsList({ locations }) {
-	const cardBlockRef = useRef(null);
-
-	useEffect(() => {
-		if (cardBlockRef.current) {
-			cardBlockRef.current.scrollTop = 0;
-		}
-	}, [locations]);
+export const LocationsList = forwardRef((props, ref) => {
 	return (
-		<CardBlock ref={cardBlockRef}>
-			{locations.map(location => (
-				<ErrorBoundary key={location.id}>
-					<CardLocation location={location} />
-				</ErrorBoundary>
-			))}
+		<CardBlock>
+			<CardList
+				{...props}
+				ref={ref}
+				renderItem={(location, ref) => (
+					<CardLocation location={location}
+								  ref={ref} />
+				)}
+			/>
 		</CardBlock>
 	);
-}
+});
+CardLocation.displayName = 'CardLocation';
+LocationsList.displayName = 'LocationsList';
 
 CardLocation.propTypes = {
 	location: PropTypes.shape({
 		id: PropTypes.number.isRequired,
 		name: PropTypes.string.isRequired,
-		image: PropTypes.string.isRequired,
 		type: PropTypes.string.isRequired,
 		dimension: PropTypes.string.isRequired,
 	}).isRequired,
 };
 
 LocationsList.propTypes = {
-	locations: PropTypes.arrayOf(
+	items: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.number.isRequired,
 			name: PropTypes.string.isRequired,

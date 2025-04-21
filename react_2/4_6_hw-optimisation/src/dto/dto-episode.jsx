@@ -5,6 +5,5 @@ export const dtoEpisode = (dbEpisode) => ({
 	name: dbEpisode.name,
 	air: dbEpisode.air_date,
 	episode: dbEpisode.episode,
-	image: dbEpisode.image,
 	created: getFormatDate(dbEpisode.created),
 });

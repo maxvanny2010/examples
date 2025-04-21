@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { TABLE_NAME, TITLE } from '../constants';
 import { HeaderPage } from '../component';
-import { fetchData } from '../util';
+import { fetchOne } from '../util';
 import { dtoHero } from '../dto';
 
 export function HeroDetailContainer({ className }) {
@@ -14,9 +14,9 @@ export function HeroDetailContainer({ className }) {
 
 	useEffect(() => {
 		const fetchHero = async () => {
-			const data = await fetchData(TABLE_NAME.HEROES, dtoHero);
-			const selectedHero = data.items.find(h => Number(h.id) === Number(id));
-			setHero(selectedHero);
+			const data = await fetchOne(TABLE_NAME.HEROES, id, dtoHero);
+			console.log(data);
+			setHero(data);
 		};
 		fetchHero().then(r => r);
 	}, [id]);

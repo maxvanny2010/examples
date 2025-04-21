@@ -1,17 +1,19 @@
-import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import { PAGE } from '../constants';
-import { Card, CardBlock, Image, Info, Name } from './';
-import ErrorBoundary from '../boundary/ErrorBoundary.jsx';
+import { Card, CardBlock, CardList, Image, Info, Name } from './';
 
-export function CardHero({ hero }) {
+
+const CardHero = forwardRef(({ hero }, ref) => {
+
 	const navigate = useNavigate();
 	const handleClick = () => {
 		navigate(`${PAGE.HERO}/${hero.id}`);
 	};
 	return (
 		<Card onClick={handleClick}
+			  ref={ref}
 			  style={{ cursor: 'pointer' }}>
 			<Image src={hero.image}
 				   alt={hero.name} />
@@ -21,26 +23,25 @@ export function CardHero({ hero }) {
 			<Info>Gender: {hero.gender}</Info>
 		</Card>
 	);
-}
+});
 
-export function HeroesList({ heroes }) {
-	const cardBlockRef = useRef(null);
-
-	useEffect(() => {
-		if (cardBlockRef.current) {
-			cardBlockRef.current.scrollTop = 0;
-		}
-	}, [heroes]);
+export const HeroesList = forwardRef((props, ref) => {
 	return (
-		<CardBlock ref={cardBlockRef}>
-			{heroes.map(hero => (
-				<ErrorBoundary key={hero.id}>
-					<CardHero hero={hero} />
-				</ErrorBoundary>
-			))}
+		<CardBlock>
+			<CardList
+				{...props}
+				ref={ref}
+				renderItem={(hero, ref) => (
+					<CardHero hero={hero}
+							  ref={ref} />
+				)}
+			/>
 		</CardBlock>
 	);
-}
+});
+
+CardHero.displayName = 'CardHero';
+HeroesList.displayName = 'HeroesList';
 
 CardHero.propTypes = {
 	hero: PropTypes.shape({
@@ -54,7 +55,7 @@ CardHero.propTypes = {
 };
 
 HeroesList.propTypes = {
-	heroes: PropTypes.arrayOf(
+	items: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.number.isRequired,
 			name: PropTypes.string.isRequired,
@@ -64,4 +65,8 @@ HeroesList.propTypes = {
 			gender: PropTypes.string.isRequired,
 		}),
 	).isRequired,
+	observerRef: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.shape({ current: PropTypes.any }),
+	]),
 };

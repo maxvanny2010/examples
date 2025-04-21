@@ -1,30 +1,29 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { HeaderPage, HeroesList } from '../component/';
-import { TABLE_NAME, TITLE } from '../constants';
-import { fetchData } from '../util';
 import { dtoHero } from '../dto';
+import { usePaginatedItems } from '../hooks';
+import { TABLE_NAME, TITLE } from '../constants';
+import { HeaderPage, HeroesList } from '../component/';
 
 const HeroesPage = ({ className }) => {
-	const [heroes, setHeroes] = useState([]);
-	useEffect(() => {
-		const fetchHeroes = async () => {
-			const data = await fetchData(TABLE_NAME.HEROES, dtoHero);
-			setHeroes(data.items);
-		};
-		fetchHeroes().then(r => r);
-	}, []);
+	const {
+		items,
+		observerRef,
+	} = usePaginatedItems(TABLE_NAME.HEROES, dtoHero);
 	return (
 		<div className={className}>
 			<HeaderPage title={TITLE.HEROES} />
-			<HeroesList heroes={heroes} />
+			<HeroesList items={items}
+						ref={observerRef}
+			/>
 		</div>
 	);
 };
 export const Heroes = styled(HeroesPage)`
-	padding: 50px;
-	height: 100%;
+	padding-top: 50px;
+	min-height: 100vh;
+	box-sizing: border-box;
+	max-width: 1000px;
 `;
 export default Heroes;
 HeroesPage.propTypes = {

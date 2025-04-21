@@ -1,30 +1,28 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { HeaderPage, LocationsList } from '../component';
-import { TABLE_NAME, TITLE } from '../constants';
 import { dtoLocation } from '../dto';
-import { fetchData } from '../util';
+import { usePaginatedItems } from '../hooks';
+import { TABLE_NAME, TITLE } from '../constants';
+import { HeaderPage, LocationsList } from '../component';
 
 const LocationsPage = ({ className }) => {
-	const [locations, setLocations] = useState([]);
-	useEffect(() => {
-		const fetchLocations = async () => {
-			const data = await fetchData(TABLE_NAME.LOCATIONS, dtoLocation);
-			setLocations(data.items);
-		};
-		fetchLocations().then(r => r);
-	}, []);
+	const {
+		items,
+		observerRef,
+	} = usePaginatedItems(TABLE_NAME.LOCATIONS, dtoLocation);
 	return (
 		<div className={className}>
 			<HeaderPage title={TITLE.LOCATIONS} />
-			<LocationsList locations={locations} />
+			<LocationsList items={items}
+						   ref={observerRef} />
 		</div>
 	);
 };
 const Locations = styled(LocationsPage)`
-	padding: 50px;
-	height: 100%;
+	padding-top: 50px;
+	min-height: 100vh;
+	box-sizing: border-box;
+	max-width: 1000px;
 `;
 export default Locations;
 LocationsPage.propTypes = {

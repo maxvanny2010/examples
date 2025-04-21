@@ -9,7 +9,7 @@ const Header = styled.div`
 	text-transform: uppercase;
 	display: flex;
 	justify-content: center;
-	height: 100%;
+	height: 50px;
 	min-height: 50px;
 	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5),
 		-1px -1px 0 rgba(255, 255, 255, 0.6);

@@ -4,8 +4,9 @@ export const CardBlock = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-	overflow-y: auto;
-	max-height: 80vh;
+	width: 100%;
+	overflow: auto;
+	height: calc(100vh - 80px);
 `;
 
 export const Card = styled.div`
@@ -21,6 +22,7 @@ export const Card = styled.div`
 	max-width: 200px;
 	margin: 10px;
 	box-sizing: border-box;
+	cursor: pointer;
 `;
 
 
