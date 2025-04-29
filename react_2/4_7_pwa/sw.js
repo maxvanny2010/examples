@@ -40,6 +40,40 @@ self.addEventListener('activate', async (event) => {
 
 });
 self.addEventListener('fetch', (event) => {
+	event.respondWith(handleRequest(event));
+});
+
+async function handleRequest(event) {
+	const request = event.request;
+
+	// trying to find request in the cache
+	const cachedResponse = await caches.match(request);
+	if (cachedResponse) {
+		return cachedResponse;
+	}
+
+	try {
+		// if it hasn't in the cache look for in internet
+		const fetchResponse = await fetch(request);
+
+		// to the cache only owner link requests
+		if (
+			request.method === 'GET' &&
+			request.url.startsWith(self.location.origin)
+		) {
+			const cache = await caches.open(staticCacheName);
+			// response make clone cause only one response
+			await cache.put(request, fetchResponse.clone());
+		}
+
+		return fetchResponse;
+	} catch (error) {
+		// if offline to get offline.html
+		return await caches.match('/offline.html');
+	}
+}
+
+/*self.addEventListener('fetch', (event) => {
 	event.respondWith(
 		caches.match(event.request).then(cacheRes => {
 			return cacheRes || fetch(event.request).then(fetchRes => {
@@ -55,4 +89,4 @@ self.addEventListener('fetch', (event) => {
 			return caches.match('/offline.html');
 		}),
 	);
-});
+});*/
