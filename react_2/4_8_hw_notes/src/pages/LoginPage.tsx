@@ -1,13 +1,19 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Box } from '@mui/material';
 import AuthForm from '../components/AuthForm';
 
 export default function LoginPage() {
 	const navigate = useNavigate();
+	const [error, setError] = useState<string | null>(null);
 
 	const handleLogin = (username: string) => {
-		if (localStorage.getItem('user') === username) {
+		const savedUser = localStorage.getItem('user');
+		if (savedUser === username) {
+			setError(null);
 			navigate('/');
+		} else {
+			setError('Username is incorrect');
 		}
 	};
 
@@ -26,6 +32,7 @@ export default function LoginPage() {
 				onSubmit={handleLogin}
 				linkTo="/register"
 				linkText="Don't have an account? Register"
+				error={error}
 			/>
 		</Box>
 	);

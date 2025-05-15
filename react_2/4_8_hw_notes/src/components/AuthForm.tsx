@@ -8,6 +8,7 @@ interface AuthFormProps {
 	onSubmit: (username: string) => void;
 	linkTo?: string;
 	linkText?: string;
+	error?: string | null;
 }
 
 export default function AuthForm({
@@ -16,6 +17,7 @@ export default function AuthForm({
 									 onSubmit,
 									 linkTo,
 									 linkText,
+									 error
 								 }: AuthFormProps) {
 	const [username, setUsername] = useState('');
 
@@ -48,6 +50,8 @@ export default function AuthForm({
 				onChange={(e) => setUsername(e.target.value)}
 				required
 				fullWidth
+				error={!!error}
+				helperText={error}
 			/>
 
 			<Button
