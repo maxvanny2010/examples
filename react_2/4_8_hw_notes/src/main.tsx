@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { NotesProvider } from './contexts/NotesContext';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import App from './App';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
 const theme = createTheme({
 	palette: {
@@ -13,8 +14,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<App />
+			<NotesProvider>
+				<App />
+			</NotesProvider>
 		</ThemeProvider>
-	</React.StrictMode>
+	</React.StrictMode>,
 );
 
