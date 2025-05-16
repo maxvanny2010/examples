@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-import AuthForm from '../components/AuthForm';
+import { AuthForm } from '../components';
 
 export default function RegisterPage() {
 	const navigate = useNavigate();
@@ -21,7 +21,9 @@ export default function RegisterPage() {
 				alignItems: 'center',
 			}}
 		>
-			<AuthForm title="Register" buttonLabel="Sign up" onSubmit={handleRegister} />
+			<AuthForm title="Register"
+					  buttonLabel="Sign up"
+					  onSubmit={handleRegister} />
 		</Box>
 	);
 }
