@@ -1,4 +1,4 @@
-import { Paper, TextField, Button, Typography, Link } from '@mui/material';
+import { Button, Link, Paper, TextField, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -11,14 +11,14 @@ interface AuthFormProps {
 	error?: string | null;
 }
 
-export default function AuthForm({
-									 title,
-									 buttonLabel,
-									 onSubmit,
-									 linkTo,
-									 linkText,
-									 error
-								 }: AuthFormProps) {
+export function AuthForm({
+							 title,
+							 buttonLabel,
+							 onSubmit,
+							 linkTo,
+							 linkText,
+							 error,
+						 }: AuthFormProps) {
 	const [username, setUsername] = useState('');
 
 	const handleSubmit = () => {
@@ -39,7 +39,9 @@ export default function AuthForm({
 				gap: 2,
 			}}
 		>
-			<Typography variant="h5" component="h2" align="center">
+			<Typography variant="h5"
+						component="h2"
+						align="center">
 				{title}
 			</Typography>
 
@@ -64,7 +66,9 @@ export default function AuthForm({
 			</Button>
 			{linkTo && linkText && (
 				<Typography variant="body2">
-					<Link component={RouterLink} to={linkTo} underline="hover">
+					<Link component={RouterLink}
+						  to={linkTo}
+						  underline="hover">
 						{linkText}
 					</Link>
 				</Typography>
