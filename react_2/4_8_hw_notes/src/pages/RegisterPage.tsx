@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import { AuthForm } from '../components';
 
 export default function RegisterPage() {
@@ -19,11 +19,17 @@ export default function RegisterPage() {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
+				p: 2,
+				bgcolor: 'background.default',
 			}}
 		>
-			<AuthForm title="Register"
-					  buttonLabel="Sign up"
-					  onSubmit={handleRegister} />
+			<Box sx={{ width: { xs: '100%', sm: 400 } }}>
+				<AuthForm
+					title="Register"
+					buttonLabel="Sign up"
+					onSubmit={handleRegister}
+				/>
+			</Box>
 		</Box>
 	);
 }

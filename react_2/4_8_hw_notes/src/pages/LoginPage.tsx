@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import { AuthForm } from '../components';
 
 export default function LoginPage() {
@@ -20,10 +20,12 @@ export default function LoginPage() {
 	return (
 		<Box
 			sx={{
-				height: '100vh',
+				minHeight: '100vh',
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
+				px: 2,
+				bgcolor: 'background.default',
 			}}
 		>
 			<AuthForm
