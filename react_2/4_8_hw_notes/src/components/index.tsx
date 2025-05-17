@@ -4,3 +4,4 @@ export { NotesSearch } from './NotesSearch';
 export { NoteDetail } from './NoteDetail';
 export { DeleteConfirmDialog } from './DeleteConfirmDialog';
 export { CodeBlockMarkdown } from './CodeBlockMarkdown';
+export { UserInfoBar } from './UserInfoBar';
