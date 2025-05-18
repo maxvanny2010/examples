@@ -63,7 +63,8 @@ export function NotesList({ notes, selectedNoteId, onSelectNote }: NotesListProp
 
 			{notes.length === 0 && (
 				<Box sx={{ mt: 2, textAlign: 'center' }}>
-					<Typography variant="body2" color="text.secondary">
+					<Typography variant="body2"
+								color="text.secondary">
 						Nothing found...
 					</Typography>
 				</Box>

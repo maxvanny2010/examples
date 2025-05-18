@@ -1,4 +1,4 @@
-import type { ReactNode, FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Box } from '@mui/material';

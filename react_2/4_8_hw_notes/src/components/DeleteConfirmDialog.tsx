@@ -6,12 +6,12 @@ interface DeleteConfirmDialogProps {
 	onConfirm: () => void;
 }
 
-export  function DeleteConfirmDialog({ open, onClose, onConfirm }: DeleteConfirmDialogProps) {
+export function DeleteConfirmDialog({ open, onClose, onConfirm }: DeleteConfirmDialogProps) {
 	return (
 		<Dialog open={open}
 				onClose={onClose}>
 			<DialogTitle>Remove this note?</DialogTitle>
-			<DialogActions sx={{justifyContent: 'center'}}>
+			<DialogActions sx={{ justifyContent: 'center' }}>
 				<Button onClick={onClose}>Cancel</Button>
 				<Button color="error"
 						onClick={onConfirm}>

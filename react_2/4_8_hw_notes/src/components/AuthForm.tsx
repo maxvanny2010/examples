@@ -83,7 +83,8 @@ export function AuthForm({
 			</Button>
 
 			{linkTo && linkText && (
-				<Typography variant="body2" align="center">
+				<Typography variant="body2"
+							align="center">
 					<Link
 						component={RouterLink}
 						to={linkTo}
