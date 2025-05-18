@@ -30,10 +30,30 @@
 
 ![add-1](public/assets/screenshots/add-note-3.png)
 
+#### [edit page]
+
+![edit](public/assets/screenshots/edit.png)
+
 #### [list page]
 
-![add-2](public/assets/screenshots/list-note.png)
+![list](public/assets/screenshots/list-note.png)
 
 #### [search page]
 
-![add-3](public/assets/screenshots/search.png)
+![search](public/assets/screenshots/search.png)
+
+#### [manifest]
+
+![manifest](public/assets/screenshots/manifest.png)
+
+#### [sw]
+
+![sw](public/assets/screenshots/sw.png)
+
+#### [local storage]
+
+![local storage](public/assets/screenshots/local-storage.png)
+
+#### [db]
+
+![db](public/assets/screenshots/db.png)
