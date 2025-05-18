@@ -6,7 +6,7 @@ export default function RegisterPage() {
 	const navigate = useNavigate();
 
 	const handleRegister = (username: string) => {
-		if (localStorage.getItem('user') === null) {
+		if (localStorage.getItem('user') !== username) {
 			localStorage.setItem('user', username);
 			navigate('/login');
 		}
