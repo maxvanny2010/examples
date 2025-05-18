@@ -96,7 +96,7 @@ export function NoteDetail({
 				mb={2}
 			>
 				<Typography variant="h5">
-					{title || (note ? note.title : 'Choose note')}
+					{title || (note ? note.title : isNew ? 'Create note' : 'Choose note')}
 				</Typography>
 
 
