@@ -1,7 +1,10 @@
 import type { FC } from 'react';
-import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+
 import { ROUTES, TITLES } from '../constants';
 
 interface UserInfoBarProps {

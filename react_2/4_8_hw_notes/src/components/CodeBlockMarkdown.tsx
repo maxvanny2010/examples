@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 
 interface CodeBlockProps {
 	node?: any;
