@@ -1,27 +1,17 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState, useDeferredValue } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { debounce } from 'lodash';
 import type { Note } from '../db/NotesDB';
 import { useNotes } from '../contexts/NotesContext';
 import { NoteDetail, NotesList, NotesSearch, UserInfoBar } from '../components';
 
 export default function NotesLayout() {
 	const { notes } = useNotes();
-	const [search, setSearch] = useState('');
+	const [rawSearch, setRawSearch] = useState('');
+	const search = useDeferredValue(rawSearch);
+
 	const [isCreating, setIsCreating] = useState(false);
 	const [selectedNote, setSelectedNote] = useState<Note | null>(null);
-
-	const debouncedSetSearch = useMemo(
-		() => debounce((value: string) => setSearch(value), 300),
-		[],
-	);
-
-	useEffect(() => {
-		return () => {
-			debouncedSetSearch.cancel();
-		};
-	}, [debouncedSetSearch]);
 
 	const filteredNotes = useMemo(() => {
 		const query = search.toLowerCase();
@@ -37,6 +27,10 @@ export default function NotesLayout() {
 		setIsCreating(true);
 	};
 
+	const handleSearchChange = (value: string) => {
+		setRawSearch(value);
+	};
+
 	return (
 		<Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
 			<Box sx={{ px: 2, py: 1, borderBottom: '1px solid #ccc' }}>
@@ -44,8 +38,7 @@ export default function NotesLayout() {
 			</Box>
 
 			<Box sx={{ flexGrow: 1, display: 'flex', overflow: 'hidden' }}>
-				<Grid container
-					  sx={{ height: '100%' }}>
+				<Grid container sx={{ height: '100%' }}>
 					<Grid
 						item
 						xs={12}
@@ -59,8 +52,8 @@ export default function NotesLayout() {
 						}}
 					>
 						<NotesSearch
-							search={search}
-							onSearchChange={(value) => debouncedSetSearch(value)}
+							search={rawSearch}
+							onSearchChange={handleSearchChange}
 						/>
 						<NotesList
 							notes={filteredNotes}
