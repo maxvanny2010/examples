@@ -1,19 +1,11 @@
 import { useEffect, useState } from 'react';
-import {
-	Box,
-	Button,
-	IconButton,
-	TextField,
-	Tooltip,
-	Typography
-} from '@mui/material';
+import { Box, Button, IconButton, TextField, Tooltip, Typography } from '@mui/material';
 
 import ReactMarkdown from 'react-markdown';
 
 import EditIcon from '@mui/icons-material/Edit';
 import PreviewIcon from '@mui/icons-material/Preview';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
 
 import type { Note } from '../db/NotesDB';
 import { useNotes } from '../contexts/NotesContext';
@@ -24,9 +16,17 @@ interface NoteDetailProps {
 	note: Note | null;
 	onNoteDeleted: () => void;
 	onNoteCreated: (note: Note) => void;
+	isCreating: boolean;
+	onStartCreating: () => void;
 }
 
-export function NoteDetail({ note, onNoteDeleted, onNoteCreated }: NoteDetailProps) {
+export function NoteDetail({
+							   note,
+							   onNoteDeleted,
+							   onNoteCreated,
+							   isCreating,
+							   onStartCreating,
+						   }: NoteDetailProps) {
 	const { updateNote, deleteNote, addNote } = useNotes();
 	const [isEditing, setIsEditing] = useState(false);
 	const [text, setText] = useState('');
@@ -42,12 +42,18 @@ export function NoteDetail({ note, onNoteDeleted, onNoteCreated }: NoteDetailPro
 			setIsNew(false);
 		}
 	}, [note]);
+	useEffect(() => {
+		if (isCreating) {
+			handleCreate();
+			onStartCreating();
+		}
+	}, [isCreating]);
 
 	useEffect(() => {
 		if (!note || !isEditing || note.id === undefined || isNew) return;
 		const id = note.id;
 		const interval = setInterval(() => {
-			updateNote(id, { title: title, content: text });
+			updateNote(id, { title: title, content: text }).then(r => r);
 		}, 1000);
 		return () => clearInterval(interval);
 	}, [note, text, title, isEditing, isNew]);
@@ -90,10 +96,17 @@ export function NoteDetail({ note, onNoteDeleted, onNoteCreated }: NoteDetailPro
 				mb={2}
 			>
 				<Typography variant="h5">
-					{isNew ? 'Create note' : note ? note.title : 'Choose note'}
+					{isNew
+						? 'Create note'
+						: note
+							? note.title
+							: 'Choose note'}
 				</Typography>
 
-				<Box display="flex" gap={1} flexWrap="wrap">
+
+				<Box display="flex"
+					 gap={1}
+					 flexWrap="wrap">
 					{!isNew && note && (
 						<Tooltip title={isEditing ? 'Preview' : 'Edit'}>
 							<IconButton onClick={() => setIsEditing(!isEditing)}>
@@ -111,11 +124,6 @@ export function NoteDetail({ note, onNoteDeleted, onNoteCreated }: NoteDetailPro
 							</IconButton>
 						</Tooltip>
 					)}
-					<Tooltip title="Create note">
-						<IconButton onClick={handleCreate}>
-							<AddIcon />
-						</IconButton>
-					</Tooltip>
 				</Box>
 			</Box>
 
@@ -139,17 +147,27 @@ export function NoteDetail({ note, onNoteDeleted, onNoteCreated }: NoteDetailPro
 						sx={{
 							fontFamily: 'monospace',
 							mb: 2,
-							fontSize: { xs: '0.9rem', sm: '1rem' }
+							fontSize: { xs: '0.9rem', sm: '1rem' },
 						}}
 					/>
 					{isNew && (
-						<Button
-							variant="contained"
-							onClick={handleSaveNewNote}
-							sx={{ mt: 1 }}
-						>
-							Save
-						</Button>
+						<>
+							<Button variant="contained"
+									onClick={handleSaveNewNote}>
+								Save
+							</Button>
+							<Button
+								variant="outlined"
+								onClick={() => {
+									setIsEditing(false);
+									setIsNew(false);
+									onNoteDeleted();
+								}}
+								sx={{ ml: 1 }}
+							>
+								Cancel
+							</Button>
+						</>
 					)}
 				</Box>
 			) : (

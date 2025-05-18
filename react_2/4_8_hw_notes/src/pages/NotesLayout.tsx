@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { debounce } from 'lodash';
@@ -9,6 +9,7 @@ import { NoteDetail, NotesList, NotesSearch, UserInfoBar } from '../components';
 export default function NotesLayout() {
 	const { notes } = useNotes();
 	const [search, setSearch] = useState('');
+	const [isCreating, setIsCreating] = useState(false);
 	const [selectedNote, setSelectedNote] = useState<Note | null>(null);
 
 	const debouncedSetSearch = useMemo(
@@ -31,14 +32,20 @@ export default function NotesLayout() {
 		);
 	}, [notes, search]);
 
+	const handleCreateNote = () => {
+		setSelectedNote(null);
+		setIsCreating(true);
+	};
+
 	return (
 		<Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
 			<Box sx={{ px: 2, py: 1, borderBottom: '1px solid #ccc' }}>
-				<UserInfoBar />
+				<UserInfoBar onCreateNote={handleCreateNote} />
 			</Box>
 
 			<Box sx={{ flexGrow: 1, display: 'flex', overflow: 'hidden' }}>
-				<Grid container sx={{ height: '100%' }}>
+				<Grid container
+					  sx={{ height: '100%' }}>
 					<Grid
 						item
 						xs={12}
@@ -58,7 +65,10 @@ export default function NotesLayout() {
 						<NotesList
 							notes={filteredNotes}
 							selectedNoteId={selectedNote?.id ?? null}
-							onSelectNote={setSelectedNote}
+							onSelectNote={(note) => {
+								setSelectedNote(note);
+								setIsCreating(false);
+							}}
 						/>
 					</Grid>
 					<Grid
@@ -74,7 +84,12 @@ export default function NotesLayout() {
 						<NoteDetail
 							note={selectedNote}
 							onNoteDeleted={() => setSelectedNote(null)}
-							onNoteCreated={(note) => setSelectedNote(note)}
+							onNoteCreated={(note) => {
+								setSelectedNote(note);
+								setIsCreating(false);
+							}}
+							isCreating={isCreating}
+							onStartCreating={() => setIsCreating(false)}
 						/>
 					</Grid>
 				</Grid>
