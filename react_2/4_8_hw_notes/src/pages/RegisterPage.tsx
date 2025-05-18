@@ -1,14 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { AuthForm } from '../components';
+import { ROUTES, TITLES } from '../constants';
 
 export default function RegisterPage() {
 	const navigate = useNavigate();
 
 	const handleRegister = (username: string) => {
-		if (localStorage.getItem('user') !== username) {
-			localStorage.setItem('user', username);
-			navigate('/login');
+		if (localStorage.getItem(TITLES.USER) !== username) {
+			localStorage.setItem(TITLES.USER, username);
+			navigate(ROUTES.LOGIN);
 		}
 	};
 
@@ -25,8 +26,8 @@ export default function RegisterPage() {
 		>
 			<Box sx={{ width: { xs: '100%', sm: 400 } }}>
 				<AuthForm
-					title="Register"
-					buttonLabel="Sign up"
+					title={TITLES.REGISTER}
+					buttonLabel={TITLES.SIGN_UP}
 					onSubmit={handleRegister}
 				/>
 			</Box>

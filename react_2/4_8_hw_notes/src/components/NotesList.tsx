@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import type { Note } from '../db/NotesDB';
+import { TITLES } from '../constants';
 
 interface NotesListProps {
 	notes: Note[];
@@ -65,7 +66,7 @@ export function NotesList({ notes, selectedNoteId, onSelectNote }: NotesListProp
 				<Box sx={{ mt: 2, textAlign: 'center' }}>
 					<Typography variant="body2"
 								color="text.secondary">
-						Nothing found...
+						{TITLES.NOTHING_FOUND}
 					</Typography>
 				</Box>
 			)}

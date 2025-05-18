@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
+import { ROUTES, TITLES } from '../constants';
 
 interface UserInfoBarProps {
 	onCreateNote: () => void;
@@ -9,10 +10,10 @@ interface UserInfoBarProps {
 
 export const UserInfoBar: FC<UserInfoBarProps> = ({ onCreateNote }) => {
 	const navigate = useNavigate();
-	const username = localStorage.getItem('user') || 'Guest';
+	const username = localStorage.getItem(TITLES.USER) || TITLES.GUEST;
 
 	const handleLogout = () => {
-		navigate('/login');
+		navigate(ROUTES.LOGOUT);
 	};
 
 	return (
@@ -24,7 +25,7 @@ export const UserInfoBar: FC<UserInfoBarProps> = ({ onCreateNote }) => {
 				startIcon={<AddIcon />}
 				onClick={onCreateNote}
 			>
-				Add Note
+				{TITLES.CREATE_NOTE}
 			</Button>
 
 			<Box display="flex"
@@ -37,7 +38,7 @@ export const UserInfoBar: FC<UserInfoBarProps> = ({ onCreateNote }) => {
 				<Button variant="outlined"
 						color="primary"
 						onClick={handleLogout}>
-					Logout
+					{TITLES.LOGOUT}
 				</Button>
 			</Box>
 		</Box>

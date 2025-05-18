@@ -1,4 +1,5 @@
 import TextField from '@mui/material/TextField';
+import { TITLES } from '../constants';
 
 interface NotesSearchProps {
 	search: string;
@@ -9,7 +10,7 @@ export function NotesSearch({ search, onSearchChange }: NotesSearchProps) {
 	return (
 		<TextField
 			fullWidth
-			placeholder="Search..."
+			placeholder={TITLES.SEARCH_PLACEHOLDER}
 			variant="outlined"
 			size="small"
 			value={search}

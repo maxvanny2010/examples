@@ -2,18 +2,19 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import { AuthForm } from '../components';
+import { ROUTES, TITLES } from '../constants';
 
 export default function LoginPage() {
 	const navigate = useNavigate();
 	const [error, setError] = useState<string | null>(null);
 
 	const handleLogin = (username: string) => {
-		const savedUser = localStorage.getItem('user');
+		const savedUser = localStorage.getItem(TITLES.USER);
 		if (savedUser === username) {
 			setError(null);
-			navigate('/');
+			navigate(ROUTES.ROOT);
 		} else {
-			setError('Username is incorrect');
+			setError(TITLES.USERNAME_INCORRECT);
 		}
 	};
 
@@ -29,11 +30,11 @@ export default function LoginPage() {
 			}}
 		>
 			<AuthForm
-				title="Sign in Notes"
-				buttonLabel="Log in"
+				title={TITLES.SIGN_IN_NOTES}
+				buttonLabel={TITLES.LOGIN}
 				onSubmit={handleLogin}
-				linkTo="/register"
-				linkText="Don't have an account? Register"
+				linkTo={ROUTES.REGISTER}
+				linkText={TITLES.REGISTER_PROMPT}
 				error={error}
 			/>
 		</Box>

@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { useState } from 'react';
+import { TITLES } from '../constants';
 
 interface AuthFormProps {
 	title: string;
@@ -59,8 +60,8 @@ export function AuthForm({
 			</Typography>
 
 			<TextField
-				label="Username"
-				placeholder="Enter username"
+				label={TITLES.USERNAME}
+				placeholder={TITLES.ENTER_USERNAME}
 				value={username}
 				onChange={(e) => setUsername(e.target.value)}
 				required

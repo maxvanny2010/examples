@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
+import { TITLES } from '../constants';
 
 interface DeleteConfirmDialogProps {
 	open: boolean;
@@ -10,12 +11,12 @@ export function DeleteConfirmDialog({ open, onClose, onConfirm }: DeleteConfirmD
 	return (
 		<Dialog open={open}
 				onClose={onClose}>
-			<DialogTitle>Remove this note?</DialogTitle>
+			<DialogTitle>{TITLES.REMOVE_NOTE}</DialogTitle>
 			<DialogActions sx={{ justifyContent: 'center' }}>
 				<Button onClick={onClose}>Cancel</Button>
 				<Button color="error"
 						onClick={onConfirm}>
-					Remove
+					{TITLES.REMOVE}
 				</Button>
 			</DialogActions>
 		</Dialog>

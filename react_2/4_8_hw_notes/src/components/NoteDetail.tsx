@@ -11,6 +11,7 @@ import type { Note } from '../db/NotesDB';
 import { useNotes } from '../contexts/NotesContext';
 import { DeleteConfirmDialog } from './DeleteConfirmDialog';
 import { CodeBlockMarkdown } from './CodeBlockMarkdown';
+import { TITLES } from '../constants';
 
 interface NoteDetailProps {
 	note: Note | null;
@@ -96,7 +97,7 @@ export function NoteDetail({
 				mb={2}
 			>
 				<Typography variant="h5">
-					{title || (note ? note.title : isNew ? 'Create note' : 'Choose note')}
+					{title || (note ? note.title : isNew ? TITLES.CREATE_NOTE : TITLES.CHOOSE_NOTE)}
 				</Typography>
 
 
@@ -104,14 +105,14 @@ export function NoteDetail({
 					 gap={1}
 					 flexWrap="wrap">
 					{!isNew && note && (
-						<Tooltip title={isEditing ? 'Preview' : 'Edit'}>
+						<Tooltip title={isEditing ? TITLES.PREVIEW : TITLES.EDIT}>
 							<IconButton onClick={() => setIsEditing(!isEditing)}>
 								{isEditing ? <PreviewIcon /> : <EditIcon />}
 							</IconButton>
 						</Tooltip>
 					)}
 					{note && (
-						<Tooltip title="Remove">
+						<Tooltip title={TITLES.REMOVE}>
 							<IconButton
 								color="error"
 								onClick={() => setOpenConfirm(true)}
@@ -126,7 +127,7 @@ export function NoteDetail({
 			{isEditing ? (
 				<Box>
 					<TextField
-						placeholder="Title..."
+						placeholder={TITLES.TITLE_PLACEHOLDER}
 						fullWidth
 						size="small"
 						value={title}
@@ -134,7 +135,7 @@ export function NoteDetail({
 						sx={{ mb: 2 }}
 					/>
 					<TextField
-						placeholder="Note..."
+						placeholder={TITLES.NOTE_PLACEHOLDER}
 						multiline
 						fullWidth
 						minRows={10}
@@ -150,7 +151,7 @@ export function NoteDetail({
 						<>
 							<Button variant="contained"
 									onClick={handleSaveNewNote}>
-								Save
+								{TITLES.SAVE}
 							</Button>
 							<Button
 								variant="outlined"
@@ -161,7 +162,7 @@ export function NoteDetail({
 								}}
 								sx={{ ml: 1 }}
 							>
-								Cancel
+								{TITLES.CANCEL}
 							</Button>
 						</>
 					)}
