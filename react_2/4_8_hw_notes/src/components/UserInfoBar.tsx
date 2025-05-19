@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import React, { type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
@@ -9,14 +9,15 @@ import { ROUTES, TITLES } from '../constants';
 
 interface UserInfoBarProps {
 	onCreateNote: () => void;
+	addButtonRef?: React.RefObject<HTMLButtonElement | null>;
 }
 
-const UserInfoBar: FC<UserInfoBarProps> = ({ onCreateNote }) => {
+const UserInfoBar: FC<UserInfoBarProps> = ({ onCreateNote, addButtonRef }) => {
 	const navigate = useNavigate();
 	const username = localStorage.getItem(TITLES.USER) || TITLES.GUEST;
 
 	const handleLogout = () => {
-		navigate(ROUTES.LOGOUT);
+		navigate(ROUTES.LOGIN);
 	};
 
 	return (
@@ -27,6 +28,7 @@ const UserInfoBar: FC<UserInfoBarProps> = ({ onCreateNote }) => {
 				variant="contained"
 				startIcon={<AddIcon />}
 				onClick={onCreateNote}
+				ref={addButtonRef}
 			>
 				{TITLES.CREATE_NOTE}
 			</Button>

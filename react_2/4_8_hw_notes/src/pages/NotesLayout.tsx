@@ -1,4 +1,4 @@
-import { lazy, Suspense, useDeferredValue, useMemo, useState } from 'react';
+import { lazy, Suspense, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
@@ -15,6 +15,8 @@ export default function NotesLayout() {
 	const [rawSearch, setRawSearch] = useState('');
 	const search = useDeferredValue(rawSearch);
 
+	const addButtonRef = useRef<HTMLButtonElement | null>(null);
+
 	const [isCreating, setIsCreating] = useState(false);
 	const [selectedNote, setSelectedNote] = useState<Note | null>(null);
 
@@ -27,6 +29,16 @@ export default function NotesLayout() {
 		);
 	}, [notes, search]);
 
+	useEffect(() => {
+		if (selectedNote && !notes.find(n => n.id === selectedNote.id)) {
+			setSelectedNote(null);
+			setTimeout(() => {
+				addButtonRef.current?.focus();
+			}, 0);
+		}
+	}, [notes, selectedNote]);
+
+
 	const handleCreateNote = () => {
 		setSelectedNote(null);
 		setIsCreating(true);
@@ -36,10 +48,20 @@ export default function NotesLayout() {
 		setRawSearch(value);
 	};
 
+	const onNoteDeleted = () => {
+		setSelectedNote(null);
+		setTimeout(() => {
+			addButtonRef.current?.focus();
+		}, 0);
+	};
+
 	return (
 		<Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
 			<Box sx={{ px: 2, py: 1, borderBottom: '1px solid #ccc' }}>
-				<UserInfoBar onCreateNote={handleCreateNote} />
+				<UserInfoBar
+					onCreateNote={handleCreateNote}
+					addButtonRef={addButtonRef}
+				/>
 			</Box>
 
 			<Box sx={{ flexGrow: 1, display: 'flex', overflow: 'hidden' }}>
@@ -89,7 +111,7 @@ export default function NotesLayout() {
 													  height="100%" />}>
 							<NoteDetail
 								note={selectedNote}
-								onNoteDeleted={() => setSelectedNote(null)}
+								onNoteDeleted={onNoteDeleted}
 								onNoteCreated={(note) => {
 									setSelectedNote(note);
 									setIsCreating(false);

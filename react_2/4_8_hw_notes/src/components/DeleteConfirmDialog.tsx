@@ -16,7 +16,7 @@ export default function DeleteConfirmDialog({ open, onClose, onConfirm }: Delete
 				onClose={onClose}>
 			<DialogTitle>{TITLES.REMOVE_NOTE}</DialogTitle>
 			<DialogActions sx={{ justifyContent: 'center' }}>
-				<Button onClick={onClose}>Cancel</Button>
+				<Button onClick={onClose}>{TITLES.CANCEL}</Button>
 				<Button color="error"
 						onClick={onConfirm}>
 					{TITLES.REMOVE}
