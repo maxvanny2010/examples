@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { db, type Note } from '../db/NotesDB';
+import { TITLES } from '../constants';
 
 type NewNoteData = Omit<Note, 'id' | 'createdAt' | 'user'> & { user?: string };
 
@@ -14,11 +15,11 @@ const NotesContext = createContext<NotesContextType | undefined>(undefined);
 
 export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 	const [notes, setNotes] = useState<Note[]>([]);
-	const user = localStorage.getItem('user') || '';
+	const user = localStorage.getItem(TITLES.USER) || '';
 
 	useEffect(() => {
 		if (user) {
-			db.notes.where('user').equals(user).toArray().then(setNotes);
+			db.notes.where(TITLES.USER).equals(user).toArray().then(setNotes);
 		}
 	}, [user]);
 
@@ -29,7 +30,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 			createdAt: new Date(),
 		};
 		await db.notes.add(newNote);
-		setNotes(await db.notes.where('user').equals(user).toArray());
+		setNotes(await db.notes.where(TITLES.USER).equals(user).toArray());
 		return newNote;
 	};
 
@@ -38,12 +39,12 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 			updatedNote.user = user;
 		}
 		await db.notes.update(id, updatedNote);
-		setNotes(await db.notes.where('user').equals(user).toArray());
+		setNotes(await db.notes.where(TITLES.USER).equals(user).toArray());
 	};
 
 	const deleteNote = async (id: number) => {
 		await db.notes.delete(id);
-		setNotes(await db.notes.where('user').equals(user).toArray());
+		setNotes(await db.notes.where(TITLES.USER).equals(user).toArray());
 	};
 
 	return (
@@ -56,7 +57,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
 export const useNotes = () => {
 	const context = useContext(NotesContext);
 	if (!context) {
-		throw new Error('useNotes must be used within a NotesProvider');
+		throw new Error(TITLES.PROVIDER_WARNING);
 	}
 	return context;
 };

@@ -23,4 +23,5 @@ export const TITLES = {
 	REGISTER: 'Register',
 	SIGN_UP: 'Sign up',
 	LOADING: 'Loading...',
+	PROVIDER_WARNING: 'useNotes must be used within a NotesProvider',
 };
