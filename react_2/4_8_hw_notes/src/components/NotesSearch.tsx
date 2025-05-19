@@ -6,7 +6,7 @@ interface NotesSearchProps {
 	onSearchChange: (value: string) => void;
 }
 
-export function NotesSearch({ search, onSearchChange }: NotesSearchProps) {
+export default function NotesSearch({ search, onSearchChange }: NotesSearchProps) {
 	return (
 		<TextField
 			fullWidth

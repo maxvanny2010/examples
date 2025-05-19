@@ -10,7 +10,7 @@ interface DeleteConfirmDialogProps {
 	onConfirm: () => void;
 }
 
-export function DeleteConfirmDialog({ open, onClose, onConfirm }: DeleteConfirmDialogProps) {
+export default function DeleteConfirmDialog({ open, onClose, onConfirm }: DeleteConfirmDialogProps) {
 	return (
 		<Dialog open={open}
 				onClose={onClose}>

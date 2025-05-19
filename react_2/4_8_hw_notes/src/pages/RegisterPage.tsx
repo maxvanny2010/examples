@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import Box from '@mui/material/Box';
-import { AuthForm } from '../components';
 import { ROUTES, TITLES } from '../constants';
 
+const AuthForm = lazy(() => import('../components/AuthForm.tsx'));
 export default function RegisterPage() {
 	const navigate = useNavigate();
 
@@ -24,12 +25,15 @@ export default function RegisterPage() {
 				bgcolor: 'background.default',
 			}}
 		>
+
 			<Box sx={{ width: { xs: '100%', sm: 400 } }}>
-				<AuthForm
-					title={TITLES.REGISTER}
-					buttonLabel={TITLES.SIGN_UP}
-					onSubmit={handleRegister}
-				/>
+				<Suspense fallback={null}>
+					<AuthForm
+						title={TITLES.REGISTER}
+						buttonLabel={TITLES.SIGN_UP}
+						onSubmit={handleRegister}
+					/>
+				</Suspense>
 			</Box>
 		</Box>
 	);

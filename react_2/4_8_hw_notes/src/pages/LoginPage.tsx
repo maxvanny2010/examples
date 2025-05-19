@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import Box from '@mui/material/Box';
-import { AuthForm } from '../components';
+import { lazy, Suspense, useState } from 'react';
 import { ROUTES, TITLES } from '../constants';
+import Box from '@mui/material/Box';
 
+const AuthForm = lazy(() => import('../components/AuthForm.tsx'));
 export default function LoginPage() {
 	const navigate = useNavigate();
 	const [error, setError] = useState<string | null>(null);
@@ -29,14 +29,16 @@ export default function LoginPage() {
 				bgcolor: 'background.default',
 			}}
 		>
-			<AuthForm
-				title={TITLES.SIGN_IN_NOTES}
-				buttonLabel={TITLES.LOGIN}
-				onSubmit={handleLogin}
-				linkTo={ROUTES.REGISTER}
-				linkText={TITLES.REGISTER_PROMPT}
-				error={error}
-			/>
+			<Suspense fallback={null}>
+				<AuthForm
+					title={TITLES.SIGN_IN_NOTES}
+					buttonLabel={TITLES.LOGIN}
+					onSubmit={handleLogin}
+					linkTo={ROUTES.REGISTER}
+					linkText={TITLES.REGISTER_PROMPT}
+					error={error}
+				/>
+			</Suspense>
 		</Box>
 	);
 }

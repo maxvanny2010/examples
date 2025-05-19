@@ -11,7 +11,7 @@ interface UserInfoBarProps {
 	onCreateNote: () => void;
 }
 
-export const UserInfoBar: FC<UserInfoBarProps> = ({ onCreateNote }) => {
+const UserInfoBar: FC<UserInfoBarProps> = ({ onCreateNote }) => {
 	const navigate = useNavigate();
 	const username = localStorage.getItem(TITLES.USER) || TITLES.GUEST;
 
@@ -48,3 +48,4 @@ export const UserInfoBar: FC<UserInfoBarProps> = ({ onCreateNote }) => {
 	);
 };
 
+export default UserInfoBar;

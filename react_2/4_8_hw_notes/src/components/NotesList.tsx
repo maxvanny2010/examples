@@ -14,7 +14,7 @@ interface NotesListProps {
 	onSelectNote: (note: Note) => void;
 }
 
-export function NotesList({ notes, selectedNoteId, onSelectNote }: NotesListProps) {
+export default function NotesList({ notes, selectedNoteId, onSelectNote }: NotesListProps) {
 	return (
 		<Box
 			sx={{

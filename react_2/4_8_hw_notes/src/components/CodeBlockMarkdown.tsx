@@ -1,6 +1,4 @@
 import type { FC, ReactNode } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Box from '@mui/material/Box';
 
 interface CodeBlockProps {
@@ -10,18 +8,17 @@ interface CodeBlockProps {
 	children?: ReactNode;
 }
 
-export const CodeBlockMarkdown: FC<CodeBlockProps> = ({
-														  inline,
-														  className,
-														  children,
-														  ...props
-													  }) => {
-	const match = /language-(\w+)/.exec(className || '');
-
-	if (!inline && match) {
+const CodeBlockMarkdown: FC<CodeBlockProps> = ({
+												   inline,
+												   className,
+												   children,
+												   ...props
+											   }) => {
+	if (!inline) {
 		return (
 			<Box
-				component="div"
+				component="pre"
+				className={className}
 				sx={{
 					width: '100%',
 					overflowX: 'auto',
@@ -29,18 +26,12 @@ export const CodeBlockMarkdown: FC<CodeBlockProps> = ({
 					borderRadius: 1,
 					fontSize: { xs: '0.8rem', sm: '0.9rem' },
 					backgroundColor: '#2d2d2d',
+					color: '#fff',
 					padding: '1rem',
 				}}
+				{...props}
 			>
-				<SyntaxHighlighter
-					style={materialDark}
-					language={match[1]}
-					PreTag="div"
-					customStyle={{ margin: 0, padding: 0, background: 'transparent' }}
-					{...props}
-				>
-					{String(children).replace(/\n$/, '')}
-				</SyntaxHighlighter>
+				<code>{children}</code>
 			</Box>
 		);
 	}
@@ -61,3 +52,5 @@ export const CodeBlockMarkdown: FC<CodeBlockProps> = ({
 		</code>
 	);
 };
+
+export default CodeBlockMarkdown;

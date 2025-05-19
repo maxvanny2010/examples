@@ -5,18 +5,18 @@ import Tooltip from '@mui/material/Tooltip';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import rehypeHighlight from 'rehype-highlight';
+import { useNotes } from '../contexts/NotesContext';
+import type { Note } from '../db/NotesDB';
+import { TITLES } from '../constants';
 
+import DeleteConfirmDialog from './DeleteConfirmDialog';
+import CodeBlockMarkdown from './CodeBlockMarkdown';
 import ReactMarkdown from 'react-markdown';
-
 import EditIcon from '@mui/icons-material/Edit';
 import PreviewIcon from '@mui/icons-material/Preview';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-import type { Note } from '../db/NotesDB';
-import { useNotes } from '../contexts/NotesContext';
-import { DeleteConfirmDialog } from './DeleteConfirmDialog';
-import { CodeBlockMarkdown } from './CodeBlockMarkdown';
-import { TITLES } from '../constants';
+import 'highlight.js/styles/github-dark.css';
 
 interface NoteDetailProps {
 	note: Note | null;
@@ -26,13 +26,13 @@ interface NoteDetailProps {
 	onStartCreating: () => void;
 }
 
-export function NoteDetail({
-							   note,
-							   onNoteDeleted,
-							   onNoteCreated,
-							   isCreating,
-							   onStartCreating,
-						   }: NoteDetailProps) {
+export default function NoteDetail({
+									   note,
+									   onNoteDeleted,
+									   onNoteCreated,
+									   isCreating,
+									   onStartCreating,
+								   }: NoteDetailProps) {
 	const { updateNote, deleteNote, addNote } = useNotes();
 	const [isEditing, setIsEditing] = useState(false);
 	const [text, setText] = useState('');
@@ -48,6 +48,7 @@ export function NoteDetail({
 			setIsNew(false);
 		}
 	}, [note]);
+
 	useEffect(() => {
 		if (isCreating) {
 			handleCreate();
@@ -59,7 +60,7 @@ export function NoteDetail({
 		if (!note || !isEditing || note.id === undefined || isNew) return;
 		const id = note.id;
 		const interval = setInterval(() => {
-			updateNote(id, { title: title, content: text }).then(r => r);
+			updateNote(id, { title: title, content: text });
 		}, 1000);
 		return () => clearInterval(interval);
 	}, [note, text, title, isEditing, isNew]);
@@ -101,9 +102,11 @@ export function NoteDetail({
 				gap={2}
 				mb={2}
 			>
-				<Typography variant="h5">
-					{title || (note ? note.title : isNew ? TITLES.CREATE_NOTE : TITLES.CHOOSE_NOTE)}
-				</Typography>
+				{(title || note || isNew) && (
+					<Typography variant="h5">
+						{title || (note ? note.title : isNew ? TITLES.CREATE_NOTE : '')}
+					</Typography>
+				)}
 
 
 				<Box display="flex"
@@ -174,7 +177,12 @@ export function NoteDetail({
 				</Box>
 			) : (
 				<Box sx={{ whiteSpace: 'pre-wrap', fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-					<ReactMarkdown components={{ code: CodeBlockMarkdown }}>
+					<ReactMarkdown
+						rehypePlugins={[rehypeHighlight]}
+						components={{
+							code: CodeBlockMarkdown,
+						}}
+					>
 						{text}
 					</ReactMarkdown>
 				</Box>
@@ -185,6 +193,7 @@ export function NoteDetail({
 				onClose={() => setOpenConfirm(false)}
 				onConfirm={handleDelete}
 			/>
+
 		</Box>
 	);
 }

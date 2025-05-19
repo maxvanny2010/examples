@@ -17,14 +17,14 @@ interface AuthFormProps {
 	error?: string | null;
 }
 
-export function AuthForm({
-							 title,
-							 buttonLabel,
-							 onSubmit,
-							 linkTo,
-							 linkText,
-							 error,
-						 }: AuthFormProps) {
+export default function AuthForm({
+									 title,
+									 buttonLabel,
+									 onSubmit,
+									 linkTo,
+									 linkText,
+									 error,
+								 }: AuthFormProps) {
 	const [username, setUsername] = useState('');
 
 	const handleSubmit = () => {

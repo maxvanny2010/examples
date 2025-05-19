@@ -1,26 +1,30 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import NotesLayout from './pages/NotesLayout';
+import { lazy, Suspense } from 'react';
+import { ROUTES, TITLES } from './constants';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import RegisterPage from './pages/RegisterPage';
 
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const NotesLayout = lazy(() => import('./pages/NotesLayout'));
 export default function App() {
 	return (
 		<BrowserRouter>
-			<Routes>
-				<Route path="/login"
-					   element={<LoginPage />} />
-				<Route path="/register"
-					   element={<RegisterPage />} />
-				<Route
-					path="/*"
-					element={
-						<ProtectedRoute>
-							<NotesLayout />
-						</ProtectedRoute>
-					}
-				/>
-			</Routes>
+			<Suspense fallback={<div>{TITLES.LOADING}</div>}>
+				<Routes>
+					<Route path={ROUTES.LOGIN}
+						   element={<LoginPage />} />
+					<Route path={ROUTES.REGISTER}
+						   element={<RegisterPage />} />
+					<Route
+						path={ROUTES.ALL}
+						element={
+							<ProtectedRoute>
+								<NotesLayout />
+							</ProtectedRoute>
+						}
+					/>
+				</Routes>
+			</Suspense>
 		</BrowserRouter>
 	);
 }

@@ -1,10 +1,15 @@
-import { useMemo, useState, useDeferredValue } from 'react';
+import { lazy, Suspense, useDeferredValue, useMemo, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 import type { Note } from '../db/NotesDB';
 import { useNotes } from '../contexts/NotesContext';
-import { NoteDetail, NotesList, NotesSearch, UserInfoBar } from '../components';
 
+import UserInfoBar from '../components/UserInfoBar.tsx';
+
+const NotesSearch = lazy(() => import('../components/NotesSearch.tsx'));
+const NotesList = lazy(() => import('../components/NotesList.tsx'));
+const NoteDetail = lazy(() => import('../components/NoteDetail.tsx'));
 export default function NotesLayout() {
 	const { notes } = useNotes();
 	const [rawSearch, setRawSearch] = useState('');
@@ -38,7 +43,8 @@ export default function NotesLayout() {
 			</Box>
 
 			<Box sx={{ flexGrow: 1, display: 'flex', overflow: 'hidden' }}>
-				<Grid container sx={{ height: '100%' }}>
+				<Grid container
+					  sx={{ height: '100%' }}>
 					<Grid
 						item
 						xs={12}
@@ -51,18 +57,23 @@ export default function NotesLayout() {
 							overflowY: 'auto',
 						}}
 					>
-						<NotesSearch
-							search={rawSearch}
-							onSearchChange={handleSearchChange}
-						/>
-						<NotesList
-							notes={filteredNotes}
-							selectedNoteId={selectedNote?.id ?? null}
-							onSelectNote={(note) => {
-								setSelectedNote(note);
-								setIsCreating(false);
-							}}
-						/>
+						<Suspense fallback={<Skeleton height={32}
+													  width="100%" />}>
+							<NotesSearch
+								search={rawSearch}
+								onSearchChange={handleSearchChange}
+							/>
+						</Suspense>
+						<Suspense fallback={null}>
+							<NotesList
+								notes={filteredNotes}
+								selectedNoteId={selectedNote?.id ?? null}
+								onSelectNote={(note) => {
+									setSelectedNote(note);
+									setIsCreating(false);
+								}}
+							/>
+						</Suspense>
 					</Grid>
 					<Grid
 						item
@@ -74,16 +85,19 @@ export default function NotesLayout() {
 							overflowY: 'auto',
 						}}
 					>
-						<NoteDetail
-							note={selectedNote}
-							onNoteDeleted={() => setSelectedNote(null)}
-							onNoteCreated={(note) => {
-								setSelectedNote(note);
-								setIsCreating(false);
-							}}
-							isCreating={isCreating}
-							onStartCreating={() => setIsCreating(false)}
-						/>
+						<Suspense fallback={<Skeleton variant="rectangular"
+													  height="100%" />}>
+							<NoteDetail
+								note={selectedNote}
+								onNoteDeleted={() => setSelectedNote(null)}
+								onNoteCreated={(note) => {
+									setSelectedNote(note);
+									setIsCreating(false);
+								}}
+								isCreating={isCreating}
+								onStartCreating={() => setIsCreating(false)}
+							/>
+						</Suspense>
 					</Grid>
 				</Grid>
 			</Box>
