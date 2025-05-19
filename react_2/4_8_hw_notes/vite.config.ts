@@ -11,19 +11,18 @@ export default defineConfig({
 		cssCodeSplit: true,
 		rollupOptions: {
 			output: {
-				manualChunks(id) {
-					if (id.includes('node_modules')) {
-						if (id.includes('@mui')) return 'mui';
-						if (id.includes('react')) return 'react';
-						return 'vendor';
-					}
+				manualChunks: {
+					react: ['react', 'react-dom', 'react-router-dom'],
+					mui: ['@mui/material', '@mui/icons-material'],
+					dexie: ['dexie'],
+					markdown: ['react-markdown'],
 				},
 			},
 		},
 	},
 	plugins: [
 		react(),
-		visualizer(),
+		visualizer({ open: true }),
 		VitePWA({
 			registerType: 'autoUpdate',
 			includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
