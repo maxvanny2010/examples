@@ -74,28 +74,50 @@ export default function NotesLayout() {
 						sx={{
 							borderRight: { xs: 'none', md: '1px solid #ccc' },
 							borderBottom: { xs: '1px solid #ccc', md: 'none' },
-							p: 2,
+							p: 0,
 							height: { xs: '40vh', md: '100%' },
-							overflowY: 'auto',
+							display: 'flex',
+							flexDirection: 'column',
 						}}
 					>
-						<Suspense fallback={<Skeleton height={32}
-													  width="100%" />}>
-							<NotesSearch
-								search={rawSearch}
-								onSearchChange={handleSearchChange}
-							/>
-						</Suspense>
-						<Suspense fallback={null}>
-							<NotesList
-								notes={filteredNotes}
-								selectedNoteId={selectedNote?.id ?? null}
-								onSelectNote={(note) => {
-									setSelectedNote(note);
-									setIsCreating(false);
+						<Box sx={{ p: 2 }}>
+							<Box
+								sx={{
+									position: 'sticky',
+									top: 0,
+									zIndex: 1,
+									bgcolor: 'background.paper',
+									pb: 1,
 								}}
-							/>
-						</Suspense>
+							>
+								<Suspense fallback={<Skeleton height={32} width="100%" />}>
+									<NotesSearch
+										search={rawSearch}
+										onSearchChange={handleSearchChange}
+									/>
+								</Suspense>
+							</Box>
+						</Box>
+
+						<Box
+							sx={{
+								px: 2,
+								pb: 2,
+								overflowY: 'auto',
+								flexGrow: 1,
+							}}
+						>
+							<Suspense fallback={null}>
+								<NotesList
+									notes={filteredNotes}
+									selectedNoteId={selectedNote?.id ?? null}
+									onSelectNote={(note) => {
+										setSelectedNote(note);
+										setIsCreating(false);
+									}}
+								/>
+							</Suspense>
+						</Box>
 					</Grid>
 					<Grid
 						item

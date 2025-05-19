@@ -21,6 +21,18 @@ export default function NotesList({ notes, selectedNoteId, onSelectNote }: Notes
 				width: '100%',
 				maxHeight: '100%',
 				overflowY: 'auto',
+				scrollbarWidth: 'thin',
+				scrollbarColor: (theme) => `${theme.palette.primary.main} transparent`,
+				'&::-webkit-scrollbar': {
+					width: 8,
+				},
+				'&::-webkit-scrollbar-thumb': {
+					backgroundColor: (theme) => theme.palette.primary.main,
+					borderRadius: 4,
+				},
+				'&::-webkit-scrollbar-track': {
+					backgroundColor: 'transparent',
+				},
 			}}
 		>
 			<List sx={{ p: 0 }}>
