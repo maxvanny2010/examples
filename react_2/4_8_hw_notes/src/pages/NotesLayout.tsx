@@ -16,6 +16,8 @@ export default function NotesLayout() {
 	const search = useDeferredValue(rawSearch);
 
 	const addButtonRef = useRef<HTMLButtonElement | null>(null);
+	const [newNoteId, setNewNoteId] = useState<number | string | null>(null);
+
 
 	const [isCreating, setIsCreating] = useState(false);
 	const [selectedNote, setSelectedNote] = useState<Note | null>(null);
@@ -90,7 +92,8 @@ export default function NotesLayout() {
 									pb: 1,
 								}}
 							>
-								<Suspense fallback={<Skeleton height={32} width="100%" />}>
+								<Suspense fallback={<Skeleton height={32}
+															  width="100%" />}>
 									<NotesSearch
 										search={rawSearch}
 										onSearchChange={handleSearchChange}
@@ -114,7 +117,9 @@ export default function NotesLayout() {
 									onSelectNote={(note) => {
 										setSelectedNote(note);
 										setIsCreating(false);
+										setNewNoteId(null);
 									}}
+									newNoteId={newNoteId}
 								/>
 							</Suspense>
 						</Box>
@@ -137,6 +142,7 @@ export default function NotesLayout() {
 								onNoteCreated={(note) => {
 									setSelectedNote(note);
 									setIsCreating(false);
+									setNewNoteId(note.id ?? null);
 								}}
 								isCreating={isCreating}
 								onStartCreating={() => setIsCreating(false)}
