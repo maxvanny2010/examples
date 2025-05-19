@@ -7,20 +7,21 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint my-notes-app",
-    "preview": "vite preview"
+    "preview": "vite build && vite preview"
   },
   "dependencies": {
     "@mui/icons-material": "^5.17.1",
     "@mui/material": "^5.17.1",
     "dexie": "^4.0.11",
     "easymde": "^2.20.0",
+    "highlight.js": "^11.11.1",
     "lodash.debounce": "^4.0.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.6.0",
     "react-simplemde-editor": "^5.2.0",
-    "react-syntax-highlighter": "^15.6.1",
+    "rehype-highlight": "^7.0.2",
     "vite-plugin-pwa": "^1.0.0"
   },
   "devDependencies": {
@@ -29,7 +30,6 @@
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.2",
     "@types/react-router-dom": "^5.3.3",
-    "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react-swc": "^3.9.0",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
