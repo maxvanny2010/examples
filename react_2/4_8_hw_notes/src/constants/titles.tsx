@@ -22,4 +22,5 @@ export const TITLES = {
 	REGISTER_PROMPT: 'Don\'t have an account? Register',
 	REGISTER: 'Register',
 	SIGN_UP: 'Sign up',
+	LOADING: 'Loading...',
 };
