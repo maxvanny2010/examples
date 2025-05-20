@@ -1,23 +1,12 @@
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import rehypeHighlight from 'rehype-highlight';
 import { useNotes } from '../contexts/NotesContext';
 import type { Note } from '../db/NotesDB';
-import { TITLES } from '../constants';
-import remarkBreaks from 'remark-breaks';
 
 import DeleteConfirmDialog from './DeleteConfirmDialog';
-import CodeBlockMarkdown from './CodeBlockMarkdown';
-import ReactMarkdown from 'react-markdown';
-import EditIcon from '@mui/icons-material/Edit';
-import PreviewIcon from '@mui/icons-material/Preview';
-import DeleteIcon from '@mui/icons-material/Delete';
-import 'highlight.js/styles/github-dark.css';
+import NoteHeader from './NoteHeader';
+import NoteEditor from './NoteEditor';
+import NoteViewer from './NoteViewer';
 
 interface NoteDetailProps {
 	note: Note | null;
@@ -94,42 +83,14 @@ export default function NoteDetail({
 
 	return (
 		<Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-			<Box
-				display="flex"
-				flexDirection={{ xs: 'column', sm: 'row' }}
-				justifyContent="space-between"
-				alignItems={{ xs: 'flex-start', sm: 'center' }}
-				gap={2}
-				mb={2}
-				flexShrink={0}
-			>
-				{(title || note || isNew) && (
-					<Typography variant="h5"
-								sx={{ wordBreak: 'break-word' }}>
-						{title || (note ? note.title : isNew ? TITLES.CREATE_NOTE : '')}
-					</Typography>
-				)}
-
-				<Box display="flex"
-					 gap={1}
-					 flexWrap="wrap">
-					{!isNew && note && (
-						<Tooltip title={isEditing ? TITLES.PREVIEW : TITLES.EDIT}>
-							<IconButton onClick={() => setIsEditing(!isEditing)}>
-								{isEditing ? <PreviewIcon /> : <EditIcon />}
-							</IconButton>
-						</Tooltip>
-					)}
-					{note && (
-						<Tooltip title={TITLES.REMOVE}>
-							<IconButton color="error"
-										onClick={() => setOpenConfirm(true)}>
-								<DeleteIcon />
-							</IconButton>
-						</Tooltip>
-					)}
-				</Box>
-			</Box>
+			<NoteHeader
+				note={note}
+				title={title}
+				isEditing={isEditing}
+				isNew={isNew}
+				onToggleEdit={() => setIsEditing(!isEditing)}
+				onDeleteClick={() => setOpenConfirm(true)}
+			/>
 
 			<Box
 				sx={{
@@ -140,108 +101,21 @@ export default function NoteDetail({
 				}}
 			>
 				{isEditing ? (
-					<Box
-						sx={{
-							display: 'flex',
-							flexDirection: 'column',
-							flexGrow: 1,
-							minHeight: 0,
-							overflow: 'hidden',
+					<NoteEditor
+						title={title}
+						text={text}
+						isNew={isNew}
+						onChangeTitle={setTitle}
+						onChangeText={setText}
+						onSave={handleSaveNewNote}
+						onCancel={() => {
+							setIsEditing(false);
+							setIsNew(false);
+							onNoteDeleted();
 						}}
-					>
-						<Box sx={{ pr: 0.5 }}>
-							<TextField
-								placeholder={TITLES.TITLE_PLACEHOLDER}
-								fullWidth
-								size="small"
-								value={title}
-								onChange={(e) => setTitle(e.target.value)}
-								sx={{ mb: 2 }}
-							/>
-							<TextField
-								placeholder={TITLES.NOTE_PLACEHOLDER}
-								multiline
-								fullWidth
-								minRows={10}
-								value={text}
-								onChange={(e) => setText(e.target.value)}
-								sx={{
-									mb: 2,
-									'& .MuiInputBase-root': {
-										padding: 1,
-										overflow: 'auto',
-										alignItems: 'flex-start',
-									},
-									'& .MuiInputBase-inputMultiline': {
-										whiteSpace: 'pre-wrap',
-										wordBreak: 'break-word',
-										resize: 'vertical',
-									},
-								}}
-							/>
-						</Box>
-						{isNew && (
-							<Box
-								sx={{
-									display: 'flex',
-									flexDirection: { xs: 'column', sm: 'row' },
-									justifyContent: 'flex-end',
-									gap: 1,
-									pt: 2,
-								}}
-							>
-								<Button
-									variant="contained"
-									onClick={handleSaveNewNote}
-									sx={{ width: { xs: '100%', sm: 'auto' } }}
-								>
-									{TITLES.SAVE}
-								</Button>
-								<Button
-									variant="outlined"
-									onClick={() => {
-										setIsEditing(false);
-										setIsNew(false);
-										onNoteDeleted();
-									}}
-									sx={{ width: { xs: '100%', sm: 'auto' } }}
-								>
-									{TITLES.CANCEL}
-								</Button>
-							</Box>
-						)}
-					</Box>
+					/>
 				) : (
-					<Box
-						sx={{
-							whiteSpace: 'pre-wrap',
-							fontSize: { xs: '0.9rem', sm: '1rem' },
-							flexGrow: 1,
-							overflowY: 'auto',
-							wordBreak: 'break-word',
-							'& pre': {
-								overflowX: 'auto',
-								whiteSpace: 'pre-wrap',
-								wordBreak: 'break-word',
-								maxWidth: '100%',
-								backgroundColor: '#282c34',
-								borderRadius: 1,
-								padding: 1,
-							},
-							'& code': {
-								wordBreak: 'break-word',
-								whiteSpace: 'pre-wrap',
-							},
-						}}
-					>
-						<ReactMarkdown
-							remarkPlugins={[remarkBreaks]}
-							rehypePlugins={[rehypeHighlight]}
-							components={{ code: CodeBlockMarkdown }}
-						>
-							{text}
-						</ReactMarkdown>
-					</Box>
+					<NoteViewer text={text} />
 				)}
 			</Box>
 
