@@ -2,6 +2,14 @@
 
 ## Project: Note
 
+#### [moby home page]
+
+![moby-home](public/assets/screenshots/moby.png)
+
+#### [moby create page]
+
+![moby-create](public/assets/screenshots/moby-create-note.png)
+
 #### [home page]
 
 ![home](public/assets/screenshots/home.png)
