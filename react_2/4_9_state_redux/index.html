@@ -1,0 +1,58 @@
+<html class="-webkit-"
+	  lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Delicious Shopping Cart</title>
+	<link href="./styles.css"
+		  rel="stylesheet" />
+</head>
+
+<body>
+<div class="header">
+	<h1>Your cart</h1>
+	<p>"I say let the world go to hell, but I should always have my tea."</p>
+	<p>― Fyodor Dostoyevsky, Notes from Underground</p>
+</div>
+<ul class="cart">
+</ul>
+<table class="bill">
+	<tbody>
+	<tr class="subtotal">
+		<td class="label">Subtotal :</td>
+		<td class="value">$ 71.90</td>
+	</tr>
+	<tr class="salestax">
+		<td class="label">Sales tax :</td>
+		<td class="value">$ 3.60</td>
+	</tr>
+	<tr class="total">
+		<td class="label">Total :</td>
+		<td class="value">$ 80.50</td>
+	</tr>
+	</tbody>
+</table>
+<template class="product-template">
+	<li class="product">
+		<div class="product-preview">
+			<div class="thumbnail">
+				<img
+					class="image"
+					src="https://s.cdpn.io/24822/sidebar-cupcake.png"
+				/>
+			</div>
+			<div class="product-paper">
+				<div class="product-name">Cupcake</div>
+				<div class="product-price">$ 4.90</div>
+			</div>
+		</div>
+		<div class="product-quantity">x2</div>
+		<div class="product-interactions">
+			<div class="button plus">+</div>
+			<div class="button minus">-</div>
+		</div>
+	</li>
+</template>
+<script src="./scripts/index.js"
+		type="module"></script>
+</body>
+</html>
