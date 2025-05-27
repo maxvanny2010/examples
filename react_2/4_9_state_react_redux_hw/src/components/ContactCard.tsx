@@ -18,7 +18,8 @@ export const ContactCard = memo<ContactCardProps>(({
 													   onToggleFavorite,
 												   }) => {
 	const isFavorite = favoriteIds.includes(id);
-
+	const HeartIcon = FaHeart as unknown as React.FC;
+	const HeartOutlineIcon = FaRegHeart as unknown as React.FC;
 	return (
 		<Card key={id}
 			  className="h-100 d-flex flex-column shadow-lg position-relative">
@@ -34,7 +35,7 @@ export const ContactCard = memo<ContactCardProps>(({
 						className="ms-2"
 						style={{ color: isFavorite ? 'red' : 'gray' }}
 					>
-						{isFavorite ? <FaHeart /> : <FaRegHeart />}
+						{isFavorite ? <HeartIcon /> : <HeartOutlineIcon />}
 					</span>
 				</Card.Title>
 				<ListGroup variant="flush">
