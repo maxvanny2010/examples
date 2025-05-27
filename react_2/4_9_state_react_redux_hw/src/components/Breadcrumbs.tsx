@@ -17,7 +17,6 @@ export const Breadcrumbs = memo<BreadcrumbsProps>(({
 					{pathNames.map((name, index) => {
 						const routeTo = `/${pathNames.slice(0, index + 1).join('/')}`;
 
-						// Определяем, является ли текущий элемент последним в списке
 						const isLast = index === pathNames.length - 1;
 
 						return (

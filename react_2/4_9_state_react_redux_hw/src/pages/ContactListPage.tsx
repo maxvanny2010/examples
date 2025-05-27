@@ -1,56 +1,80 @@
-import React, { memo, useState } from 'react';
-import { CommonPageProps } from './types';
+import React, { memo, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { ContactCard } from 'src/components/ContactCard';
-import { FilterForm, FilterFormValues } from 'src/components/FilterForm';
-import { ContactDto } from 'src/types/dto/ContactDto';
+import { ContactDto } from '../types/dto';
+import { RootState } from '../store/reducers';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { fetchContacts, fetchGroups, toggleFavorite } from '../store/thunks';
+import { ContactCard, FilterForm, FilterFormValues } from '../components';
 
+export const ContactListPage = memo(() => {
+	const dispatch = useAppDispatch();
 
-export const ContactListPage = memo<CommonPageProps>(({
-														  contactsState, groupContactsState,
-													  }) => {
-	const [contacts, setContacts] = useState<ContactDto[]>(contactsState[0]);
+	const { data: contactsData } = useAppSelector((state: RootState) => state.contacts);
+	const { data: groupsData } = useAppSelector((state: RootState) => state.groups);
+	const favoriteIds = useAppSelector((state: RootState) => state.favorites.data);
+
+	const [contacts, setContacts] = useState<ContactDto[]>([]);
+	useEffect(() => {
+		dispatch(fetchContacts()).then(r => r);
+		dispatch(fetchGroups()).then(r => r);
+	}, [dispatch]);
+
+	useEffect(() => {
+		setContacts(contactsData);
+	}, [contactsData]);
+
 	const onSubmit = (fv: Partial<FilterFormValues>) => {
-		let findContacts: ContactDto[] = contactsState[0];
+		let findContacts: ContactDto[] = contactsData;
 
 		if (fv.name) {
 			const fvName = fv.name.toLowerCase();
-			findContacts = findContacts.filter(({ name }) => (
-				name.toLowerCase().indexOf(fvName) > -1
-			));
+			findContacts = findContacts.filter(({ name }) =>
+				name.toLowerCase().includes(fvName),
+			);
 		}
 
 		if (fv.groupId) {
-			const groupContacts = groupContactsState[0].find(({ id }) => id === fv.groupId);
+			const groupContacts = groupsData.find(({ id }) => id === fv.groupId);
 
 			if (groupContacts) {
-				findContacts = findContacts.filter(({ id }) => (
-					groupContacts.contactIds.includes(id)
-				));
+				findContacts = findContacts.filter(({ id }) =>
+					groupContacts.contactIds.includes(id),
+				);
 			}
 		}
 
 		setContacts(findContacts);
 	};
-
+	const handleToggle = (id: string) => {
+		dispatch(toggleFavorite(id));
+	};
 	return (
-		<Row xxl={1}>
-			<Col className="mb-3">
-				<FilterForm groupContactsList={groupContactsState[0]}
-							initialValues={{}}
-							onSubmit={onSubmit} />
-			</Col>
-			<Col>
-				<Row xxl={4}
-					 className="g-4">
-					{contacts.map((contact) => (
-						<Col key={contact.id}>
-							<ContactCard contact={contact}
-										 withLink />
-						</Col>
-					))}
-				</Row>
-			</Col>
-		</Row>
+		<>
+			<Row className="mb-3">
+				<Col>
+					<FilterForm
+						groupContactsList={groupsData}
+						initialValues={{}}
+						onSubmit={onSubmit}
+					/>
+				</Col>
+			</Row>
+
+			<Row className="g-4">
+				{contacts.map((contact) => (
+					<Col key={contact.id}
+						 xxl={3}
+						 xl={4}
+						 md={6}
+						 sm={12}>
+						<ContactCard contact={contact}
+									 withLink
+									 favoriteIds={favoriteIds}
+									 onToggleFavorite={handleToggle} />
+					</Col>
+				))}
+			</Row>
+		</>
 	);
+
 });

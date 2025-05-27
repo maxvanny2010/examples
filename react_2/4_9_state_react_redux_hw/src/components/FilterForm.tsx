@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import React, { memo } from 'react';
 import { FormikConfig } from 'formik/dist/types';
-import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
+import { GroupContactsDto } from '../types/dto';
 
 export interface FilterFormValues {
 	name: string,
@@ -41,7 +41,7 @@ export const FilterForm = memo<FilterFormProps>(({
 							<Form.Select
 								id={'groupId'}
 								name={'groupId'}
-								aria-label="Поиск по группе"
+								aria-label="Look for in groups"
 								onChange={handleChange}
 							>
 								<option>Open this select menu</option>
@@ -53,7 +53,7 @@ export const FilterForm = memo<FilterFormProps>(({
 						</Col>
 						<Col>
 							<Button variant={'primary'}
-									type={'submit'}>Применить</Button>
+									type={'submit'}>Appy</Button>
 						</Col>
 					</Row>
 				</Form>

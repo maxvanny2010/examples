@@ -1,7 +1,7 @@
-import { State } from 'src/types/common';
-import { ContactDto } from 'src/types/dto/ContactDto';
-import { FavoriteContactsDto } from 'src/types/dto/FavoriteContactsDto';
-import { GroupContactsDto } from 'src/types/dto/GroupContactsDto';
+import { State } from '../types/common';
+import { ContactDto } from '../types/dto/ContactDto';
+import { FavoriteContactsDto } from '../types/dto/FavoriteContactsDto';
+import { GroupContactsDto } from '../types/dto/GroupContactsDto';
 
 export interface CommonPageProps {
 	contactsState: State<ContactDto[]>,
