@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { RootState } from 'store/reducers/rootReducer';
@@ -18,9 +18,9 @@ export const GroupPage = memo(() => {
 		if (!contacts.length) dispatch(fetchContacts()).then(r => r);
 		if (!groups.length) dispatch(fetchGroups()).then(r => r);
 	}, [dispatch, contacts.length, groups.length]);
-	const handleToggle = (id: string) => {
+	const handleToggle = useCallback((id: string) => {
 		dispatch(toggleFavorite(id));
-	};
+	}, [dispatch]);
 	const group = groups.find(({ id }) => id === groupId);
 	const filteredContacts = group
 		? contacts.filter(c => group.contactIds.includes(c.id))
@@ -59,7 +59,7 @@ export const GroupPage = memo(() => {
 							 sm={12}>
 							<ContactCard contact={contact}
 										 withLink
-										 favoriteIds={favoriteIds}
+										 isFavorite={favoriteIds.includes(contact.id)}
 										 onToggleFavorite={handleToggle}
 							/>
 						</Col>

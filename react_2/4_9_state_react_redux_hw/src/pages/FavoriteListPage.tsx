@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { ContactCard } from '../components';
 import { RootState } from '../store/reducers';
@@ -21,9 +21,9 @@ export const FavoriteListPage = memo(() => {
 	}, [dispatch]);
 
 	const favoriteContacts = contacts.filter(({ id }) => favoriteIds.includes(id));
-	const handleToggle = (id: string) => {
+	const handleToggle = useCallback((id: string) => {
 		dispatch(toggleFavorite(id));
-	};
+	}, [dispatch]);
 	return (
 		<Row xxl={4}
 			 className="g-4">
@@ -31,7 +31,7 @@ export const FavoriteListPage = memo(() => {
 				<Col key={contact.id}>
 					<ContactCard contact={contact}
 								 withLink
-								 favoriteIds={favoriteIds}
+								 isFavorite={favoriteIds.includes(contact.id)}
 								 onToggleFavorite={handleToggle}
 					/>
 				</Col>

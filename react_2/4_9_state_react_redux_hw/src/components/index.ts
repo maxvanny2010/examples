@@ -5,3 +5,7 @@ export * from './FilterForm';
 export * from './GroupContactsCard';
 export * from './Layout';
 export * from './MainMenu';
+export * from './FavoriteToggleButton';
+export * from './ContactListItem';
+export * from './FilterFormWrapper';
+export * from './RowMemo';

@@ -1,10 +1,9 @@
-import React, { memo, useEffect, useState } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { ContactDto } from '../types/dto';
 import { RootState } from '../store/reducers';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { fetchContacts, fetchGroups, toggleFavorite } from '../store/thunks';
-import { ContactCard, FilterForm, FilterFormValues } from '../components';
+import { ContactsRow, FilterFormValues, FilterRow } from '../components';
 
 export const ContactListPage = memo(() => {
 	const dispatch = useAppDispatch();
@@ -20,10 +19,13 @@ export const ContactListPage = memo(() => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		setContacts(contactsData);
+		setContacts(prevContacts => {
+			if (prevContacts === contactsData) return prevContacts;
+			return contactsData;
+		});
 	}, [contactsData]);
 
-	const onSubmit = (fv: Partial<FilterFormValues>) => {
+	const onSubmit = useCallback((fv: Partial<FilterFormValues>) => {
 		let findContacts: ContactDto[] = contactsData;
 
 		if (fv.name) {
@@ -44,37 +46,18 @@ export const ContactListPage = memo(() => {
 		}
 
 		setContacts(findContacts);
-	};
-	const handleToggle = (id: string) => {
+	}, [contactsData, groupsData]);
+
+	const handleToggle = useCallback((id: string) => {
 		dispatch(toggleFavorite(id));
-	};
+	}, [dispatch]);
 	return (
 		<>
-			<Row className="mb-3">
-				<Col>
-					<FilterForm
-						groupContactsList={groupsData}
-						initialValues={{}}
-						onSubmit={onSubmit}
-					/>
-				</Col>
-			</Row>
-
-			<Row className="g-4">
-				{contacts.map((contact) => (
-					<Col key={contact.id}
-						 xxl={3}
-						 xl={4}
-						 md={6}
-						 sm={12}>
-						<ContactCard contact={contact}
-									 withLink
-									 favoriteIds={favoriteIds}
-									 onToggleFavorite={handleToggle} />
-					</Col>
-				))}
-			</Row>
+			<FilterRow groupsData={groupsData}
+					   onSubmit={onSubmit} />
+			<ContactsRow contacts={contacts}
+						 favoriteIds={favoriteIds}
+						 onToggleFavorite={handleToggle} />
 		</>
 	);
-
 });

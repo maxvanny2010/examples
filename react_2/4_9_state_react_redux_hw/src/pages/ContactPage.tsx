@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { ContactDto } from '../types/dto';
@@ -24,9 +24,9 @@ export const ContactPage: FC = () => {
 	useEffect(() => {
 		setContact(() => contacts.find(({ id }) => id === contactId));
 	}, [contacts, contactId]);
-	const handleToggle = (id: string) => {
+	const handleToggle = useCallback((id: string) => {
 		dispatch(toggleFavorite(id));
-	};
+	}, [dispatch]);
 	return (
 		<Row xxl={3}>
 			<Col className="mx-auto">
@@ -34,7 +34,7 @@ export const ContactPage: FC = () => {
 					<p>Loading...</p>
 				) : contact ? (
 					<ContactCard contact={contact}
-								 favoriteIds={favoriteIds}
+								 isFavorite={favoriteIds.includes(contact.id)}
 								 onToggleFavorite={handleToggle} />
 				) : (
 					<Empty />
