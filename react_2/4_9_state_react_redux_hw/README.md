@@ -1,11 +1,15 @@
-## Установка зависимостей
+# React Module 2 Redux
 
-```bash
-npm i
-```
+## Project: Contacts
 
-## Запуск приложения
+#### [home page]
 
-```bash
-npm start
-```
+![home](public/images/home.png)
+
+#### [favorite page]
+
+![favorite](public/images/favorite.png)
+
+#### [groups page]
+
+![groups](public/images/groups.png)
