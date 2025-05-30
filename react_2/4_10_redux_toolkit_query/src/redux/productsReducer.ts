@@ -31,19 +31,29 @@ export const productsSlice = createSlice({
 		);
 	},
 });
-
+type ProductSummary = Pick<IProduct, 'id' | 'name'>;
 export const productsApiSlice = createApi({
 	reducerPath: 'productsApi',
 	baseQuery: fetchBaseQuery({ baseUrl: 'https://mocki.io/v1' }),
-	endpoints(builder) {
-		return {
-			getProducts: builder.query<IProduct[], void>({
-				query: () => ({ url: '/024c9dc2-a301-4797-8059-edb316381c26' }),
-			}),
-		};
-	},
+	endpoints: (builder) => ({
+		getProducts: builder.query<IProduct[], void>({
+			query: () => ({ url: '/024c9dc2-a301-4797-8059-edb316381c26' }),
+		}),
+		getProductSummary: builder.query<ProductSummary, string>({
+			query: (id) => `products/${id}/summary`,
+		}),
+		/*
+		 getProductById: builder.query<IProduct, string>({
+         query: (id) => `products/${id}`,
+          }),
+	    */
+	}),
 });
-
+/*
+export const {
+  useGetProductsQuery,  useGetProductByIdQuery,  useLazyGetProductByIdQuery,
+} = productsApiSlice;
+* */
 export const { increaseQuantity, decreaseQuantity } = productsSlice.actions;
 
 export const { useGetProductsQuery } = productsApiSlice;

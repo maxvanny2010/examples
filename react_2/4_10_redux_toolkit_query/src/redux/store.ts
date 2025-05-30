@@ -5,6 +5,7 @@ import { productsApiSlice, productsSlice } from './productsReducer';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
+import { productsApisSlice } from './examples/productsApisSlice';
 
 const rootReducer = persistReducer(
 	{ key: 'redux', storage: storage, throttle: 100000 },
@@ -12,6 +13,7 @@ const rootReducer = persistReducer(
 		quantities: productsSlice.reducer,
 		[orderApiSlice.reducerPath]: orderApiSlice.reducer,
 		[productsApiSlice.reducerPath]: productsApiSlice.reducer,
+		[productsApisSlice.reducerPath]: productsApisSlice.reducer,
 	}),
 );
 
