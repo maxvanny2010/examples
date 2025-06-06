@@ -83,3 +83,7 @@ export const todoSlice = createApi({
 		}),
 	}),
 });
+/**
+onQueryStarted	hook for side effects и optimistic updates
+apiSlice vs slice	apiSlice — for a server data, slice — for a local state
+util.updateQueryData	method RTR for handle update cache**/
