@@ -1,26 +1,78 @@
-import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
-import { isSuccessResponse, Response } from '../../types/response';
-import { ITodo } from '../../types/todo';
+import { isSuccessResponse, Response, Response as AppResponse } from '../../types/response';
+import { BaseQueryApi, createApi, FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { refresh } from '../auth';
 import { RootState } from '../store';
+import { ITodo } from '../../types/todo';
 
+/**
+ * timeout for fetch (cover fetchBaseQuery)
+ */
+const fetchBaseQueryWithTimeout = (
+	baseUrl: string,
+	timeout = 10000 // default: 10s
+) => {
+	const rawBaseQuery = fetchBaseQuery({
+		baseUrl,
+		prepareHeaders: (headers, api) => {
+			const state = api.getState() as RootState;
+			if (state.auth.accessToken) {
+				headers.set('authorization', `Bearer ${state.auth.accessToken}`);
+			}
+			headers.set('Content-Type', 'application/json');
+			return headers;
+		},
+	});
+
+	return async (args: FetchArgs, api: BaseQueryApi, extraOptions: any) => {
+		const abortController = new AbortController();
+
+		const timeoutId = setTimeout(() => {
+			abortController.abort();
+		}, timeout);
+
+		try {
+			return await rawBaseQuery(
+				{ ...args, signal: abortController.signal },
+				api,
+				extraOptions
+			);
+		} catch (err: any) {
+			if (err.name === 'AbortError') {
+				return {
+					error: {
+						status: 'TIMEOUT_ERROR',
+						message: 'Request timed out after 10s',
+					},
+				};
+			}
+			return {
+				error: {
+					status: 'FETCH_ERROR',
+					message: err.message,
+				},
+			};
+		} finally {
+			clearTimeout(timeoutId);
+		}
+	};
+};
+
+/**
+ * a cover with automatic update token and retries
+ */
 const retryWithRefresh = retry(
 	async (args, api, extraOptions) => {
-		const result = await fetchBaseQuery({
-			baseUrl: 'http://localhost:3142/todos',
-			prepareHeaders(headers, api) {
-				const state = api.getState() as RootState;
-				headers.append('authorization', `Bearer ${state.auth.accessToken}`);
-			},
-		})(args, api, extraOptions);
+		const baseQuery = fetchBaseQueryWithTimeout('http://localhost:3142/todos');
 
-		if (result.error?.status === 403) {
+		const result = await baseQuery(args, api, extraOptions);
+
+		if (result?.error?.status === 403) {
 			await api.dispatch(refresh());
 		}
 
 		return result;
 	},
-	{ maxRetries: 1 },
+	{ maxRetries: 1 }
 );
 
 export const todoSlice = createApi({
@@ -28,7 +80,7 @@ export const todoSlice = createApi({
 	baseQuery: retryWithRefresh,
 	tagTypes: ['todos'],
 	endpoints: builder => ({
-		getTodos: builder.query<Response<ITodo[]>, void>({
+		getTodos: builder.query<AppResponse<ITodo[]>, void>({
 			query() {
 				return {
 					url: '/',
@@ -92,7 +144,7 @@ export const todoSlice = createApi({
 			},
 			invalidatesTags: ['todos'],
 		}),
-		deleteTodo: builder.mutation<Response<ITodo[]>, ITodo['id']>({
+		deleteTodo: builder.mutation<AppResponse<ITodo[]>, ITodo['id']>({
 			query(todoId) {
 				return {
 					url: `/${todoId}`,
@@ -107,3 +159,25 @@ export const todoSlice = createApi({
 onQueryStarted	hook for side effects и optimistic updates
 apiSlice vs slice	apiSlice — for a server data, slice — for a local state
 util.updateQueryData	method RTR for handle update cache**/
+
+/**
+ const axiosBaseQuery =
+  ({ baseUrl }: { baseUrl: string }): BaseQueryFn => async ({ url, method, data }) => {
+    try {
+      const result = await axios({
+        url: baseUrl + url,
+        method,
+        data,
+        timeout: 10000, // ⏱ timeout
+      });
+      return { data: result.data };
+    } catch (axiosError) {
+      return {
+        error: {
+          status: axiosError.response?.status || 'CUSTOM_ERROR',
+          data: axiosError.message,
+        },
+      };
+    }
+  };
+ * **/
