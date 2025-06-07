@@ -42,23 +42,43 @@ export const todoSlice = createApi({
 				method: 'POST',
 				body: { title },
 			}),
-			async onQueryStarted(_, api) {
-				const { data } = await api.queryFulfilled;
+			async onQueryStarted(title, { dispatch, queryFulfilled }) {
+				const tempId = Date.now().toString();
+				// optimistic update:  add new todos before a server response
+				const patchResult = dispatch(
+					todoSlice.util.updateQueryData('getTodos', undefined, (draft) => {
+						if (draft.success) {
+							draft.data.push({
+								id: tempId,
+								title,
+								completed: false,
+							});
+						}
+					}),
+				);
 
-				if (isSuccessResponse(data)) {
-					api.dispatch(
-						todoSlice.util.updateQueryData(
-							'getTodos',
-							undefined,
-							(draft) => {
-								if (draft.success) {
-									draft.data.push(
-										data.data,
-									);
+				try {
+					const { data } = await queryFulfilled;
+
+					// if response has format { success: false }, will do undo
+					if (!isSuccessResponse(data)) {
+						patchResult.undo();
+						return;
+					}
+					// 2. replace a temporary id to a real id
+					dispatch(
+						todoSlice.util.updateQueryData('getTodos', undefined, (draft) => {
+							if (draft.success) {
+								const index = draft.data.findIndex((t) => t.id === tempId);
+								if (index !== -1) {
+									draft.data[index] = data.data; // replace full object
 								}
-							},
-						),
+							}
+						}),
 					);
+				} catch (err) {
+					// network or server break — undo too.
+					patchResult.undo();
 				}
 			},
 		}),
