@@ -1,63 +1,62 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { ContactDto } from '../types/dto';
-import { RootState } from '../store/reducers';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchContacts, fetchGroups, toggleFavorite } from '../store/thunks';
+import { RootState } from '../ducks/store';
+import { toggleFavorite } from '../ducks/favorite/slice';
+import { useAppDispatch, useAppSelector } from '../ducks/hooks';
+import { useGetContactsQuery, useGetGroupsQuery } from '../ducks/apiSlice';
+
 import { ContactsRow, FilterFormValues, FilterRow } from '../components';
 
 export const ContactListPage = memo(() => {
 	const dispatch = useAppDispatch();
 
-	const { data: contactsData } = useAppSelector((state: RootState) => state.contacts);
-	const { data: groupsData } = useAppSelector((state: RootState) => state.groups);
+	// RTK Query
+	const { data: contacts = [] } = useGetContactsQuery();
+	const { data: groups = [] } = useGetGroupsQuery();
+
+	// Redux local
 	const favoriteIds = useAppSelector((state: RootState) => state.favorites.data);
 
-	const [contacts, setContacts] = useState<ContactDto[]>([]);
-	useEffect(() => {
-		dispatch(fetchContacts()).then(r => r);
-		dispatch(fetchGroups()).then(r => r);
-	}, [dispatch]);
-
-	useEffect(() => {
-		setContacts(prevContacts => {
-			if (prevContacts === contactsData) return prevContacts;
-			return contactsData;
-		});
-	}, [contactsData]);
+	// local filter
+	const [filteredContacts, setFilteredContacts] = useState<ContactDto[]>(contacts);
 
 	const onSubmit = useCallback((fv: Partial<FilterFormValues>) => {
-		let findContacts: ContactDto[] = contactsData;
+		let result = contacts;
 
 		if (fv.name) {
-			const fvName = fv.name.toLowerCase();
-			findContacts = findContacts.filter(({ name }) =>
-				name.toLowerCase().includes(fvName),
-			);
+			const name = fv.name.toLowerCase();
+			result = result.filter(({ name: n }) => n.toLowerCase().includes(name));
 		}
 
 		if (fv.groupId) {
-			const groupContacts = groupsData.find(({ id }) => id === fv.groupId);
-
-			if (groupContacts) {
-				findContacts = findContacts.filter(({ id }) =>
-					groupContacts.contactIds.includes(id),
-				);
+			const group = groups.find((g) => g.id === fv.groupId);
+			if (group) {
+				result = result.filter((c) => group.contactIds.includes(c.id));
 			}
 		}
 
-		setContacts(findContacts);
-	}, [contactsData, groupsData]);
+		setFilteredContacts(result);
+	}, [contacts, groups]);
 
 	const handleToggle = useCallback((id: string) => {
 		dispatch(toggleFavorite(id));
 	}, [dispatch]);
+
+	// show all if filter didn't use
+	const visibleContacts = useMemo(
+		() => (filteredContacts.length === 0 ? contacts : filteredContacts),
+		[filteredContacts, contacts],
+	);
+
 	return (
 		<>
-			<FilterRow groupsData={groupsData}
+			<FilterRow groupsData={groups}
 					   onSubmit={onSubmit} />
-			<ContactsRow contacts={contacts}
-						 favoriteIds={favoriteIds}
-						 onToggleFavorite={handleToggle} />
+			<ContactsRow
+				contacts={visibleContacts}
+				favoriteIds={favoriteIds}
+				onToggleFavorite={handleToggle}
+			/>
 		</>
 	);
 });

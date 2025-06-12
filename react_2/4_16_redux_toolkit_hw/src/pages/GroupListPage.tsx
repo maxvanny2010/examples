@@ -1,27 +1,17 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { RootState } from '../store/reducers';
-import { fetchGroups } from '../store/thunks';
 import { GroupContactsCard } from '../components';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useGetGroupsQuery } from '../ducks/apiSlice';
 
 export const GroupListPage = memo(() => {
-	const dispatch = useAppDispatch();
+	const { data: groups = [], isLoading, error } = useGetGroupsQuery();
 
-	const { data: groups, loading, error } = useAppSelector((state: RootState) => state.groups);
-
-	useEffect(() => {
-		if (!groups.length) {
-			dispatch(fetchGroups()).then(r => r);
-		}
-	}, [dispatch, groups.length]);
-
-	if (loading) {
+	if (isLoading) {
 		return <p>Loading groups...</p>;
 	}
 
 	if (error) {
-		return <p>Error loading: {error}</p>;
+		return <p>Error loading groups.</p>;
 	}
 
 	return (

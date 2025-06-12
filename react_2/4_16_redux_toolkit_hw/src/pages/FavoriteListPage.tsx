@@ -1,38 +1,33 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import { memo } from 'react';
+import { RootState } from '../ducks/store';
 import { Col, Row } from 'react-bootstrap';
 import { ContactCard } from '../components';
-import { RootState } from '../store/reducers';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchContacts, fetchFavorites, toggleFavorite } from '../store/thunks';
+import { useGetContactsQuery } from 'ducks/apiSlice';
+import { toggleFavorite } from '../ducks/favorite/slice';
+import { useAppDispatch, useAppSelector } from '../ducks/hooks';
 
 export const FavoriteListPage = memo(() => {
 	const dispatch = useAppDispatch();
 
-	const { data: contacts } = useAppSelector((state: RootState) => state.contacts);
+	const { data: contacts = [] } = useGetContactsQuery();
 	const favoriteIds = useAppSelector((state: RootState) => state.favorites.data);
-	useEffect(() => {
-		if (!contacts.length) {
-			dispatch(fetchContacts()).then(r => r);
-		}
-	}, [dispatch, contacts.length]);
-
-	useEffect(() => {
-		dispatch(fetchFavorites());
-	}, [dispatch]);
 
 	const favoriteContacts = contacts.filter(({ id }) => favoriteIds.includes(id));
-	const handleToggle = useCallback((id: string) => {
+
+	const handleToggle = (id: string) => {
 		dispatch(toggleFavorite(id));
-	}, [dispatch]);
+	};
+
 	return (
 		<Row xxl={4}
 			 className="g-4">
 			{favoriteContacts.map((contact) => (
 				<Col key={contact.id}>
-					<ContactCard contact={contact}
-								 withLink
-								 isFavorite={favoriteIds.includes(contact.id)}
-								 onToggleFavorite={handleToggle}
+					<ContactCard
+						contact={contact}
+						withLink
+						isFavorite={favoriteIds.includes(contact.id)}
+						onToggleFavorite={handleToggle}
 					/>
 				</Col>
 			))}
