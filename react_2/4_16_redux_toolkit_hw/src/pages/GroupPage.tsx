@@ -1,16 +1,12 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { toggleFavorite } from '../ducks/favorite/slice';
-import { useAppDispatch, useAppSelector } from '../ducks/hooks';
 import { ContactCard, Empty, GroupContactsCard } from '../components';
 import { useGetContactsQuery, useGetGroupsQuery } from '../ducks/apiSlice';
 
 export const GroupPage = memo(() => {
 	const { groupId } = useParams<{ groupId: string }>();
-	const dispatch = useAppDispatch();
 
-	const favoriteIds = useAppSelector((state) => state.favorites.data);
 
 	const { data: contacts = [] } = useGetContactsQuery();
 	const { data: groups = [] } = useGetGroupsQuery();
@@ -20,12 +16,6 @@ export const GroupPage = memo(() => {
 		? contacts.filter((c) => group.contactIds.includes(c.id))
 		: [];
 
-	const handleToggle = useCallback(
-		(id: string) => {
-			dispatch(toggleFavorite(id));
-		},
-		[dispatch],
-	);
 
 	if (!group) {
 		return <Empty />;
@@ -66,8 +56,6 @@ export const GroupPage = memo(() => {
 							<ContactCard
 								contact={contact}
 								withLink
-								isFavorite={favoriteIds.includes(contact.id)}
-								onToggleFavorite={handleToggle}
 							/>
 						</Col>
 					))}

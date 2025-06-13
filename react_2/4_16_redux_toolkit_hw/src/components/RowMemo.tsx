@@ -20,19 +20,15 @@ export const FilterRow = memo(({ groupsData, onSubmit }: FilterRowProps) => {
 
 type ContactsRowProps = {
 	contacts: ContactDto[];
-	favoriteIds: string[];
-	onToggleFavorite: (id: string) => void;
 };
 
-export const ContactsRow = memo(({ contacts, favoriteIds, onToggleFavorite }: ContactsRowProps) => {
+export const ContactsRow = memo(({ contacts }: ContactsRowProps) => {
 	return (
 		<Row className="g-4">
 			{contacts.map((contact) => (
 				<ContactListItem
 					key={contact.id}
 					contact={contact}
-					isFavorite={favoriteIds.includes(contact.id)}
-					onToggleFavorite={onToggleFavorite}
 				/>
 			))}
 		</Row>
