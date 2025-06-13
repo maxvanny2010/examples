@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 
 export const MainMenu = () => {
@@ -8,8 +9,8 @@ export const MainMenu = () => {
 			<Container>
 				<Navbar.Brand href="/"><h1>Book Contacts</h1></Navbar.Brand>
 				<Nav className="me-auto">
-					<Nav.Link href="/groups">Groups</Nav.Link>
-					<Nav.Link href="/favorit">Favorite</Nav.Link>
+					<Nav.Link as={NavLink} to="/groups">Groups</Nav.Link>
+					<Nav.Link as={NavLink} to="/favorit">Favorite</Nav.Link>
 				</Nav>
 			</Container>
 		</Navbar>
