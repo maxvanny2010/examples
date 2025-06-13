@@ -15,13 +15,16 @@ const favoritesSlice = createSlice({
 	reducers: {
 		toggleFavorite(state, action: PayloadAction<string>) {
 			const id = action.payload;
-			const index = state.data.indexOf(id);
-			if (index !== -1) {
-				state.data.splice(index, 1);
+			const favoritesSet = new Set(state.data);
+			if (favoritesSet.has(id)) {
+				favoritesSet.delete(id);
 			} else {
-				state.data.push(id);
+				favoritesSet.add(id);
 			}
-		},
+
+			state.data = Array.from(favoritesSet);
+		}
+
 	},
 });
 
