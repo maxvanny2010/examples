@@ -17,7 +17,7 @@ function fillTokens(login) {
 			if (tokens[login]) {
 				tokens[login].accessToken = undefined;
 			}
-		}, 1000),
+		}, 4000),// token very quickly destroyed
 	};
 
 	return {

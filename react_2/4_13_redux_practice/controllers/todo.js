@@ -25,7 +25,7 @@ todoRouter.patch('/:id', (req, res) => {
 });
 
 todoRouter.delete('/:id', (req, res) => {
-	const result = todoService.delete(req.user, req.params.id, req.body.password);
+	const result = todoService.delete(req.user, req.params.id);
 
 	res.status(result.success ? 200 : 400).json(result);
 });
