@@ -1,4 +1,4 @@
-# React Module 2 Redux Toolkit
+# React Module 2 MobiX
 
 ## Project: Contacts
 

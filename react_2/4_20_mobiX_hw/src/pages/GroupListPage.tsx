@@ -1,17 +1,23 @@
-import React, { memo } from 'react';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Col, Row } from 'react-bootstrap';
 import { GroupContactsCard } from '../components';
-import { useGetGroupsQuery } from '../ducks/apiSlice';
+import { groupsStore } from '../ducks/stores';
 
-export const GroupListPage = memo(() => {
-	const { data: groups = [], isLoading, error } = useGetGroupsQuery();
+export const GroupListPage = observer(() => {
+	useEffect(() => {
+		groupsStore.get().then(() => {
+		});
+	}, []);
 
-	if (isLoading) {
+	const { data: groups, loading, error } = groupsStore;
+
+	if (loading) {
 		return <p>Loading groups...</p>;
 	}
 
 	if (error) {
-		return <p>Error loading groups.</p>;
+		return <p>Error loading groups: {error}</p>;
 	}
 
 	return (

@@ -1,22 +1,18 @@
-import React, { memo, useCallback } from 'react';
+import React from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
-import { useAppDispatch, useAppSelector } from '../ducks/hooks';
-import { toggleFavorite } from '../ducks/favorite/slice';
+import { favoritesStore } from '../ducks/stores';
+import { observer } from 'mobx-react-lite';
 
 interface Props {
 	id: string;
 	className?: string;
 }
 
-export const FavoriteToggleButton = memo(({ id, className }: Props) => {
+export const FavoriteToggleButton = observer(({ id, className }: Props) => {
 	const HeartIcon = FaHeart as unknown as React.FC;
 	const HeartOutlineIcon = FaRegHeart as unknown as React.FC;
-	const dispatch = useAppDispatch();
-	const isFavorite = useAppSelector((s) => s.favorites.data.includes(id));
-
-	const handleToggle = useCallback(() => {
-		dispatch(toggleFavorite(id));
-	}, [dispatch, id]);
+	const isFavorite = favoritesStore.isFavorite(id);
+	const handleToggle = () => favoritesStore.toggleFavorite(id);
 
 	return (
 		<span

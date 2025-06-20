@@ -1,21 +1,32 @@
-import React, { memo } from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
+import { contactsStore, groupsStore } from '../ducks/stores';
 import { ContactCard, Empty, GroupContactsCard } from '../components';
-import { useGetContactsQuery, useGetGroupsQuery } from '../ducks/apiSlice';
 
-export const GroupPage = memo(() => {
+export const GroupPage = observer(() => {
 	const { groupId } = useParams<{ groupId: string }>();
 
+	useEffect(() => {
+		contactsStore.get().then(() => {
+		});
+		groupsStore.get().then(() => {
+		});
+	}, []);
 
-	const { data: contacts = [] } = useGetContactsQuery();
-	const { data: groups = [] } = useGetGroupsQuery();
-
-	const group = groups.find(({ id }) => id === groupId);
+	const group = groupsStore.data.find(({ id }) => id === groupId);
 	const filteredContacts = group
-		? contacts.filter((c) => group.contactIds.includes(c.id))
+		? contactsStore.data.filter((c) => group.contactIds.includes(c.id))
 		: [];
 
+	if (groupsStore.loading || contactsStore.loading) {
+		return <p>Loading...</p>;
+	}
+
+	if (groupsStore.error || contactsStore.error) {
+		return <p>Error loading data</p>;
+	}
 
 	if (!group) {
 		return <Empty />;
@@ -53,10 +64,8 @@ export const GroupPage = memo(() => {
 							 xl={4}
 							 md={6}
 							 sm={12}>
-							<ContactCard
-								contact={contact}
-								withLink
-							/>
+							<ContactCard contact={contact}
+										 withLink />
 						</Col>
 					))}
 				</Row>

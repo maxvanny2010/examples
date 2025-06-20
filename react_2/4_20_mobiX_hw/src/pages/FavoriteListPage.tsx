@@ -1,26 +1,23 @@
-import { memo } from 'react';
-import { RootState } from '../ducks/store';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Col, Row } from 'react-bootstrap';
+
 import { ContactCard } from '../components';
-import { useGetContactsQuery } from 'ducks/apiSlice';
-import { useAppSelector } from '../ducks/hooks';
+import { contactsStore } from '../ducks/stores';
 
-export const FavoriteListPage = memo(() => {
-
-	const { data: contacts = [] } = useGetContactsQuery();
-	const favoriteIds = useAppSelector((state: RootState) => state.favorites.data);
-
-	const favoriteContacts = contacts.filter(({ id }) => favoriteIds.includes(id));
-
+export const FavoriteListPage = observer(() => {
+	useEffect(() => {
+		contactsStore.get().then(() => {
+		});
+	}, []);
+	const favoriteContacts = contactsStore.favoriteContacts;
 	return (
 		<Row xxl={4}
 			 className="g-4">
-			{favoriteContacts.map((contact) => (
+			{favoriteContacts.map(contact => (
 				<Col key={contact.id}>
-					<ContactCard
-						contact={contact}
-						withLink
-					/>
+					<ContactCard contact={contact}
+								 withLink />
 				</Col>
 			))}
 		</Row>

@@ -1,49 +1,29 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
-import { ContactDto } from '../types/dto';
-import { useGetContactsQuery, useGetGroupsQuery } from '../ducks/apiSlice';
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import { ContactsRow, FilterFormValues, FilterRow } from '../components';
+import { contactsStore, filterStore, groupsStore } from '../ducks/stores';
 
-export const ContactListPage = memo(() => {
-	// RTK Query
-	const { data: contacts = [] } = useGetContactsQuery();
-	const { data: groups = [] } = useGetGroupsQuery();
+export const ContactListPage = observer(() => {
+	useEffect(() => {
+		contactsStore.get().then(() => {
+		});
+		groupsStore.get().then(() => {
+		});
+	}, []);
 
-	// local filter
-	const [filteredContacts, setFilteredContacts] = useState<ContactDto[]>(contacts);
+	const groups = groupsStore.data;
+	const filtered = filterStore.filteredContacts;
 
-	const onSubmit = useCallback((fv: Partial<FilterFormValues>) => {
-		let result = contacts;
-
-		if (fv.name) {
-			const name = fv.name.toLowerCase();
-			result = result.filter(({ name: n }) => n.toLowerCase().includes(name));
-		}
-
-		if (fv.groupId) {
-			const group = groups.find((g) => g.id === fv.groupId);
-			if (group) {
-				result = result.filter((c) => group.contactIds.includes(c.id));
-			}
-		}
-
-		setFilteredContacts(result);
-	}, [contacts, groups]);
-
-
-	// show all if filter didn't use
-	const visibleContacts = useMemo(
-		() => (filteredContacts.length === 0 ? contacts : filteredContacts),
-		[filteredContacts, contacts],
-	);
+	const onSubmit = (fv: Partial<FilterFormValues>) => {
+		filterStore.setFilter(fv);
+	};
 
 	return (
 		<>
 			<FilterRow groupsData={groups}
 					   onSubmit={onSubmit} />
-			<ContactsRow
-				contacts={visibleContacts}
-			/>
+			<ContactsRow contacts={filtered} />
 		</>
 	);
 });
