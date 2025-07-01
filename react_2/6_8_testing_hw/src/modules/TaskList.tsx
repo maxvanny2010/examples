@@ -1,10 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Empty } from 'src/components/Empty';
 import { List } from 'src/components/List';
-import { deleteTask, tasksSelector, toggleTask } from 'src/store/taskSlice';
+import { deleteTask, toggleTask } from 'src/store/taskSlice';
 
-export const TaskList = () => {
-	const items = useSelector(tasksSelector);
+type Props = {
+	items: Task[];
+};
+export const TaskList = ({ items }: Props) => {
 	const dispatch = useDispatch();
 
 	const handleDelete = (id: Task['id']) => {

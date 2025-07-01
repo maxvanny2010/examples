@@ -1,10 +1,12 @@
 import { Provider } from 'react-redux';
-import { store } from 'src/store/configureStore';
+import { createTestStore } from './createTestStore';
+import React from 'react';
 
 type Props = {
 	children: React.ReactNode
 }
 
-export const JestStoreProvider = ({ children }: Props) => (
-	<Provider store={store}>{children}</Provider>
-);
+export const JestStoreProvider = ({ children }: Props) => {
+	const store = createTestStore();
+	return <Provider store={store}>{children}</Provider>;
+};

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack serve --port 3000",
     "build": "NODE_ENV=production webpack",
-    "test": "jest"
+    "test": "node --no-deprecation ./node_modules/jest/bin/jest.js"
   },
   "author": "",
   "license": "ISC",

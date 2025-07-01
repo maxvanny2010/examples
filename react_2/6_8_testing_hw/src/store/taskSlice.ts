@@ -17,6 +17,8 @@ export const taskListSlice = createSlice({
 	initialState,
 	reducers: {
 		addTask: (state, action: PayloadAction<Task['header']>) => {
+			const uncompleted = state.list.filter(t => !t.done).length;
+			if (uncompleted >= 10) return;
 			state.list.push({
 				id: crypto.randomUUID(),
 				header: action.payload,

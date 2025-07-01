@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react';
 import { List } from 'src/components/List';
+import { configureStore } from '@reduxjs/toolkit';
+import { addTask, taskListSlice } from 'src/store/taskSlice';
 
 it('отображение списка задач', () => {
 	const onDelete = jest.fn();
@@ -40,6 +42,23 @@ it('отображение списка задач', () => {
 	expect(firstRender).toMatchDiffSnapshot(secondRender);
 });
 
-it('Список содержит не больше 10 невыполненных задач', () => {
+it('не добавляет задачу, если уже есть 10 невыполненных', () => {
+	const preloadedState = {
+		taskList: {
+			list: Array.from({ length: 10 }, (_, i) => ({
+				id: `${i}`,
+				header: `Задача ${i}`,
+				done: false,
+			})),
+			notification: '',
+		},
+	};
 
+	const store = configureStore({ reducer: { taskList: taskListSlice.reducer }, preloadedState });
+	store.dispatch(addTask('Новая задача'));
+
+	const state = store.getState();
+	expect(state.taskList.list).toHaveLength(10);
+	expect(state.taskList.list.some(t => t.header === 'Новая задача')).toBe(false);
 });
+

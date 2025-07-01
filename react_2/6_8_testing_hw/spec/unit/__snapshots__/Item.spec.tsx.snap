@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Элемент списка задач корректно отображает задачу (snapshot) 1`] = `
+<div>
+  <li
+    class="item-wrapper"
+  >
+    <input
+      id="1"
+      type="checkbox"
+    />
+    <label
+      for="1"
+    >
+      Снапшот
+    </label>
+    <button
+      class="button button-with-icon"
+      data-alt="Удалить"
+      disabled=""
+    >
+      <img
+        alt="Удалить"
+        src="[object Object]"
+      />
+    </button>
+  </li>
+</div>
+`;

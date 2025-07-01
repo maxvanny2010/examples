@@ -13,6 +13,11 @@
     "sourceMap": true,
     "target": "esnext",
     "outDir": "build",
+    "types": [
+      "@testing-library/jest-dom",
+      "jest",
+      "node"
+    ],
     "paths": {
       "src/*": [
         "./src/*"

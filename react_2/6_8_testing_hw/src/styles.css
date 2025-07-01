@@ -25,10 +25,15 @@ body {
 
     background: rgb(60, 66, 74);
     background: linear-gradient(315deg, rgba(60, 66, 74, 1) 50%, rgba(62, 68, 77, 1) 50%);
-    width: 270px;
+    width: 470px;
     height: 84vh;
 }
 
 h3 {
     margin: 0 auto;
 }
+
+button:not(:last-child) {
+    margin-right: 10px;
+}
+
