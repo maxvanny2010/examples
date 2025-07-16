@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:client": "esbuild src/client.jsx --bundle --outfile=dist/bundle.js --jsx=automatic",
     "build:server": "esbuild src/server.jsx --bundle --outfile=build/server.js --jsx=automatic --platform=node",
-    "build": "npm run build:client && npm run build:server",
     "start": "node build/server.js"
   },
   "keywords": [],
@@ -15,7 +13,7 @@
   "dependencies": {
     "esbuild": "^0.25.6",
     "express": "^5.1.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }
