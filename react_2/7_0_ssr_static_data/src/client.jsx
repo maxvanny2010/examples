@@ -2,4 +2,9 @@ import React from 'react';
 import { App } from './App';
 import ReactDOMClient from 'react-dom/client';
 
-ReactDOMClient.hydrateRoot(document.getElementById('root'), <App />);
+App.getServerSideProps()
+	.then((data) => {
+		ReactDOMClient.hydrateRoot(
+			document.getElementById('root'), <App data={data} />);
+	});
+
