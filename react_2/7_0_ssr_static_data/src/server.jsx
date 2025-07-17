@@ -7,7 +7,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 const app = express();
 app.get('/', async (req, res) => {
 	const template = await readFile('./index.html', 'utf8');
-	const html = renderToStaticMarkup(<App />);
+	const data = await App.getServerSideProps();
+	const html = renderToStaticMarkup(<App data={data}/>);
 
 	res.send(template.replace('<div id="root"></div>', `<div id="root">${html}</div>`));
 });
