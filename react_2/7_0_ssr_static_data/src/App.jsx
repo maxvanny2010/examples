@@ -1,28 +1,12 @@
 import { useState } from 'react';
+import { List } from './List';
 
-export const App = ({ data = [] }) => {
+export const App = () => {
 	const [count, setCount] = useState(0);
 	return (
 		<div>Count - {count}
 			<button onClick={() => setCount(prev => prev + 1)}>Click</button>
-			<ul>
-				{
-					data.map(({ name, mark }) => (
-						<li key={name}>{name}-{mark}</li>
-					))
-				}
-			</ul>
+			<List />
 		</div>
 	);
-};
-
-const data = [
-	{ name: 'TypeScript', mark: new Date().getSeconds() },
-	{ name: 'JavaScript', mark: '4.8' },
-	{ name: 'Java', mark: '5.0' },
-];
-
-App.getServerSideProps = async () => {
-	await new Promise((r) => setTimeout(r, 2000));
-	return data;
 };

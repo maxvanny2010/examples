@@ -12,10 +12,8 @@ http.createServer(async (req, res) => {
 		return;
 	}
 	const template = await readFile('./index.html', 'utf8');
-	const data = await App.getServerSideProps();
-	const html = renderToString(<App data={data} />);
+	const html = renderToString(<App />);
 	const fullHtml = template
-		.replace('<div id="root"></div>', `<div id="root">${html}</div>`)
-		.replace('</body>', `<script>window._INITIAL_DATA_ = ${JSON.stringify(data)}</script></body>`);
+		.replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 	res.end(fullHtml);
 }).listen(3000, () => console.log('Server started on port 3000'));
