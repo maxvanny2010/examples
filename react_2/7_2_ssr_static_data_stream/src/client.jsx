@@ -1,6 +1,8 @@
-import React from 'react';
 import { App } from './App';
+import React from 'react';
 import ReactDOMClient from 'react-dom/client';
 
-ReactDOMClient.hydrateRoot(document.getElementById('root'), <App />);
+const root = document.getElementById('root');
+const data = window.__DATA__; // получаем серверные данные
 
+ReactDOMClient.hydrateRoot(root, <App initialData={data} />);

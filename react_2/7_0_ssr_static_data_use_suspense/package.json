@@ -13,9 +13,11 @@
   "author": "maxvanny2010",
   "license": "ISC",
   "dependencies": {
-    "esbuild": "^0.25.6",
     "express": "^5.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.6"
   }
 }
