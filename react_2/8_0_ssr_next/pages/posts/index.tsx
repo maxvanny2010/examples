@@ -11,7 +11,7 @@ export default function IndexPostPage() {
 
 	const handleClick = (href: string) => {
 		router.push(href).then(r => r);
-		router.replace(href).then(r => r);// return promise wait open page
+		//router.replace(href).then(r => r);// return promise wait open page
 	};
 
 	return (
