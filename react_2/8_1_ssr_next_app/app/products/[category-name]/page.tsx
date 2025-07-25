@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 
-export default function ProgrammingPage() {
+export default function CategoryPage() {
 	return <div>Programming Page</div>;
 }
 
-ProgrammingPage.getLayout = (page: ReactElement) => {
+CategoryPage.getLayout = (page: ReactElement) => {
 	return (
 		<>
 			<header className="bg-gray-800 text-white p-4">HEADER</header>
