@@ -1,10 +1,15 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { Film } from '@/types/film';
 import { BackButton } from '@/components/BackButton';
+import { ParsedUrlQuery } from 'node:querystring';
 
 interface FilmDetailPageProps {
 	film: Film | null;
 	error?: string;
+}
+
+interface Params extends ParsedUrlQuery {
+	id: string;
 }
 
 export default function FilmDetailPage({ film, error }: FilmDetailPageProps) {
@@ -44,17 +49,34 @@ export default function FilmDetailPage({ film, error }: FilmDetailPageProps) {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-	const id = ctx.params?.id;
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
 	try {
-		const res = await fetch(`https://www.swapi.tech/api/films/${id}`);
+		const res = await fetch(`https://www.swapi.tech/api/films`);
 		const data = await res.json();
 
-		if (data.message === 'not found') {
-			return {
-				notFound: true,
-			};
-		}
+		const paths = data.result.map((film: any) => ({
+			params: { id: film.uid },
+		}));
+
+		return {
+			paths,
+			fallback: false, // или 'blocking', если есть риск появления новых фильмов
+		};
+	} catch {
+		// В случае ошибки вернём пустой список путей, можно также fallback: 'blocking'
+		return {
+			paths: [],
+			fallback: false,
+		};
+	}
+};
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+	try {
+		const id = params?.id;
+		const res = await fetch(`https://www.swapi.tech/api/films/${id}`);
+		if (!res.ok) throw new Error('Ошибка запроса');
+
+		const data = await res.json();
 
 		return {
 			props: {
@@ -65,7 +87,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 		return {
 			props: {
 				film: null,
-				error: 'Ошибка загрузки данных',
+				error: 'Ошибка загрузки данных фильма',
 			},
 		};
 	}

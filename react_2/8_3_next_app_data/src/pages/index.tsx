@@ -1,8 +1,8 @@
-import { GetServerSideProps } from 'next';
 import { FilmCard } from '@/components/FilmCard';
 import { PackageCard } from '@/components/PackageCard';
 import { readFile } from 'node:fs/promises';
 import { Film } from '@/types/film';
+import { GetStaticProps } from 'next';
 
 interface HomeProps {
 	films: Film[];
@@ -35,7 +35,7 @@ export default function Home({ films, file }: HomeProps) {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 	const res = await fetch('https://www.swapi.tech/api/films');
 	const data = await res.json();
 	const films = data.result || [];
@@ -46,5 +46,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 			films,
 			file,
 		},
+		revalidate: 60 * 60,
 	};
 };
