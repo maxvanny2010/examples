@@ -1,18 +1,12 @@
 import React from 'react';
+import type { PackageData } from '@/shema/packageSchema';
 
-interface PackageData {
-	name: string;
-	version: string;
-	description?: string;
-	dependencies?: Record<string, string>;
-	devDependencies?: Record<string, string>;
-}
 
 interface PackageCardProps {
 	data: PackageData;
 }
 
-export const PackageCard: React.FC<PackageCardProps> = ({ data }) => {
+export const PackageCard = ({ data }: PackageCardProps) => {
 	return (
 		<div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-xl mx-auto mb-6">
 			<h2 className="text-xl font-bold mb-4 text-black">📦 package.json</h2>

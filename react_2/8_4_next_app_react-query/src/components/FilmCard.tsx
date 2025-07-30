@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Film } from '@/types/film';
+import type { Film } from '@/shema/filmPropertiesSchema';
 
 interface FilmCardProps {
 	film: Film;

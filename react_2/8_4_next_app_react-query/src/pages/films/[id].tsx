@@ -1,35 +1,41 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { Film } from '@/types/film';
+import { GetServerSideProps } from 'next';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import { getFilmById } from '@/lib/api';
+import type { Film } from '@/shema/filmPropertiesSchema';
+import { TopLoadingBar } from '@/components/TopLoadingBar';
 import { BackButton } from '@/components/BackButton';
-import { ParsedUrlQuery } from 'node:querystring';
 
-interface FilmDetailPageProps {
-	film: Film | null;
-	error?: string;
-}
-
-interface Params extends ParsedUrlQuery {
+interface PageProps {
 	id: string;
+	initialData: Film,
 }
 
-export default function FilmDetailPage({ film, error }: FilmDetailPageProps) {
+export default function FilmPage({ id, initialData }: PageProps) {
+	const { data, isLoading, error } = useQuery<Film>({
+		queryKey: ['film', id],
+		queryFn: () => getFilmById(id),
+		initialData: initialData,
+		enabled: !!id,
+	});
+
+	if (isLoading) return <TopLoadingBar />;
 	if (error)
 		return (
 			<div className="min-h-screen flex flex-col justify-center items-center text-red-600">
-				<p>{error}</p>
+				<p>{(error as Error).message}</p>
 				<BackButton />
 			</div>
 		);
 
-	if (!film)
+	if (!data)
 		return (
 			<div className="min-h-screen flex flex-col justify-center items-center">
-				<p>Данные отсутствуют</p>
+				<p>No Data</p>
 				<BackButton />
 			</div>
 		);
 
-	const { title, director, producer, release_date, opening_crawl, episode_id } = film.properties;
+	const { title, episode_id, opening_crawl, director, producer, release_date } = data.properties;
 
 	return (
 		<div className="min-h-screen bg-gray-100 p-6">
@@ -49,46 +55,25 @@ export default function FilmDetailPage({ film, error }: FilmDetailPageProps) {
 	);
 }
 
-export const getStaticPaths: GetStaticPaths<Params> = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const id = context.params?.id as string;
+	const queryClient = new QueryClient();
+
 	try {
-		const res = await fetch(`https://www.swapi.tech/api/films`);
-		const data = await res.json();
-
-		const paths = data.result.map((film: any) => ({
-			params: { id: film.uid },
-		}));
-
-		return {
-			paths,
-			fallback: false, // или 'blocking', если есть риск появления новых фильмов
-		};
-	} catch {
-		// В случае ошибки вернём пустой список путей, можно также fallback: 'blocking'
-		return {
-			paths: [],
-			fallback: false,
-		};
-	}
-};
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-	try {
-		const id = params?.id;
-		const res = await fetch(`https://www.swapi.tech/api/films/${id}`);
-		if (!res.ok) throw new Error('Ошибка запроса');
-
-		const data = await res.json();
+		const film = await getFilmById(id);
+		queryClient.setQueryData(['film', id], film);
 
 		return {
 			props: {
-				film: data.result,
+				id,
+				initialData: film,
+				dehydratedState: dehydrate(queryClient),
 			},
 		};
-	} catch {
+	} catch (error) {
+		console.error('Loading data mistake:', error);
 		return {
-			props: {
-				film: null,
-				error: 'Ошибка загрузки данных фильма',
-			},
+			notFound: true,
 		};
 	}
 };
