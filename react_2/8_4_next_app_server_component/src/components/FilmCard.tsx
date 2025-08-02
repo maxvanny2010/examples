@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import type { Film } from '@/shema/filmPropertiesSchema';
+import { SmartLink } from '@/components/SmartLink';
 
 interface FilmCardProps {
 	film: Film;
@@ -10,7 +10,7 @@ export const FilmCard = ({ film }: FilmCardProps) => {
 	const { title, opening_crawl, director, producer, release_date } = properties;
 
 	return (
-		<Link
+		<SmartLink
 			href={`/films/${uid}`}
 			className="block bg-white shadow-lg rounded-lg p-6 w-full max-w-sm hover:shadow-xl transition-shadow duration-300 text-black h-full"
 		>
@@ -27,6 +27,6 @@ export const FilmCard = ({ film }: FilmCardProps) => {
 				<p className="pl-2"><strong>Release Date:</strong> {release_date}</p>
 			</div>
 
-		</Link>
+		</SmartLink>
 	);
 };
