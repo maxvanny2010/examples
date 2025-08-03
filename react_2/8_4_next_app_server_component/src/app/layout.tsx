@@ -2,11 +2,16 @@ import '@/styles/globals.css';
 import { Header } from '@/components/Header';
 import ProgressBar from '@/components/ProgressBar';
 import React from 'react';
+import { Metadata } from 'next';
 
-export const metadata = {
-	title: 'Star Wars Films',
-	description: 'Next.js App using Server Components',
+export const metadata: Metadata = {
+	title: {
+		default: 'Star Wars App',
+		template: '%s | Star Wars',
+	},
+	description: 'Collection of films Star Wars',
 };
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (

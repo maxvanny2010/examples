@@ -3,9 +3,27 @@ import { notFound } from 'next/navigation';
 import { Loading } from '@/components/Loading';
 import { Suspense } from 'react';
 import { FilmDetails } from '@/components/FilmDetails';
+import { Metadata } from 'next';
 
 interface FilmPageProps {
 	params: { id: string };
+}
+
+export async function generateMetadata({ params }: FilmPageProps): Promise<Metadata> {
+	const { id } = await params;
+	const film = await getFilmById(id);
+	if (!film) return {};
+
+	const { title, release_date } = film.properties;
+
+	return {
+		title: `${title} | Star Wars`,
+		description: `Star Wars film released on ${release_date}`,
+		openGraph: {
+			title: title,
+			description: `Released on ${release_date}`,
+		},
+	};
 }
 
 export default async function FilmPage({ params }: FilmPageProps) {
