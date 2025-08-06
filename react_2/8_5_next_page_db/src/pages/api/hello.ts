@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma, { User } from '@/server/db';
 
-type SafeUser = Pick<User, 'id' | 'name' | 'email'>;
+export type SafeUser = Pick<User, 'id' | 'name' | 'email'>;
 
 export default async function handler(
 	req: NextApiRequest,
