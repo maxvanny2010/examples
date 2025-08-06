@@ -1,13 +1,19 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
+import prisma, { User } from '@/server/db';
 
-type Data = {
-	name: string;
-};
+type SafeUser = Pick<User, 'id' | 'name' | 'email'>;
 
-export default function handler(
+export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<Data>,
+	res: NextApiResponse<SafeUser[]>,
 ) {
-	res.status(200).json({ name: 'John Doe' });
+	const users = await prisma.user.findMany({
+		select: {
+			id: true,
+			name: true,
+			email: true,
+		},
+	});
+
+	res.status(200).json(users);
 }
