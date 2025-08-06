@@ -1,11 +1,28 @@
+import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { SafeUser } from '@/types/SafeUser';
+import { getBaseUrl } from '@/util/getBaseUrl';
 import prisma from '@/server/db';
 
+type Props = {
+	users: SafeUser[];
+};
 
-export default function Home(users: SafeUser[]) {
+export default function Home({ users }: Props) {
+	const [data, setData] = useState<SafeUser[]>(users || []);
+	useEffect(() => {
+		const getData = async () => {
+			const response = await fetch(`${getBaseUrl()}api/hello`);
+			const data = await response.json();
+			setData(data);
+		};
+		getData().then(r => r);
+	}, []);
+	if (!data || !data.length) {
+		return <div>Loading...</div>;
+	}
 	return (
-		<pre>{JSON.stringify(users, null, 2)}</pre>
+		<pre>{JSON.stringify(data, null, 2)}</pre>
 	);
 }
 export const getServerSideProps: GetServerSideProps = async () => {
