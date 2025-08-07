@@ -8,3 +8,4 @@ export const appRouter = router({
 			return { greeting: `hello ${opts.input.text}` };
 		}),
 });
+export type AppRouter = typeof appRouter;
