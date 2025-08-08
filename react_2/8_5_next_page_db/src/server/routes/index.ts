@@ -5,7 +5,11 @@ export const appRouter = router({
 	hello: procedure
 		.input(z.object({ text: z.string() }))
 		.query(async (opts) => {
-			return { greeting: `hello ${opts.input.text}` };
+			return {
+				greeting: `hello ${opts.input.text}`,
+				date: new Date(),
+			};
+
 		}),
 });
 export type AppRouter = typeof appRouter;
