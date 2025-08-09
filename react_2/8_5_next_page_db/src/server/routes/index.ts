@@ -1,15 +1,7 @@
-import { procedure, router } from '../trpc';
-import { z } from 'zod';
+import { router } from '../trpc';
+import { eventRouter } from '@/server/routes/event';
 
 export const appRouter = router({
-	hello: procedure
-		.input(z.object({ text: z.string() }))
-		.query(async (opts) => {
-			return {
-				greeting: `hello ${opts.input.text}`,
-				date: new Date(),
-			};
-
-		}),
+	event: eventRouter,
 });
 export type AppRouter = typeof appRouter;

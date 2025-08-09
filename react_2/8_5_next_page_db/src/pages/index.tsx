@@ -1,18 +1,18 @@
 import { trpc } from '@/shared/api';
+import { EventCard } from '@/entities/event/ui/card';
 
 export default function Home() {
-	const { data, isLoading } = trpc.hello.useQuery({ text: 'SSR TRPS' });
-
-	if (isLoading) return <div>Loading...</div>;
-
-	console.log('data.date', data?.date, typeof data?.date);
-
-	const dateObj = data ? new Date(data.date) : null;
-	console.log('dateObj', dateObj, typeof dateObj);
+	const { data } = trpc.event.findMany.useQuery();
 
 	return (
-		<pre>
-			{data?.greeting} | {dateObj?.toISOString()}
-		</pre>
+		<div className="min-h-screen bg-gray-100 flex justify-center">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+				{
+					data?.map((event) => (
+						<li key={event.id}><EventCard {...event} /></li>
+					))
+				}
+			</div>
+		</div>
 	);
 }
