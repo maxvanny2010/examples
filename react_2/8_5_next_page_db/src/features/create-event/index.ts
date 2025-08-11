@@ -1,1 +1,1 @@
-export { default as CreateEventForm } from './ui/form';
+export * from './ui/form';

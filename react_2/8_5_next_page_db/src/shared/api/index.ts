@@ -5,6 +5,8 @@ import { ssrPrepass } from '@trpc/next/ssrPrepass';
 import { getBaseUrl } from '@/util/getBaseUrl';
 import superjson from 'superjson';
 
+export * from './schema';
+
 export const trpc = createTRPCNext<AppRouter>({
 	ssr: true,
 	ssrPrepass,

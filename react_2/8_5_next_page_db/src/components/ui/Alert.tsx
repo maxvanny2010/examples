@@ -1,0 +1,23 @@
+import React from 'react';
+
+type AlertProps = {
+	children: React.ReactNode;
+	onClose: () => void;
+};
+
+export const Alert = ({ children, onClose }: AlertProps) => {
+	return (
+		<div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded-md relative"
+			 role="alert">
+			<strong className="font-bold">Ошибка! </strong>
+			<span className="block sm:inline">{children}</span>
+			<button
+				onClick={onClose}
+				className="absolute top-0 bottom-0 right-0 px-4 py-3"
+				aria-label="Закрыть"
+			>
+				<span className="text-2xl">&times;</span>
+			</button>
+		</div>
+	);
+};
