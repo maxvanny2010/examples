@@ -1,8 +1,9 @@
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import prisma from '@/server/db';
+import { NextAuthOptions } from 'next-auth';
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
 	providers: [
 		CredentialsProvider({
 			name: 'Credentials',
@@ -17,6 +18,14 @@ export const authOptions = {
 			},
 		}),
 	],
+	callbacks: {
+		session: ({ session, token }) => {
+			console.log(session, token);
+			session.user.id = Number(token.sub);
+			return session;
+
+		},
+	},
 };
 
 export default NextAuth(authOptions);

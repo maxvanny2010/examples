@@ -1,4 +1,4 @@
-import { procedure, router } from '@/server/trpc';
+import { isAuth, procedure, router } from '@/server/trpc';
 import prisma from '@/server/db';
 import { CreateEventSchema } from '@/shared/api';
 
@@ -8,8 +8,8 @@ export const eventRouter = router({
 	}),
 	create: procedure
 		.input(CreateEventSchema)
-		.mutation(async ({ input }) => {
-			const user = await prisma.user.findFirstOrThrow({});
+		.use(isAuth)
+		.mutation(async ({ input, ctx: { user } }) => {
 			return prisma.event.create({
 				data: {
 					authorId: user.id,
