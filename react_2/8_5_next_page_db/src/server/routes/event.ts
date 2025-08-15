@@ -1,11 +1,18 @@
 import { isAuth, procedure, router } from '@/server/trpc';
 import prisma from '@/server/db';
-import { CreateEventSchema, JoinEventSchema } from '@/shared/api';
+import { CreateEventSchema, JoinEventSchema, UniqueEventSchema } from '@/shared/api';
 
 export const eventRouter = router({
 	findMany: procedure.query(() => {
 		return prisma.event.findMany();
 	}),
+	findUnique: procedure
+		.input(UniqueEventSchema).query(({ input }) => {
+			return prisma.event.findUnique({
+				where: input,
+				include: { participations: { include: { user: true } } },
+			});
+		}),
 	create: procedure
 		.input(CreateEventSchema)
 		.use(isAuth)

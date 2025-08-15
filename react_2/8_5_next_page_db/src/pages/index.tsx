@@ -1,22 +1,77 @@
 import { trpc } from '@/shared/api';
-import { EventCard } from '@/entities/event/ui/card';
+import { EventCard, EventCardSkeleton } from '@/entities/event';
 import { JoinEventButton } from '@/features/join-event';
 
 export default function Home() {
-	const { data } = trpc.event.findMany.useQuery();
+	// 1. Получаем не только данные, но и состояния загрузки и ошибки
+	const { data: events, isLoading, isError } = trpc.event.findMany.useQuery();
+
+	// 2. Функция для рендеринга контента в зависимости от состояния
+	const renderContent = () => {
+		// Состояние загрузки: показываем скелетоны
+		if (isLoading) {
+			return (
+				// Создаем массив из 8 элементов для отображения заглушек
+				Array.from({ length: 8 }).map((_, index) => (
+					<li key={index}>
+						<EventCardSkeleton />
+					</li>
+				))
+			);
+		}
+
+		// Состояние ошибки
+		if (isError) {
+			return (
+				<div className="sm:col-span-2 lg:col-span-4 text-center py-10">
+					<p className="text-lg text-red-500">😔 Произошла ошибка при загрузке событий.</p>
+					<p className="text-slate-500 mt-2">Пожалуйста, попробуйте обновить страницу.</p>
+				</div>
+			);
+		}
+
+		// Данные загружены, но список пуст
+		if (!events || events.length === 0) {
+			return (
+				<div className="sm:col-span-2 lg:col-span-4 text-center py-10">
+					<p className="text-lg text-slate-700">🗓️ Пока нет доступных событий.</p>
+					<p className="text-slate-500 mt-2">Загляните позже!</p>
+				</div>
+			);
+		}
+
+		// Успешная загрузка: отображаем карточки
+		return (
+			events.map((event) => (
+				<li key={event.id}
+					className="fade-in"> {/* класс для анимации */}
+					<EventCard
+						{...event}
+						action={<JoinEventButton eventId={event.id} />}
+					/>
+				</li>
+			))
+		);
+	};
 
 	return (
-		<div className="min-h-screen bg-gray-100 flex justify-center">
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
-				{
-					data?.map((event) => (
-						<li key={event.id}>
-							<EventCard
-								{...event}
-								action={<JoinEventButton eventId={event.id} />} /></li>
-					))
-				}
+		// 3. семантический тег <main> и добавляем заголовок страницы
+		<main className="min-h-screen bg-slate-50">
+			<div className="container mx-auto px-4 py-12">
+				<header className="mb-8 text-center">
+					<h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">
+						Предстоящие события
+					</h1>
+					<p className="mt-2 text-lg text-slate-600">
+						Присоединяйтесь к нашим мероприятиям и будьте в центре событий
+					</p>
+				</header>
+
+				{/* 4. <ul> для семантически корректного списка */}
+				<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+					{renderContent()}
+				</ul>
 			</div>
-		</div>
+		</main>
 	);
 }

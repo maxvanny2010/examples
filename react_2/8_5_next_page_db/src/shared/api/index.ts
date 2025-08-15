@@ -4,8 +4,12 @@ import type { AppRouter } from '@/server/routes';
 import { ssrPrepass } from '@trpc/next/ssrPrepass';
 import { getBaseUrl } from '@/util/getBaseUrl';
 import superjson from 'superjson';
+import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
 export * from './schema';
+
+export type RouterInput = inferRouterInputs<AppRouter>
+export type RouterOutput = inferRouterOutputs<AppRouter>
 
 export const trpc = createTRPCNext<AppRouter>({
 	ssr: true,
