@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Link from 'next/link';
 
 type EventCardProps = {
@@ -6,9 +6,10 @@ type EventCardProps = {
 	title: string;
 	description: string | null;
 	createdAt: Date;
+	action: ReactNode;
 };
 
-export const EventCard = ({ id, title, description, createdAt }: EventCardProps) => {
+export const EventCard = ({ id, title, description, createdAt, action }: EventCardProps) => {
 	const randomImg = `https://picsum.photos/seed/${id}/300/240`;
 
 	return (
@@ -30,9 +31,7 @@ export const EventCard = ({ id, title, description, createdAt }: EventCardProps)
 
 				{/* Кнопки */}
 				<div className="flex gap-2 mt-2">
-					<button className="bg-black text-white px-3 py-1 rounded hover:bg-gray-800 text-sm">
-						Присоединиться
-					</button>
+					{action}
 					<Link
 						href={`events/${id}`}
 						className="bg-white border border-black text-black px-3 py-1 rounded hover:bg-gray-100 text-sm"

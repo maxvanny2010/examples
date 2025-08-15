@@ -7,3 +7,7 @@ export const CreateEventSchema = z.object({
 		message: 'Invalid date format',
 	}),
 });
+export const JoinEventSchema = z.object({
+	id: z.number().int().positive(),
+});
+

@@ -1,6 +1,6 @@
 import { isAuth, procedure, router } from '@/server/trpc';
 import prisma from '@/server/db';
-import { CreateEventSchema } from '@/shared/api';
+import { CreateEventSchema, JoinEventSchema } from '@/shared/api';
 
 export const eventRouter = router({
 	findMany: procedure.query(() => {
@@ -14,6 +14,35 @@ export const eventRouter = router({
 				data: {
 					authorId: user.id,
 					...input,
+				},
+			});
+		}),
+	join: procedure
+		.input(JoinEventSchema)
+		.use(isAuth)
+		.mutation(async ({ input, ctx: { user } }) => {
+			// Создаем запись об участии и сразу же включаем в ответ
+			// связанные данные пользователя и события.
+			return prisma.participation.create({
+				data: {
+					userId: user.id,
+					eventId: input.id,
+				},
+				// ключевое изменение
+				include: {
+					user: {
+						// Можно выбрать конкретные поля, если не нужен весь объект
+						select: {
+							email: true,
+							id: true,
+						},
+					},
+					event: {
+						select: {
+							title: true,
+							id: true,
+						},
+					},
 				},
 			});
 		}),
