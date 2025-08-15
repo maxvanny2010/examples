@@ -10,7 +10,7 @@ export const JoinEventButton = ({ eventId }: JoinEventButtonProps) => {
 			console.log(`Присоединение к событию создано: ${data.user.email}, Событие: ${data.event.title}`);
 		},
 		onError: (error) => {
-			console.error('Ошибка при присоединении к событию (tRPC):', error.message);
+			console.error('Тестовый вывод: Ошибка при присоединении к событию (tRPC):', error.message);
 		},
 	});
 
