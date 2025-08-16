@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
 	],
 	callbacks: {
 		session: ({ session, token }) => {
-			console.log(session, token);
+			console.log('authOptions:', session, 'TOKEN:', token);
 			session.user.id = Number(token.sub);
 			return session;
 

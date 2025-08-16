@@ -4,7 +4,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 export const createContext = async ({ req, res }: CreateNextContextOptions) => {
 	const session = await getServerSession(req, res, authOptions);
-	console.log(session);
+	console.log('CONTEXT SESSION:', session);
 
 	return {
 		user: session?.user,
