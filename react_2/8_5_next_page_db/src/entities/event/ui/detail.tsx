@@ -1,5 +1,6 @@
 import { RouterOutput } from '@/shared/api';
 import type { FC } from 'react';
+import { HiOutlineCalendar, HiOutlineUsers } from 'react-icons/hi';
 
 // --- Типы и Вспомогательные утилиты ---
 
@@ -35,30 +36,12 @@ const formatEventDate = (date: Date | string | null | undefined): string => {
 
 // --- Компоненты-иконки (в реальном проекте лучше использовать библиотеку типа Heroicons) ---
 
-const CalendarIcon: FC = () => (
-	<svg xmlns="http://www.w3.org/2000/svg"
-		 className="h-5 w-5"
-		 fill="none"
-		 viewBox="0 0 24 24"
-		 stroke="currentColor"
-		 strokeWidth={2}>
-		<path strokeLinecap="round"
-			  strokeLinejoin="round"
-			  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-	</svg>
+export const CalendarIcon: FC = () => (
+	<HiOutlineCalendar className="h-5 w-5 text-current" />
 );
 
-const UsersIcon: FC = () => (
-	<svg xmlns="http://www.w3.org/2000/svg"
-		 className="h-6 w-6"
-		 fill="none"
-		 viewBox="0 0 24 24"
-		 stroke="currentColor"
-		 strokeWidth={2}>
-		<path strokeLinecap="round"
-			  strokeLinejoin="round"
-			  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M15 21a6 6 0 00-9-5.197M15 11a4 4 0 110-5.292" />
-	</svg>
+export const UsersIcon: FC = () => (
+	<HiOutlineUsers className="h-6 w-6 text-current" />
 );
 
 // --- Основной компонент ---
