@@ -10,7 +10,23 @@ export const eventRouter = router({
 		.input(UniqueEventSchema).query(({ input }) => {
 			return prisma.event.findUnique({
 				where: input,
-				include: { participations: { include: { user: true } } },
+				select: {
+					id:true,
+					title: true,
+					description: true,
+					createdAt: true,
+					eventDate: true,
+					participations: {
+						select: {
+							user: {
+								select: {
+									id: true,
+									name: true
+								},
+							},
+						},
+					},
+				},
 			});
 		}),
 	create: procedure
