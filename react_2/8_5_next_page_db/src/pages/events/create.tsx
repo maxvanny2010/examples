@@ -16,7 +16,7 @@ export default function CreateEvent() {
 			onSuccess: (createdEvent) => {
 				console.log(`Событие создано: ${createdEvent.title} на дату ${createdEvent.eventDate.toLocaleDateString()}`);
 				// УСПЕХ: перенаправляем на главную страницу
-				router.push('/').then(r => r);
+				router.push(`/events/${createdEvent.id}`).then(r => r);
 			},
 			onError: (error) => {
 				console.error('Ошибка при создании события:', error);
