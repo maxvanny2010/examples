@@ -4,8 +4,8 @@ import { JoinEventButton } from '@/features/join-event';
 
 export default function Home() {
 	// 1. Получаем не только данные, но и состояния загрузки и ошибки
-	const { data: events, isLoading, isError } = trpc.event.findMany.useQuery();
-
+	const { data: events, isLoading, isError, refetch } = trpc.event.findMany.useQuery();
+	console.log(events);
 	// 2. Функция для рендеринга контента в зависимости от состояния
 	const renderContent = () => {
 		// Состояние загрузки: показываем скелетоны
@@ -47,7 +47,7 @@ export default function Home() {
 					className="fade-in"> {/* класс для анимации */}
 					<EventCard
 						{...event}
-						action={<JoinEventButton eventId={event.id} />}
+						action={!event.isJoined && <JoinEventButton eventId={event.id} />}
 					/>
 				</li>
 			))

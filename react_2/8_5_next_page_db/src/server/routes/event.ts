@@ -3,8 +3,16 @@ import prisma from '@/server/db';
 import { CreateEventSchema, JoinEventSchema, UniqueEventSchema } from '@/shared/api';
 
 export const eventRouter = router({
-	findMany: procedure.query(() => {
-		return prisma.event.findMany();
+	findMany: procedure.query(async ({ ctx: { user } }) => {
+		let events = await prisma.event.findMany({
+			include: {
+				participations: true,
+			},
+		});
+		return events.map(({ participations, ...event }) => ({
+			...event,
+			isJoined: participations.some(({ userId }) => user?.id === userId),
+		}));
 	}),
 	findUnique: procedure
 		.input(UniqueEventSchema)
