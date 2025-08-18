@@ -3,14 +3,17 @@ import { trpc } from '@/shared/api';
 import type { AppProps } from 'next/app';
 import { getSession, SessionProvider } from 'next-auth/react';
 import { Layout } from '@/components';
+import { LogoutProvider } from '@/shared/contexts';
 
 export function App({ Component, pageProps }: AppProps) {
 	return (
 		<SessionProvider session={pageProps.session}>
 			<div className="min-h-screen bg-gray-100">
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
+				<LogoutProvider>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</LogoutProvider>
 			</div>
 		</SessionProvider>
 	);
