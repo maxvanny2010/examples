@@ -2,56 +2,59 @@ import { trpc } from '@/shared/api';
 
 type JoinEventButtonProps = {
 	eventId: number;
+	isJoined: boolean;
 };
 
-export const JoinEventButton = ({ eventId }: JoinEventButtonProps) => {
+const EVENT_ACTIONS = {
+	JOIN: 'join',
+	LEAVE: 'leave',
+} as const;
+
+const BUTTON_TEXTS = {
+	JOIN: { text: 'Присоединиться', pendingText: 'Присоединяемся...' },
+	LEAVE: { text: 'Отписаться', pendingText: 'Отписываемся...' },
+} as const;
+type EventAction = typeof EVENT_ACTIONS[keyof typeof EVENT_ACTIONS];
+
+export const JoinEventButton = ({ eventId, isJoined }: JoinEventButtonProps) => {
 	const utils = trpc.useUtils();
 
-	const mutation = trpc.event.join.useMutation({
-		// Оптимистичное обновление перед отправкой
-		onMutate: async ({ id: eventId }) => {
-			await utils.event.findMany.cancel(); // отменяем запросы, чтобы не перетерли кэш
+	const action: EventAction = isJoined ? EVENT_ACTIONS.LEAVE : EVENT_ACTIONS.JOIN;
+	const newState = !isJoined;
 
-			const previousData = utils.event.findMany.getData();// a before state
+	const mutation = trpc.event[action].useMutation({
+		onMutate: async ({ id }) => {
+			await utils.event.findMany.cancel();
+			const previousData = utils.event.findMany.getData();
 
-			utils.event.findMany.setData(undefined, (old) => {
-				if (!old) return old;
-				return old.map((ev) =>
-					ev.id === eventId ? { ...ev, isJoined: true } : ev,
-				);
-			});
+			utils.event.findMany.setData(undefined, (old) =>
+				old?.map((ev) =>
+					ev.id === id ? { ...ev, isJoined: newState } : ev,
+				) ?? old,
+			);
 
-			// вернём старые данные, чтобы откатить в случае ошибки
 			return { previousData };
 		},
-
-		// Если ошибка — откатываем изменения
-		onError: (_err, _variables, context) => {
-			if (context?.previousData) {// is a before state
-				utils.event.findMany.setData(undefined, context.previousData);
+		onError: (_err, _vars, ctx) => {
+			if (ctx?.previousData) {
+				utils.event.findMany.setData(undefined, ctx.previousData);
 			}
 		},
-
-		// После успеха можно дополнительно обновить
-		onSuccess: (data) => {
-			console.log(
-				`✅ Присоединение: ${data.user.email}, Событие: ${data.event.title}`,
-			);
-		},
-
-		// После завершения запроса — можно обновить/инвалидировать
-		onSettled: () => { // at the end of call all time calling for a sync with server
+		onSettled: () => {
 			utils.event.findMany.invalidate().then(r => r);
 		},
 	});
 
+	const btnConfig = isJoined ? BUTTON_TEXTS.LEAVE : BUTTON_TEXTS.JOIN;
+	const btnBg = isJoined ? 'bg-red-600 hover:bg-red-700' : 'bg-black hover:bg-gray-800';
+
 	return (
 		<button
-			className="bg-black text-white px-3 py-1 rounded hover:bg-gray-800 text-sm"
+			className={`${btnBg} text-white px-3 py-1 rounded text-sm`}
 			onClick={() => mutation.mutate({ id: eventId })}
 			disabled={mutation.isPending}
 		>
-			{mutation.isPending ? 'Присоединяемся...' : 'Присоединиться'}
+			{mutation.isPending ? btnConfig.pendingText : btnConfig.text}
 		</button>
 	);
 };
