@@ -4,13 +4,15 @@ import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import { AiOutlineHome } from 'react-icons/ai';
 import Link from 'next/link';
-import { ButtonHeader } from '@/components';
+import { ButtonCreate, ButtonHeader } from '@/components';
+import { useSession } from 'next-auth/react';
 
 type LayoutProps = {
 	children: ReactNode;
 };
 
 export const Layout = ({ children }: LayoutProps) => {
+	const { data: session } = useSession();
 	const router = useRouter();
 	const isHome = router.pathname === '/';
 
@@ -20,8 +22,10 @@ export const Layout = ({ children }: LayoutProps) => {
 				{/* Home слева, только если не на главной */}
 				<div>
 					{!isHome && (
-						<Link href="/"
-							  className="text-2xl text-gray-700 hover:text-gray-900">
+						<Link
+							href="/"
+							className="text-2xl text-gray-700 hover:text-gray-900"
+						>
 							<AiOutlineHome />
 						</Link>
 					)}
@@ -29,7 +33,8 @@ export const Layout = ({ children }: LayoutProps) => {
 
 				{/* Логин/логаут справа */}
 				<div className="flex items-center gap-2">
-					<ButtonHeader />
+					<ButtonHeader session={session} />
+					{isHome && <ButtonCreate session={session} />}
 				</div>
 			</header>
 

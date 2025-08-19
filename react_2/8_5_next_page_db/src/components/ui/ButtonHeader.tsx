@@ -1,10 +1,15 @@
 'use client';
-import { signOut, useSession } from 'next-auth/react';
+
+import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useLogout } from '@/shared/contexts';
+import { Session } from 'next-auth';
 
-export const ButtonHeader = () => {
-	const { data: session } = useSession();
+type ButtonHeaderProps = {
+	session: Session | null;
+};
+
+export const ButtonHeader = ({ session }: ButtonHeaderProps) => {
 	const router = useRouter();
 	const { startLogout } = useLogout();
 
@@ -13,7 +18,7 @@ export const ButtonHeader = () => {
 	};
 
 	const handleLogout = async () => {
-		startLogout(); // флаг, чтобы скрывать Forbidden
+		startLogout();
 		await signOut({ redirect: false });
 		await router.push('/');
 	};
@@ -22,9 +27,11 @@ export const ButtonHeader = () => {
 		<div className="flex items-center gap-2">
 			{session?.user ? (
 				<>
-					<span className="text-black drop-shadow-sm">{session.user.name}</span>
+          <span className="text-black drop-shadow-sm">
+            {session.user.name}
+          </span>
 					<button
-						className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm"
+						className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm shadow-lg"
 						onClick={handleLogout}
 					>
 						Выйти
@@ -32,7 +39,7 @@ export const ButtonHeader = () => {
 				</>
 			) : (
 				<button
-					className="bg-black text-white px-3 py-1 rounded hover:bg-gray-800 text-sm"
+					className="bg-black text-white px-3 py-1 rounded hover:bg-gray-800 text-sm shadow-lg"
 					onClick={handleLogin}
 				>
 					Войти
