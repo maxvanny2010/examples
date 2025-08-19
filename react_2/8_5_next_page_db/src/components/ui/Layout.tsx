@@ -2,9 +2,9 @@
 
 import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
-import { HeaderButton } from './HeaderButton';
 import { AiOutlineHome } from 'react-icons/ai';
 import Link from 'next/link';
+import { ButtonHeader } from '@/components';
 
 type LayoutProps = {
 	children: ReactNode;
@@ -29,7 +29,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
 				{/* Логин/логаут справа */}
 				<div className="flex items-center gap-2">
-					<HeaderButton />
+					<ButtonHeader />
 				</div>
 			</header>
 

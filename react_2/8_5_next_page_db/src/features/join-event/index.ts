@@ -1,1 +1,1 @@
-export * from './ui/buttonJoin';
+export * from './ui/button-join';
