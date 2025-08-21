@@ -1,13 +1,10 @@
 import { trpc } from '@/shared/api';
 import { EventCard, EventCardSkeleton } from '@/entities/event';
-import { JoinEventButton } from '@/features/join-event';
+import { JoinEventButton } from '@/features/event-join';
 
 export default function Home() {
-	// 1. Получаем не только данные, но и состояния загрузки и ошибки
 	const { data: events, isLoading, isError, refetch } = trpc.event.findMany.useQuery();
-	// 2. Функция для рендеринга контента в зависимости от состояния
 	const renderContent = () => {
-		// Состояние загрузки: показываем скелетоны
 		if (isLoading) {
 			return (
 				// Создаем массив из 8 элементов для отображения заглушек
@@ -19,7 +16,6 @@ export default function Home() {
 			);
 		}
 
-		// Состояние ошибки
 		if (isError) {
 			return (
 				<div className="sm:col-span-2 lg:col-span-4 text-center py-10">
@@ -29,7 +25,6 @@ export default function Home() {
 			);
 		}
 
-		// Данные загружены, но список пуст
 		if (!events || events.length === 0) {
 			return (
 				<div className="sm:col-span-2 lg:col-span-4 text-center py-10">
@@ -39,7 +34,6 @@ export default function Home() {
 			);
 		}
 
-		// Успешная загрузка: отображаем карточки
 		return (
 			events.map((event) => (
 				<li key={event.id}
