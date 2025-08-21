@@ -1,1 +1,2 @@
-export * from './pathImage';
+export * from './path-image';
+export * from './base-url';
