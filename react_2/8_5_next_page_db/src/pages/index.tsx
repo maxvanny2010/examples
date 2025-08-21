@@ -1,8 +1,11 @@
 import { trpc } from '@/shared/api';
 import { EventCard, EventCardSkeleton } from '@/entities/event';
 import { JoinEventButton } from '@/features/event-join';
+import { useSession } from 'next-auth/react';
 
 export default function Home() {
+	const { data: session, status } = useSession();
+	const isAuthenticated = status === 'authenticated';
 	const { data: events, isLoading, isError, refetch } = trpc.event.findMany.useQuery();
 	const renderContent = () => {
 		if (isLoading) {
@@ -40,8 +43,12 @@ export default function Home() {
 					className="fade-in"> {/* класс для анимации */}
 					<EventCard
 						{...event}
-						action={<JoinEventButton eventId={event.id}
-												 isJoined={event.isJoined} />}
+						action={
+							isAuthenticated ? (
+								<JoinEventButton eventId={event.id}
+												 isJoined={event.isJoined} />
+							) : null
+						}
 					/>
 				</li>
 			))
