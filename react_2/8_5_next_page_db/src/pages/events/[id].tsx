@@ -17,7 +17,7 @@ export default function EventDetailPage() {
 
 	const { data, isLoading, error } = trpc.event.findUnique.useQuery(
 		{ id: idNumber! },
-		{ enabled: status === 'authenticated', staleTime: 1000 * 60 },
+		{ enabled: status === 'authenticated' /*staleTime: 1000 * 60 */ },
 	);
 	// Если логируемся → сразу показываем скелетон, чтобы не показывать Forbidden
 	if (isLoggingOut) return <EventDetailSkeleton />;
