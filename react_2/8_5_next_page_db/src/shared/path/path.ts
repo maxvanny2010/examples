@@ -10,6 +10,6 @@ export const PATH = {
 	},
 	AUTH: {
 		ROOT: '/auth',
-		SIGNIN: '/signin',
+		SIGNIN: '/auth/signin',
 	},
 } as const;

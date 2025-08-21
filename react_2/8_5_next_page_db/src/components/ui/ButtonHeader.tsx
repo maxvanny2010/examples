@@ -4,6 +4,7 @@ import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useLogout } from '@/shared/contexts';
 import { Session } from 'next-auth';
+import { PATH } from '@/shared/path';
 
 type ButtonHeaderProps = {
 	session: Session | null;
@@ -14,13 +15,13 @@ export const ButtonHeader = ({ session }: ButtonHeaderProps) => {
 	const { startLogout } = useLogout();
 
 	const handleLogin = async () => {
-		await router.push('/auth/signin');
+		await router.push(PATH.AUTH.SIGNIN);
 	};
 
 	const handleLogout = async () => {
 		startLogout();
 		await signOut({ redirect: false });
-		await router.push('/');
+		await router.push(PATH.HOME.ROOT);
 	};
 
 	return (

@@ -27,7 +27,7 @@ export const Layout = ({ children }: LayoutProps) => {
 		<div className="min-h-screen bg-gray-100">
 			<header className="p-4 bg-white shadow-md flex justify-between items-center">
 				{/* Home слева, только если не на главной */}
-				<div>
+				<div className="flex items-center gap-4">
 					{!isHome && (
 						<Link
 							href="/"
@@ -36,20 +36,23 @@ export const Layout = ({ children }: LayoutProps) => {
 							<AiOutlineHome />
 						</Link>
 					)}
+					<div className="flex items-center gap-2">
+						{isHome && <ButtonEventAction
+							session={session}
+							type={BUTTON_EVENT_TYPE.CREATE}
+						/>}
+						{isDetailPage && <ButtonEventAction
+							session={session}
+							type={BUTTON_EVENT_TYPE.EDIT}
+							id={eventId}
+						/>}
+					</div>
 				</div>
 
 				{/* Логин/логаут справа */}
 				<div className="flex items-center gap-2">
+
 					<ButtonHeader session={session} />
-					{isHome && <ButtonEventAction
-						session={session}
-						type={BUTTON_EVENT_TYPE.CREATE}
-					/>}
-					{isDetailPage && <ButtonEventAction
-						session={session}
-						type={BUTTON_EVENT_TYPE.EDIT}
-						id={eventId}
-					/>}
 				</div>
 			</header>
 
