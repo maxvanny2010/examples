@@ -17,7 +17,6 @@ export const eventRouter = router({
 	}),
 	findUnique: procedure
 		.input(UniqueEventSchema)
-		.use(isAuth)
 		.query(({ input }) => {
 			return prisma.event.findUnique({
 				where: input,

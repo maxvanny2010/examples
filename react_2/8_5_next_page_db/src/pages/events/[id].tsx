@@ -3,8 +3,6 @@ import { trpc } from '@/shared/api';
 import { EventDetail, EventDetailSkeleton } from '@/entities/event';
 import { pathImage, sizeImage } from '@/util';
 import { useSession } from 'next-auth/react';
-import { TRPCClientError } from '@trpc/client';
-import ForbiddenPage from '@/pages/events/forbidden';
 import { useLogout } from '@/shared/contexts';
 
 export default function EventDetailPage() {
@@ -17,34 +15,24 @@ export default function EventDetailPage() {
 
 	const { data, isLoading, error } = trpc.event.findUnique.useQuery(
 		{ id: idNumber! },
-		{ enabled: status === 'authenticated' /*staleTime: 1000 * 60 */ },
+		{ enabled: Boolean(idNumber) }
 	);
-	// Если логируемся → сразу показываем скелетон, чтобы не показывать Forbidden
-	if (isLoggingOut) return <EventDetailSkeleton />;
 
-	// Если id ещё нет → скелетон
-	if (!idNumber) return <EventDetailSkeleton />;
+	// Пока идёт логин/логаут или нет id → показываем скелетон
+	if (isLoggingOut || !idNumber || status === 'loading' || isLoading) return <EventDetailSkeleton />;
 
-	// Если авторизация загружается → скелетон
-	if (status === 'loading') return <EventDetailSkeleton />;
+	// Обработка ошибки запроса
+	if (error) return <p>Ошибка: {error.message}</p>;
 
-	// Если явно неавторизован → Forbidden
-	if (status === 'unauthenticated') return <ForbiddenPage />;
-
+	// Если события нет → сообщение
+	if (!data) return <p>Событие не найдено</p>;
 
 	const randomImg = `${pathImage}${id}${sizeImage}`;
 
-	if (isLoading) return <EventDetailSkeleton />;
-
-	if (error) {
-		if ((error as TRPCClientError<any>).data?.httpStatus === 401) {
-			return <ForbiddenPage />;
-		}
-		return <p>Ошибка: {error.message}</p>;
-	}
-
-	if (!data) return <p>Событие не найдено</p>;
-
-	return <EventDetail data={data}
-						image={randomImg} />;
+	return (
+		<EventDetail
+			data={data}
+			image={randomImg}
+		/>
+	);
 }
