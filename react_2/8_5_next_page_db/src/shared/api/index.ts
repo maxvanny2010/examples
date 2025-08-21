@@ -2,7 +2,7 @@ import { createTRPCNext } from '@trpc/next';
 import { httpBatchLink } from '@trpc/client';
 import type { AppRouter } from '@/server/routes';
 import { ssrPrepass } from '@trpc/next/ssrPrepass';
-import { getBaseUrl } from '@/util/getBaseUrl';
+import { baseUrl } from '@/util';
 import superjson from 'superjson';
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
@@ -22,7 +22,7 @@ export const trpc = createTRPCNext<AppRouter>({
 		return {
 			links: [
 				httpBatchLink({
-					url: isBrowser ? '/api/trpc' : `${getBaseUrl()}/api/trpc`,
+					url: isBrowser ? '/api/trpc' : `${baseUrl()}/api/trpc`,
 					transformer: superjson,
 					headers() {
 						if (isBrowser) return {};
