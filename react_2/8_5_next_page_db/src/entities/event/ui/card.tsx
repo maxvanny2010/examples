@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import { pathImage, sizeImage } from '@/util';
 import { DateTime } from 'luxon';
+import { PATH } from '@/shared/path';
 
 type EventCardProps = {
 	id: number;
@@ -54,7 +55,7 @@ export const EventCard = ({ id, title, description, eventDate, action }: EventCa
 
 					{/* 3. Компонент Link применяется только к кнопке */}
 					<Link
-						href={`/events/${id}`}
+						href={PATH.EVENTS.ID(id)}
 						className="inline-flex items-center justify-center px-4 py-2 bg-indigo-600 text-white font-semibold text-sm rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
 					>
 						Подробнее
