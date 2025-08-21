@@ -1,24 +1,17 @@
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import { pathImage, sizeImage } from '@/util';
+import { DateTime } from 'luxon';
 
 type EventCardProps = {
 	id: number;
 	title: string;
 	description: string | null;
-	createdAt: Date;
+	eventDate: Date;
 	action?: ReactNode;
 };
 
-const formatCardDate = (date: Date): string => {
-	return new Intl.DateTimeFormat('ru-RU', {
-		day: 'numeric',
-		month: 'short',
-		year: 'numeric',
-	}).format(date).replace(' г.', '');
-};
-
-export const EventCard = ({ id, title, description, createdAt, action }: EventCardProps) => {
+export const EventCard = ({ id, title, description, eventDate, action }: EventCardProps) => {
 	const imageUrl = `${pathImage}${id}${sizeImage}`;
 
 	return (
@@ -39,9 +32,10 @@ export const EventCard = ({ id, title, description, createdAt, action }: EventCa
 
 			<div className="p-5 flex flex-col flex-grow">
 				<header>
-					<time dateTime={createdAt.toISOString()}
-						  className="text-xs text-slate-500 font-medium uppercase tracking-wider">
-						{formatCardDate(createdAt)}
+					<time
+						dateTime={DateTime.fromJSDate(eventDate).toISO() ?? undefined}
+						className="text-xs text-slate-500 font-medium uppercase tracking-wider">
+						{DateTime.fromJSDate(eventDate).toLocaleString(DateTime.DATETIME_MED)}
 					</time>
 					{/* Заголовок реагирует на наведение на карточку */}
 					<h2 className="mt-2 text-xl font-bold text-slate-800 group-hover:text-indigo-600 transition-colors duration-200">
