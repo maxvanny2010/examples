@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
+import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm, UseFormRegisterReturn } from 'react-hook-form';
 import { getCsrfToken, getSession, signIn } from 'next-auth/react';
 import type { GetServerSidePropsContext, NextPage } from 'next';
 import { FiEye, FiEyeOff, FiLock, FiMail } from 'react-icons/fi';
-
-// --- Схема валидации Zod ---
-const loginSchema = z.object({
-	email: z.string().min(1, 'Email обязателен').email('Неверный формат email'),
-	password: z.string().min(3, 'Пароль должен содержать минимум 3 символа'),
-});
+import { PATH } from '@/shared/path';
+import { loginSchema } from '@/shared/api';
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -92,7 +89,7 @@ const SignInPage: NextPage<SignInProps> = ({ csrfToken }) => {
 		if (result?.error) {
 			setAuthError('Неверный email или пароль. Попробуйте снова.');
 		} else if (result?.ok) {
-			window.location.href = '/';
+			window.location.href = PATH.HOME.ROOT;
 		}
 	};
 
@@ -153,10 +150,10 @@ const SignInPage: NextPage<SignInProps> = ({ csrfToken }) => {
 				</form>
 
 				<div className="text-sm text-center text-gray-500">
-					<a href="#"
-					   className="font-medium text-blue-600 hover:text-blue-500">
+					<Link href={PATH.AUTH.REGISTER}
+						  className="font-medium text-blue-600 hover:text-blue-500">
 						Забыли пароль?
-					</a>
+					</Link>
 				</div>
 			</div>
 		</div>
@@ -171,7 +168,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 	if (session) {
 		return {
 			redirect: {
-				destination: '/',
+				destination: PATH.HOME.ROOT,
 				permanent: false,
 			},
 		};

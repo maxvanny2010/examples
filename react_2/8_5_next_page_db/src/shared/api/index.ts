@@ -6,7 +6,10 @@ import { baseUrl } from '@/util';
 import superjson from 'superjson';
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
-export * from './schema';
+export * from './event.schema';
+export * from './user.shema';
+export * from './register.schema';
+export * from './login.schema';
 
 export type RouterInput = inferRouterInputs<AppRouter>
 export type RouterOutput = inferRouterOutputs<AppRouter>

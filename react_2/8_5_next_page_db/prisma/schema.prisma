@@ -12,9 +12,16 @@ model User {
   name     String
   email    String @unique
   password String
+  role     Role   @default(USER)
 
   events         Event[]
   participations Participation[]
+}
+
+enum Role {
+  GUEST
+  USER
+  ADMIN
 }
 
 model Event {

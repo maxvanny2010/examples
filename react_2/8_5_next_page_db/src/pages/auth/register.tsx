@@ -1,0 +1,143 @@
+import React, { useState } from 'react';
+import { z } from 'zod';
+import { SubmitHandler, useForm, UseFormRegisterReturn } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema, trpc } from '@/shared/api';
+import { ROLES } from '@/shared/types';
+import { useRouter } from 'next/navigation';
+import { PATH } from '@/shared/path';
+import { Alert } from '@/components';
+
+interface InputFieldProps {
+	label: string;
+	id: string;
+	type?: string;
+	placeholder?: string;
+	error?: string;
+	register: UseFormRegisterReturn;
+	children?: React.ReactNode;
+}
+
+const InputField: React.FC<InputFieldProps> = ({
+												   label,
+												   id,
+												   type = 'text',
+												   placeholder,
+												   error,
+												   register,
+												   children,
+											   }) => {
+	return (
+		<div className="mb-4">
+			<label htmlFor={id}
+				   className="block text-sm font-medium text-gray-700 mb-1">
+				{label}
+			</label>
+			<div className="relative">
+				<input
+					id={id}
+					type={type}
+					placeholder={placeholder}
+					{...register}
+					className={`w-full pl-3 pr-3 py-3 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 transition-all duration-200 ${
+						error ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+					}`}
+				/>
+				{children}
+			</div>
+			{error && <p className="text-sm text-red-600 mt-1">{error}</p>}
+		</div>
+	);
+};
+
+type RegisterFormData = z.infer<typeof registerSchema>;
+
+const RegisterForm: React.FC = () => {
+	const router = useRouter();
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+	const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<RegisterFormData>({
+		resolver: zodResolver(registerSchema),
+		mode: 'onBlur',
+		defaultValues: { role: ROLES.USER },
+	});
+
+	// Используем хук мутации
+	const registerMutation = trpc.auth.register.useMutation();
+
+	const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
+		setErrorMessage(null); // очищаем ошибку перед новой попыткой
+
+		registerMutation.mutate(
+			{
+				name: data.name,
+				email: data.email,
+				password: data.password,
+				role: ROLES.USER,
+			},
+			{
+				onSuccess: (user) => {
+					console.log('Пользователь создан:', user);
+					router.push(PATH.AUTH.SIGNIN);
+				},
+				onError: (error: any) => {
+					if (error.message.includes('Unique constraint failed')) {
+						setErrorMessage('Такой email уже зарегистрирован');
+					} else {
+						setErrorMessage('Ошибка регистрации. Попробуйте позже');
+					}
+				},
+			},
+		);
+	};
+
+	return (
+		<div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+			<div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
+				{errorMessage && (
+					<Alert onClose={() => setErrorMessage(null)}>
+						{errorMessage}
+					</Alert>
+				)}
+
+				<form onSubmit={handleSubmit(onSubmit)}
+					  className="space-y-4">
+					<InputField label="Имя"
+								id="name"
+								register={register('name')}
+								error={errors.name?.message}
+								placeholder="Ваше имя" />
+					<InputField label="Email"
+								id="email"
+								register={register('email')}
+								error={errors.email?.message}
+								placeholder="you@example.com" />
+					<InputField label="Пароль"
+								id="password"
+								type="password"
+								register={register('password')}
+								error={errors.password?.message}
+								placeholder="•••" />
+					<InputField
+						label="Подтверждение пароля"
+						id="confirmPassword"
+						type="password"
+						register={register('confirmPassword')}
+						error={errors.confirmPassword?.message}
+						placeholder="•••"
+					/>
+
+					<button
+						type="submit"
+						disabled={isSubmitting || registerMutation.isPending}
+						className="w-full py-3 px-4 text-white font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed transition-all duration-200"
+					>
+						{registerMutation.isPending ? 'Регистрация...' : 'Зарегистрировать'}
+					</button>
+				</form>
+			</div>
+		</div>
+	);
+};
+
+export default RegisterForm;

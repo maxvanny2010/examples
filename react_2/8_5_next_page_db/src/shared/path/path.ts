@@ -11,5 +11,10 @@ export const PATH = {
 	AUTH: {
 		ROOT: '/auth',
 		SIGNIN: '/auth/signin',
+		REGISTER: '/auth/register',
+	},
+	ADMIN: {
+		ROOT: '/admin',
+		DASHBOARD: '/admin/dashboard',
 	},
 } as const;
