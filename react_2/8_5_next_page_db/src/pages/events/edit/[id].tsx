@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { EventForm } from '@/features/event-form';
 import { Alert } from '@/components';
 import { EVENT_MODE } from '@/shared/types';
+import type { EditEventInput } from '@/shared/api';
 import { trpc } from '@/shared/api';
 import { PATH } from '@/shared/path';
-import type { EditEventInput } from '@/shared/api/schema';
 import { DateTime } from 'luxon';
 import { EventDetailSkeleton } from '@/entities/event';
 

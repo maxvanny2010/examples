@@ -4,7 +4,7 @@ import { EventForm } from '@/features/event-form';
 import { Alert } from '@/components';
 import { trpc } from '@/shared/api';
 import { PATH } from '@/shared/path';
-import type { CreateEventInput } from '@/shared/api/schema';
+import type { CreateEventInput } from '@/shared/api/';
 import { EVENT_MODE } from '@/shared/types';
 
 export default function CreateEvent() {

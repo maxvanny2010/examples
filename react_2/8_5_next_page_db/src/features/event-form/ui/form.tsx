@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CreateEventInput, CreateEventSchema, EditEventInput, EditEventSchema } from '@/shared/api/schema';
+import { CreateEventInput, CreateEventSchema, EditEventInput, EditEventSchema } from '@/shared/api';
 import { EVENT_MODE, EventModeType } from '@/shared/types';
 import { useRouter } from 'next/router';
 import { PATH } from '@/shared/path';
