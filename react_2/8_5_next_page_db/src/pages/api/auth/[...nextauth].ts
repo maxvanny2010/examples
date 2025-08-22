@@ -1,7 +1,9 @@
-import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth from 'next-auth/next';
 import prisma from '@/server/db';
 import { NextAuthOptions } from 'next-auth';
+import bcrypt from 'bcryptjs';
+import { RoleType } from '@/shared/types';
 
 export const authOptions: NextAuthOptions = {
 	providers: [
@@ -13,17 +15,38 @@ export const authOptions: NextAuthOptions = {
 			},
 			async authorize(credentials, req): Promise<any> {
 				if (!credentials) return null;
+
 				const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-				return credentials.password === user?.password ? user : null;
+				if (!user) return null;
+
+				const isValid = await bcrypt.compare(credentials.password, user.password);
+				if (!isValid) return null;
+
+				return {
+					id: user.id,
+					name: user.name,
+					email: user.email,
+					role: user.role,
+				};
 			},
+
 		}),
 	],
 	callbacks: {
-		session: ({ session, token }) => {
-			console.log('authOptions:', session, 'TOKEN:', token);
-			session.user.id = Number(token.sub);
+		async session({ session, token, user }) {
+			// Добавляю роль из JWT в сессию
+			if (session.user) {
+				session.user.id = token.id as string;
+				session.user.role = token.role as RoleType;
+			}
 			return session;
-
+		},
+		async jwt({ token, user }) {
+			if (user) {
+				token.id = user.id;
+				token.role = user.role as RoleType; // сохраняю роль в JWT
+			}
+			return token;
 		},
 	},
 };
