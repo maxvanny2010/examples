@@ -48,7 +48,7 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 	}
 
 	const logoutHandler = async () => {
-		await signOut({ redirect: true });
+		await signOut({ callbackUrl: PATH.HOME.ROOT });
 	};
 	const editHandler = async () => {
 		if (!eventId) return;
