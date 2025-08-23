@@ -28,3 +28,5 @@ export const UniqueEventSchema = z.object({
 
 export type CreateEventInput = z.infer<typeof CreateEventSchema>;
 export type EditEventInput = z.infer<typeof EditEventSchema>;
+export type JoinEventInput = z.infer<typeof JoinEventSchema>;
+export type UniqueEventInput = z.infer<typeof UniqueEventSchema>;
