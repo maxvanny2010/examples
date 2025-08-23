@@ -42,7 +42,7 @@ const AdminDashboard = () => {
 							className="hover:bg-gray-50 transition-colors"
 						>
 							<td className="px-4 py-3 border border-black font-mono text-gray-600">{u.id}</td>
-							<td className="px-4 py-3 border border-black text-gray-800 text-shadow lg">{u.name}</td>
+							<td className="px-4 py-3 border border-black text-gray-800 text-shadow lg"> {u.deleted ? 'Пользователь удален' : u.name}</td>
 							<td className="px-4 py-3 border border-black text-gray-600">{u.email}</td>
 							<td className="px-4 py-3 border-black border">
                   <span
@@ -56,7 +56,7 @@ const AdminDashboard = () => {
                   </span>
 							</td>
 							<td className="px-4 py-3 border border-black text-center">
-								{u.role !== ROLES.ADMIN && (
+								{!u.deleted && u.role !== ROLES.ADMIN && (
 									<button
 										onClick={() => setSelectedUser({ id: u.id, name: u.name })}
 										className="inline-flex items-center gap-2 text-red-600 hover:text-red-800 font-medium transition-colors cursor-pointer"
