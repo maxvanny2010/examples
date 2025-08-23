@@ -50,7 +50,7 @@ export const JoinEventButton = ({ eventId, isJoined }: JoinEventButtonProps) => 
 
 	return (
 		<button
-			className={`${btnBg} text-white px-3 py-1 rounded text-sm`}
+			className={`${btnBg} text-white px-3 py-1 rounded text-sm cursor-pointer`}
 			onClick={() => mutation.mutate({ id: eventId })}
 			disabled={mutation.isPending}
 		>
