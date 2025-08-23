@@ -13,6 +13,7 @@ model User {
   email    String @unique
   password String
   role     Role   @default(USER)
+  deleted  Boolean @default(false)
 
   events         Event[]
   participations Participation[]

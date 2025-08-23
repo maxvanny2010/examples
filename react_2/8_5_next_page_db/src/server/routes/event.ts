@@ -1,56 +1,78 @@
-import { isAuth, procedure, router } from '@/server/trpc';
 import prisma from '@/server/db';
-import { CreateEventSchema, EditEventSchema, JoinEventSchema, UniqueEventSchema } from '@/shared/api';
 import { DateTime } from 'luxon';
+import { ContextWithDBUser } from '@/server/context';
+import { isAuth, procedure, requireActiveUser, router } from '@/server/trpc';
+import {
+	CreateEventInput,
+	CreateEventSchema,
+	EditEventInput,
+	EditEventSchema,
+	JoinEventInput,
+	JoinEventSchema,
+	UniqueEventInput,
+	UniqueEventSchema,
+} from '@/shared/api';
+import { TRPCError } from '@trpc/server';
+import { CODE, MESSAGES } from '@/util';
 
 export const eventRouter = router({
-	findMany: procedure.query(async ({ ctx: { user } }) => {
-		let events = await prisma.event.findMany({
+	// Получить все события (доступно всем)
+	findMany: procedure.query(async ({ ctx }) => {
+		const events = await prisma.event.findMany({
 			include: {
-				participations: true,
+				participations: { include: { user: { select: { id: true, name: true } } } },
 			},
 		});
+
 		return events.map(({ participations, ...event }) => ({
 			...event,
-			isJoined: participations.some(({ userId }) => user?.id === userId),
+			isJoined: ctx.user ? participations.some(p => p.userId === ctx.user!.id) : false,
 		}));
 	}),
+
+	// Получить одно событие по id (доступно всем)
 	findUnique: procedure
 		.input(UniqueEventSchema)
-		.query(({ input }) => {
+		.query(async ({ input }) => {
 			return prisma.event.findUnique({
-				where: input,
-				select: {
-					id: true,
-					title: true,
-					description: true,
-					createdAt: true,
-					eventDate: true,
-					participations: {
-						select: {
-							user: {
-								select: {
-									id: true,
-									name: true,
-								},
-							},
-						},
-					},
+				where: { id: input.id },
+				include: {
+					participations: { include: { user: { select: { id: true, name: true } } } },
 				},
 			});
 		}),
+	getById: procedure
+		.input(UniqueEventSchema)
+		.use(isAuth)
+		.use(requireActiveUser)
+		.query(async ({ input, ctx }: { input: UniqueEventInput; ctx: ContextWithDBUser }) => {
+			const event = await prisma.event.findUnique({
+				where: { id: input.id },
+				include: { participations: true },
+			});
+
+			if (!event) {
+				throw new TRPCError({ code: CODE.NOT_FOUND, message: MESSAGES.EVENT_NOT_FOUND });
+			}
+
+			const isJoined = event.participations.some(p => p.userId === ctx.dbUser.id);
+
+			return { ...event, isJoined };
+		}),
+
+	// Создать событие (только авторизованный и активный пользователь)
 	create: procedure
 		.input(CreateEventSchema)
 		.use(isAuth)
-		.mutation(async ({ input, ctx: { user } }) => {
-			// eventDate преобразуем в Date, если есть
+		.use(requireActiveUser)
+		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: CreateEventInput }) => {
 			const eventDate = input.eventDate
 				? DateTime.fromISO(input.eventDate, { zone: 'local' }).toUTC().toJSDate()
-				: new Date(); // текущую дату по умолчанию
+				: new Date();
 
 			return prisma.event.create({
 				data: {
-					authorId: user.id,
+					authorId: ctx.dbUser.id,
 					eventDate,
 					title: input.title,
 					description: input.description ?? null,
@@ -58,10 +80,12 @@ export const eventRouter = router({
 			});
 		}),
 
+	// Редактировать событие (только авторизованный и активный пользователь)
 	update: procedure
 		.input(EditEventSchema)
 		.use(isAuth)
-		.mutation(async ({ input }) => {
+		.use(requireActiveUser)
+		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: EditEventInput }) => {
 			if (!input.id) throw new Error('ID события не передан');
 
 			const eventDate = input.eventDate
@@ -77,58 +101,24 @@ export const eventRouter = router({
 				},
 			});
 		}),
-	getById: procedure
-		.input(UniqueEventSchema)
-		.use(isAuth)
-		.query(async ({ input }) => {
-			console.log('getById input:', input);
-			try {
-				const event = await prisma.event.findUnique({ where: { id: input.id } });
-				console.log('getById result:', event);
-				return event;
-			} catch (err) {
-				console.error('getById error:', err);
-				throw err;
-			}
-		}),
+
+	// Присоединиться к событию
 	join: procedure
 		.input(JoinEventSchema)
 		.use(isAuth)
-		.mutation(async ({ input, ctx: { user } }) => {
-			// Создаем запись об участии и сразу же включаем в ответ
-			// связанные данные пользователя и события.
-			return prisma.participation.create({
-				data: {
-					userId: user.id,
-					eventId: input.id,
-				},
-				// ключевое изменение
-				include: {
-					user: {
-						// Можно выбрать конкретные поля, если не нужен весь объект
-						select: {
-							email: true,
-							id: true,
-						},
-					},
-					event: {
-						select: {
-							title: true,
-							id: true,
-						},
-					},
-				},
-			});
-		}),
+		.use(requireActiveUser)
+		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: JoinEventInput }) =>
+			prisma.participation.create({
+				data: { userId: ctx.dbUser.id, eventId: input.id },
+			}),
+		),
+
+	// Покинуть событие
 	leave: procedure
 		.input(JoinEventSchema)
 		.use(isAuth)
-		.mutation(async ({ input, ctx: { user } }) => {
-			return prisma.participation.deleteMany({
-				where: {
-					userId: user.id,
-					eventId: input.id,
-				},
-			});
-		}),
+		.use(requireActiveUser)
+		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: JoinEventInput }) =>
+			prisma.participation.deleteMany({ where: { userId: ctx.dbUser.id, eventId: input.id } }),
+		),
 });
