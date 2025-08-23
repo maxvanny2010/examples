@@ -3,13 +3,13 @@ import { RoleType } from '@/shared/types';
 
 declare module 'next-auth' {
 	interface User extends DefaultUser {
-		id: string | number;
+		id: number;
 		role: RoleType;
 	}
 
 	interface Session {
 		user: {
-			id: string | number;
+			id: number;
 			role: RoleType;
 		} & DefaultSession['user'];
 	}
@@ -17,7 +17,7 @@ declare module 'next-auth' {
 
 declare module 'next-auth/jwt' {
 	interface JWT {
-		id: string | number;
+		id: number;
 		role: RoleType;
 	}
 }

@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
 				if (!isValid) return null;
 
 				return {
-					id: user.id,
+					id: Number(user.id),
 					name: user.name,
 					email: user.email,
 					role: user.role,
@@ -36,14 +36,14 @@ export const authOptions: NextAuthOptions = {
 		async session({ session, token, user }) {
 			// Добавляю роль из JWT в сессию
 			if (session.user) {
-				session.user.id = token.id as string;
+				session.user.id = token.id;
 				session.user.role = token.role as RoleType;
 			}
 			return session;
 		},
 		async jwt({ token, user }) {
 			if (user) {
-				token.id = user.id;
+				token.id = Number(user.id);
 				token.role = user.role as RoleType; // сохраняю роль в JWT
 			}
 			return token;
