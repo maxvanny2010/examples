@@ -23,6 +23,7 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 
 	const isDetailPage = Boolean(eventId) && router.pathname === PATH.EVENTS.ID('[id]');
 	const isHome = router.pathname === PATH.HOME.ROOT;
+	const isDashboard = router.pathname === PATH.ADMIN.DASHBOARD;
 
 	// Гость
 	if (user.role === ROLES.GUEST) {
@@ -61,7 +62,7 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 		<div className="flex items-center space-x-2">
 			{hasRole(user.role, [ROLES.ADMIN, ROLES.USER]) && (
 				<div className="flex items-center gap-2">
-					{user.role === ROLES.ADMIN && (
+					{user.role === ROLES.ADMIN && !isDashboard && (
 						<Link
 							href={PATH.ADMIN.DASHBOARD}
 							className="ml-4 btn bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm shadow-lg flex items-center"
