@@ -41,10 +41,10 @@ const AdminDashboard = () => {
 							key={u.id}
 							className="hover:bg-gray-50 transition-colors"
 						>
-							<td className="px-4 py-3 border font-mono text-gray-600">{u.id}</td>
-							<td className="px-4 py-3 border text-gray-800 text-shadow lg">{u.name}</td>
-							<td className="px-4 py-3 border text-gray-600">{u.email}</td>
-							<td className="px-4 py-3 border">
+							<td className="px-4 py-3 border border-black font-mono text-gray-600">{u.id}</td>
+							<td className="px-4 py-3 border border-black text-gray-800 text-shadow lg">{u.name}</td>
+							<td className="px-4 py-3 border border-black text-gray-600">{u.email}</td>
+							<td className="px-4 py-3 border-black border">
                   <span
 					  className={`px-2 py-1 rounded-full text-xs font-medium ${
 						  u.role === ROLES.ADMIN
@@ -55,7 +55,7 @@ const AdminDashboard = () => {
                     {u.role}
                   </span>
 							</td>
-							<td className="px-4 py-3 border text-center">
+							<td className="px-4 py-3 border border-black text-center">
 								{u.role !== ROLES.ADMIN && (
 									<button
 										onClick={() => setSelectedUser({ id: u.id, name: u.name })}
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
 					{users?.length === 0 && (
 						<tr>
 							<td colSpan={5}
-								className="text-center py-6 text-gray-500">
+								className="text-center py-6 text-black">
 								Нет зарегистрированных пользователей
 							</td>
 						</tr>
