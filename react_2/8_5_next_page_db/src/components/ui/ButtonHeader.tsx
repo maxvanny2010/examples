@@ -95,7 +95,7 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 						className="btn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm shadow-lg flex items-center  cursor-pointer"
 					>
 						<AiOutlineLogout className="mr-1" />
-						Logout
+						Logout ({user.name})
 					</button>
 
 				</div>
