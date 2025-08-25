@@ -17,11 +17,11 @@ type EventDetailProps = {
  */
 const formatEventDate = (date: Date | string | null | undefined): string => {
 	if (!date) {
-		return 'Дата не указана';
+		return 'Date not provided';
 	}
 	try {
 		// Intl.DateTimeFormat - стандарт для работы с датами в разных языках
-		return new Intl.DateTimeFormat('ru-RU', {
+		return new Intl.DateTimeFormat('en-EN', {
 			year: 'numeric',
 			month: 'long',
 			day: 'numeric',
@@ -30,11 +30,9 @@ const formatEventDate = (date: Date | string | null | undefined): string => {
 		}).format(new Date(date as string));
 	} catch (error) {
 		console.error('Invalid date provided:', error);
-		return 'Некорректный формат даты';
+		return 'Invalid date format';
 	}
 };
-
-// --- Компоненты-иконки (в реальном проекте лучше использовать библиотеку типа Heroicons) ---
 
 export const CalendarIcon: FC = () => (
 	<HiOutlineCalendar className="h-5 w-5 text-current" />
@@ -97,7 +95,7 @@ export const EventDetail = ({ data, image }: EventDetailProps) => {
 									<UsersIcon />
 									<h2 id="participants-heading"
 										className="text-2xl font-bold text-slate-900">
-										Participants. ({participations.length})
+										Participants({participations.length})
 									</h2>
 								</div>
 
