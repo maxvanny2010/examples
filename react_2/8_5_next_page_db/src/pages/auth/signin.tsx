@@ -97,8 +97,8 @@ const SignInPage: NextPage<SignInProps> = ({ csrfToken }) => {
 		<div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
 			<div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
 				<div className="text-center">
-					<h1 className="text-4xl font-bold text-gray-800">С возвращением!</h1>
-					<p className="mt-2 text-gray-500">Войдите, чтобы продолжить</p>
+					<h1 className="text-4xl font-bold text-gray-800">Welcome back! </h1>
+					<p className="mt-2 text-gray-500">Log in to continue. </p>
 				</div>
 
 				<form onSubmit={handleSubmit(onSubmit)}
@@ -119,7 +119,7 @@ const SignInPage: NextPage<SignInProps> = ({ csrfToken }) => {
 					/>
 
 					<InputField
-						label="Пароль"
+						label="Password"
 						id="password"
 						type={isPasswordVisible ? 'text' : 'password'}
 						placeholder="••••••••"
@@ -132,7 +132,7 @@ const SignInPage: NextPage<SignInProps> = ({ csrfToken }) => {
 							type="button"
 							onClick={() => setIsPasswordVisible(!isPasswordVisible)}
 							className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
-							aria-label={isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'}
+							aria-label={isPasswordVisible ? 'Hide the password' : 'Show the password'}
 						>
 							{isPasswordVisible ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
 						</button>
@@ -145,14 +145,14 @@ const SignInPage: NextPage<SignInProps> = ({ csrfToken }) => {
 						disabled={isSubmitting}
 						className="w-full py-3 px-4 text-white font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed transition-all duration-200"
 					>
-						{isSubmitting ? 'Вход...' : 'Войти'}
+						{isSubmitting ? 'Singing...' : 'Sing in'}
 					</button>
 				</form>
 
 				<div className="text-sm text-center text-gray-500">
 					<Link href={PATH.AUTH.REGISTER}
 						  className="font-medium text-blue-600 hover:text-blue-500">
-						Забыли пароль?
+						Forgot your password?
 					</Link>
 				</div>
 			</div>

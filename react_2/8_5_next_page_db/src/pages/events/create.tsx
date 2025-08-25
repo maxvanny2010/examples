@@ -16,11 +16,11 @@ export default function CreateEvent() {
 		setMutationError(null);
 		mutate(data, {
 			onSuccess: (createdEvent) => {
-				console.log(`Событие создано: ${createdEvent.title} на дату ${createdEvent.eventDate.toLocaleDateString()}`);
+				console.log(`Event created: ${createdEvent.title} at date: ${createdEvent.eventDate.toLocaleDateString()}`);
 				router.push(PATH.EVENTS.ID(createdEvent.id)).then(r => r);
 			},
 			onError: (error) => {
-				console.error('Ошибка при создании события:', error);
+				console.error('Error creating event: ', error);
 				setMutationError(error.message);
 			},
 		});

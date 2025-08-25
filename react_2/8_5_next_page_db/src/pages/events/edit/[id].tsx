@@ -108,7 +108,7 @@ export default function EditEvent() {
 			await router.push(PATH.EVENTS.ID(data.id));
 		} catch (err: any) {
 			console.error(err);
-			setMutationError(err.message ?? 'Ошибка обновления события');
+			setMutationError(err.message ?? 'Event update error.');
 		}
 	};
 

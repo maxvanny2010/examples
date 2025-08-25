@@ -74,14 +74,14 @@ const RegisterForm = () => {
 			},
 			{
 				onSuccess: (user) => {
-					console.log('Пользователь создан:', user);
+					console.log('User created:', user);
 					router.push(PATH.AUTH.SIGNIN);
 				},
 				onError: (error: any) => {
 					if (error.message.includes('Unique constraint failed')) {
-						setErrorMessage('Такой email уже зарегистрирован');
+						setErrorMessage('This email is already registered.');
 					} else {
-						setErrorMessage('Ошибка регистрации. Попробуйте позже');
+						setErrorMessage('Registration error. Please try again later.');
 					}
 				},
 			},
@@ -99,24 +99,24 @@ const RegisterForm = () => {
 
 				<form onSubmit={handleSubmit(onSubmit)}
 					  className="space-y-4">
-					<InputField label="Имя"
+					<InputField label="Name"
 								id="name"
 								register={register('name')}
 								error={errors.name?.message}
-								placeholder="Ваше имя" />
+								placeholder="Your name" />
 					<InputField label="Email"
 								id="email"
 								register={register('email')}
 								error={errors.email?.message}
 								placeholder="you@example.com" />
-					<InputField label="Пароль"
+					<InputField label="Password"
 								id="password"
 								type="password"
 								register={register('password')}
 								error={errors.password?.message}
 								placeholder="•••" />
 					<InputField
-						label="Подтверждение пароля"
+						label="Confirm Password"
 						id="confirmPassword"
 						type="password"
 						register={register('confirmPassword')}
@@ -129,7 +129,7 @@ const RegisterForm = () => {
 						disabled={isSubmitting || registerMutation.isPending}
 						className="w-full py-3 px-4 text-white font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed transition-all duration-200"
 					>
-						{registerMutation.isPending ? 'Регистрация...' : 'Зарегистрировать'}
+						{registerMutation.isPending ? 'Registration...' : 'Register'}
 					</button>
 				</form>
 			</div>

@@ -10,7 +10,7 @@ export const LoginLink = () => {
 					   hover:bg-blue-700 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1"
 		>
 			<FiLogIn className="text-lg" />
-			Войти
+			Login
 		</Link>
 	);
 };

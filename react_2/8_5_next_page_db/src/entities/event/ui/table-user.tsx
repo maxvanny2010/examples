@@ -7,10 +7,10 @@ export const UsersTable = ({ users, onDelete }: { users: any[]; onDelete: (id: n
 			<thead className="bg-gray-100 text-gray-700 uppercase text-xs">
 			<tr>
 				<th className="px-4 py-3 border">ID</th>
-				<th className="px-4 py-3 border">Имя</th>
+				<th className="px-4 py-3 border">Name</th>
 				<th className="px-4 py-3 border">Email</th>
-				<th className="px-4 py-3 border">Роль</th>
-				<th className="px-4 py-3 border text-center">Действия</th>
+				<th className="px-4 py-3 border">Role</th>
+				<th className="px-4 py-3 border text-center">Actions</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -51,7 +51,7 @@ export const UsersTable = ({ users, onDelete }: { users: any[]; onDelete: (id: n
 				<tr>
 					<td colSpan={5}
 						className="text-center py-6 text-black">
-						Нет зарегистрированных пользователей
+						No registered users.
 					</td>
 				</tr>
 			)}

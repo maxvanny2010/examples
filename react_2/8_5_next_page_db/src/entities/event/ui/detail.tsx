@@ -62,7 +62,7 @@ export const EventDetail = ({ data, image }: EventDetailProps) => {
 						<div className="lg:col-span-2">
 							<img
 								src={image}
-								alt={`Обложка мероприятия: ${title}`}
+								alt={`Event cover. ${title}`}
 								className="w-full h-64 lg:h-full object-cover" // object-cover предотвращает искажение
 							/>
 						</div>
@@ -97,7 +97,7 @@ export const EventDetail = ({ data, image }: EventDetailProps) => {
 									<UsersIcon />
 									<h2 id="participants-heading"
 										className="text-2xl font-bold text-slate-900">
-										Участники ({participations.length})
+										Participants. ({participations.length})
 									</h2>
 								</div>
 
@@ -110,14 +110,14 @@ export const EventDetail = ({ data, image }: EventDetailProps) => {
 												<div className="w-10 h-10 rounded-full bg-indigo-200 text-indigo-700 flex items-center justify-center font-bold shrink-0">
 													{user.name ? user.name.charAt(0).toUpperCase() : '👤'}
 												</div>
-												<span className="font-medium text-slate-800 truncate">{user.name || 'Анонимный участник'}</span>
+												<span className="font-medium text-slate-800 truncate">{user.name || 'Anonymous participant.'}</span>
 											</li>
 										))}
 									</ul>
 								) : (
 									<div className="text-center py-8 px-4 bg-slate-100 rounded-lg border border-dashed">
 										<p className="text-slate-500">
-											Пока никто не присоединился. <br /> Станьте первым!
+											No one has joined yet. <br /> Be the first!
 										</p>
 									</div>
 								)}
