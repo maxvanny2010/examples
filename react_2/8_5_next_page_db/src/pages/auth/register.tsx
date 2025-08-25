@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { z } from 'zod';
 import { SubmitHandler, useForm, UseFormRegisterReturn } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema, trpc } from '@/shared/api';
+import { RegisterFormData, registerSchema, trpc } from '@/shared/api';
 import { ROLES } from '@/shared/types';
 import { useRouter } from 'next/navigation';
 import { PATH } from '@/shared/path';
@@ -18,15 +17,15 @@ interface InputFieldProps {
 	children?: React.ReactNode;
 }
 
-const InputField: React.FC<InputFieldProps> = ({
-												   label,
-												   id,
-												   type = 'text',
-												   placeholder,
-												   error,
-												   register,
-												   children,
-											   }) => {
+const InputField = ({
+						label,
+						id,
+						type = 'text',
+						placeholder,
+						error,
+						register,
+						children,
+					}: InputFieldProps) => {
 	return (
 		<div className="mb-4">
 			<label htmlFor={id}
@@ -50,9 +49,7 @@ const InputField: React.FC<InputFieldProps> = ({
 	);
 };
 
-type RegisterFormData = z.infer<typeof registerSchema>;
-
-const RegisterForm: React.FC = () => {
+const RegisterForm = () => {
 	const router = useRouter();
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
