@@ -45,7 +45,7 @@ export const EventCard = ({ id, title, description, eventDate, action }: EventCa
 				</header>
 
 				<p className="mt-3 text-sm text-slate-600 leading-relaxed line-clamp-3 flex-grow">
-					{description || 'Описание для этого мероприятия скоро появится.'}
+					{description || 'The description for this event will appear soon.'}
 				</p>
 
 				{/* 2. Футер содержит явную кнопку-ссылку */}
@@ -58,9 +58,9 @@ export const EventCard = ({ id, title, description, eventDate, action }: EventCa
 						href={PATH.EVENTS.ID(id)}
 						className="inline-flex items-center justify-center px-4 py-2 bg-indigo-600 text-white font-semibold text-sm rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
 					>
-						Подробнее
+						Details
 						{/* Скрытый текст для улучшения доступности */}
-						<span className="sr-only"> о мероприятии {title}</span>
+						<span className="sr-only"> About an event {title}</span>
 					</Link>
 				</footer>
 			</div>

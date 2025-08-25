@@ -11,8 +11,8 @@ const EVENT_ACTIONS = {
 } as const;
 
 const BUTTON_TEXTS = {
-	JOIN: { text: 'Присоединиться', pendingText: 'Присоединяемся...' },
-	LEAVE: { text: 'Отписаться', pendingText: 'Отписываемся...' },
+	JOIN: { text: 'Join', pendingText: 'Joining...' },
+	LEAVE: { text: 'Unsubscribe', pendingText: 'Unsubscribing...' },
 } as const;
 type EventAction = typeof EVENT_ACTIONS[keyof typeof EVENT_ACTIONS];
 

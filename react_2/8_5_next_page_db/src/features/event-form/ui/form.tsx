@@ -50,7 +50,7 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 	return (
 		<div className="max-w-xl mx-auto p-6 bg-white rounded-md shadow-md">
 			<h1 className="text-4xl font-semibold text-gray-900 mb-2">
-				{mode === EVENT_MODE.CREATE ? 'Создание' : 'Редактирование'} события
+				{mode === EVENT_MODE.CREATE ? 'Create' : 'Edit'} events
 			</h1>
 
 			<form onSubmit={handleSubmit(handleFormSubmit)}
@@ -59,7 +59,7 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 				<div className="mb-6">
 					<label htmlFor="title"
 						   className="block text-sm font-semibold text-gray-900 mb-2">
-						Название
+						Title
 					</label>
 					<input
 						id="title"
@@ -77,7 +77,7 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 				<div className="mb-6">
 					<label htmlFor="description"
 						   className="block text-sm font-semibold text-gray-900 mb-2">
-						Описание
+						Description
 					</label>
 					<textarea
 						id="description"
@@ -86,10 +86,10 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 						className={`block w-full rounded-md px-3.5 py-2 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 ${
 							errors.description ? 'outline-red-600' : ''
 						}`}
-						placeholder="Опишите событие"
+						placeholder="Describe the event"
 					/>
 					<p className={`mt-1 text-sm ${errors.description ? 'text-red-600' : 'text-gray-600'}`}>
-						Напишите несколько предложений о событии. <span>{lettersCount} / 300 символов</span>
+						Write a few sentences about the event.. <span>{lettersCount} / 300 symbols</span>
 					</p>
 					{errors.description && <p className="mt-1 text-xs text-red-600">{errors.description.message}</p>}
 				</div>
@@ -98,7 +98,7 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 				<div className="mb-6">
 					<label htmlFor="eventDate"
 						   className="block text-sm font-semibold text-gray-900 mb-2">
-						Дата проведения
+						Event date
 					</label>
 					<input
 						id="eventDate"
@@ -116,14 +116,14 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 						type="submit"
 						className="w-full rounded-md bg-amber-50 px-4 py-2 text-black font-semibold shadow-lg"
 					>
-						{mode === EVENT_MODE.CREATE ? 'Создать' : 'Сохранить'}
+						{mode === EVENT_MODE.CREATE ? 'Create' : 'Save'}
 					</button>
 					<button
 						type="button"
 						onClick={handleCancel}
 						className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white font-semibold shadow-lg"
 					>
-						Отмена
+						Cancel
 					</button>
 				</div>
 			</form>
