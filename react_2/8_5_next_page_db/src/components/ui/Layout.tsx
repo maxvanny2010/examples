@@ -11,7 +11,6 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
 	const user = useUserRole();
-	console.log(user);
 	return (
 		<div className="min-h-screen flex flex-col">
 			<header className="p-4 bg-white shadow-md  bg-gray-100 p-4 flex justify-between items-center">
