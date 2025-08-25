@@ -1,7 +1,7 @@
 import prisma from '@/server/db';
 import { DateTime } from 'luxon';
 import { ContextWithDBUser } from '@/server/context';
-import { isAuth, procedure, requireActiveUser, router } from '@/server/trpc';
+import { procedure, protectedProcedure, router } from '@/server/trpc';
 import {
 	CreateEventInput,
 	CreateEventSchema,
@@ -41,10 +41,8 @@ export const eventRouter = router({
 				},
 			});
 		}),
-	getById: procedure
+	getById: protectedProcedure
 		.input(UniqueEventSchema)
-		.use(isAuth)
-		.use(requireActiveUser)
 		.query(async ({ input, ctx }: { input: UniqueEventInput; ctx: ContextWithDBUser }) => {
 			const event = await prisma.event.findUnique({
 				where: { id: input.id },
@@ -61,10 +59,8 @@ export const eventRouter = router({
 		}),
 
 	// Создать событие (только авторизованный и активный пользователь)
-	create: procedure
+	create: protectedProcedure
 		.input(CreateEventSchema)
-		.use(isAuth)
-		.use(requireActiveUser)
 		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: CreateEventInput }) => {
 			const eventDate = input.eventDate
 				? DateTime.fromISO(input.eventDate, { zone: 'local' }).toUTC().toJSDate()
@@ -81,12 +77,10 @@ export const eventRouter = router({
 		}),
 
 	// Редактировать событие (только авторизованный и активный пользователь)
-	update: procedure
+	update: protectedProcedure
 		.input(EditEventSchema)
-		.use(isAuth)
-		.use(requireActiveUser)
 		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: EditEventInput }) => {
-			if (!input.id) throw new Error('ID события не передан');
+			if (!input.id) throw new TRPCError({ code: CODE.BAD_REQUEST, message: MESSAGES.EVENT_NO_ID });
 
 			const eventDate = input.eventDate
 				? DateTime.fromISO(input.eventDate, { zone: 'local' }).toUTC().toJSDate()
@@ -103,10 +97,8 @@ export const eventRouter = router({
 		}),
 
 	// Присоединиться к событию
-	join: procedure
+	join: protectedProcedure
 		.input(JoinEventSchema)
-		.use(isAuth)
-		.use(requireActiveUser)
 		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: JoinEventInput }) =>
 			prisma.participation.create({
 				data: { userId: ctx.dbUser.id, eventId: input.id },
@@ -114,10 +106,8 @@ export const eventRouter = router({
 		),
 
 	// Покинуть событие
-	leave: procedure
+	leave: protectedProcedure
 		.input(JoinEventSchema)
-		.use(isAuth)
-		.use(requireActiveUser)
 		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: JoinEventInput }) =>
 			prisma.participation.deleteMany({ where: { userId: ctx.dbUser.id, eventId: input.id } }),
 		),

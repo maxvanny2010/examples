@@ -1,16 +1,13 @@
 import prisma from '@/server/db';
 import bcrypt from 'bcryptjs';
-import { isAuth, requireActiveUser, procedure, router } from '@/server/trpc';
-import { CreateUserSchema, EditUserSchema, UniqueUserSchema } from '@/shared/api/';
-import { ROLES, RoleType } from '@/shared/types';
-import { checkRole } from '../roles';
+import { adminProcedure, router } from '@/server/trpc';
+import { CreateUserSchema, EditUserSchema, UniqueUserSchema } from '@/shared/api';
+import { ROLES } from '@/shared/types';
 
 export const userRouter = router({
-	findAll: procedure
-		.use(isAuth)
-		.use(requireActiveUser)
-		.query(async ({ ctx }) => {
-			checkRole(ctx.dbUser.role, [ROLES.ADMIN as RoleType]);
+	// Получение всех пользователей (только админ)
+	adminOnly: adminProcedure
+		.query(async () => {
 			return prisma.user.findMany({
 				where: { deleted: false },
 				select: {
@@ -23,23 +20,19 @@ export const userRouter = router({
 			});
 		}),
 
-	findUnique: procedure
+	// Получение одного пользователя (только админ)
+	findUnique: adminProcedure
 		.input(UniqueUserSchema)
-		.use(isAuth)
-		.use(requireActiveUser)
-		.query(async ({ input, ctx }) => {
-			checkRole(ctx.dbUser.role, [ROLES.ADMIN as RoleType]);
+		.query(async ({ input }) => {
 			return prisma.user.findFirst({
 				where: { id: input.id, deleted: false },
 			});
 		}),
 
-	create: procedure
+	// Создание пользователя (только админ)
+	create: adminProcedure
 		.input(CreateUserSchema)
-		.use(isAuth)
-		.use(requireActiveUser)
-		.mutation(async ({ input, ctx }) => {
-			checkRole(ctx.dbUser.role, [ROLES.ADMIN as RoleType]);
+		.mutation(async ({ input }) => {
 			const hashedPassword = await bcrypt.hash(input.password, 10);
 			return prisma.user.create({
 				data: {
@@ -51,12 +44,10 @@ export const userRouter = router({
 			});
 		}),
 
-	update: procedure
+	// Редактирование пользователя (только админ)
+	update: adminProcedure
 		.input(EditUserSchema)
-		.use(isAuth)
-		.use(requireActiveUser)
-		.mutation(async ({ input, ctx }) => {
-			checkRole(ctx.dbUser.role, [ROLES.ADMIN as RoleType]);
+		.mutation(async ({ input }) => {
 			const data: any = { name: input.name, email: input.email, role: input.role };
 			if (input.password) data.password = await bcrypt.hash(input.password, 10);
 			return prisma.user.update({
@@ -65,15 +56,13 @@ export const userRouter = router({
 			});
 		}),
 
-	delete: procedure
+	// Удаление пользователя (soft delete, только админ)
+	delete: adminProcedure
 		.input(UniqueUserSchema)
-		.use(isAuth)
-		.use(requireActiveUser)
-		.mutation(async ({ input, ctx }) => {
-			checkRole(ctx.dbUser.role, [ROLES.ADMIN as RoleType]);
+		.mutation(async ({ input }) => {
 			return prisma.user.update({
 				where: { id: input.id },
-				data: { deleted: true }, // soft delete
+				data: { deleted: true },
 			});
 		}),
 });
