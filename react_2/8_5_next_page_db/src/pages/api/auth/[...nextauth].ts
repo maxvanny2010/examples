@@ -16,7 +16,11 @@ export const authOptions: NextAuthOptions = {
 			async authorize(credentials, req): Promise<any> {
 				if (!credentials) return null;
 
-				const user = await prisma.user.findUnique({ where: { email: credentials.email } });
+				const user = await prisma.user.findUnique({
+					where: {
+						email: credentials.email,
+						deleted: false,
+					} });
 				if (!user) return null;
 
 				const isValid = await bcrypt.compare(credentials.password, user.password);
