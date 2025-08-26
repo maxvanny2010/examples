@@ -14,7 +14,7 @@ export const Layout =  ({ children, eventAuthorId }: LayoutProps) => {
 	const user = useUserRole();
 	return (
 		<div className="min-h-screen flex flex-col">
-			<header className="p-4 bg-white shadow-md  bg-gray-100 p-4 flex justify-between items-center">
+			<header className="p-4 bg-white shadow-md flex justify-between items-center">
 				<div>
 					<Link href={PATH.HOME.ROOT}
 						  className="text-2xl text-gray-700 hover:text-gray-900 text-shadow lg">
