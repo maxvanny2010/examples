@@ -24,25 +24,31 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 	const isDetailPage = Boolean(eventId) && router.pathname === PATH.EVENTS.ID('[id]');
 	const isHome = router.pathname === PATH.HOME.ROOT;
 	const isDashboard = router.pathname === PATH.ADMIN.DASHBOARD;
+	const isSignIn = router.pathname === PATH.AUTH.SIGNIN;
+	const isRegister = router.pathname === PATH.AUTH.REGISTER;
 
 	// Гость
 	if (user.role === ROLES.GUEST) {
 		return (
 			<div className="flex items-center space-x-2">
-				<Link
-					href={PATH.AUTH.SIGNIN}
-					className="btn bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm shadow-lg flex items-center cursor-pointer"
-				>
-					<AiOutlineHome className="mr-1" />
-					Login
-				</Link>
-				<Link
-					href={PATH.AUTH.REGISTER}
-					className="btn bg-blue-600  hover:bg-blue-700 text-white px-3 py-1 rounded text-sm shadow-lg flex items-center  cursor-pointer"
-				>
-					<AiOutlinePlusCircle className="mr-1" />
-					Registration
-				</Link>
+				{!isSignIn && (
+					<Link
+						href={PATH.AUTH.SIGNIN}
+						className="btn bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm shadow-lg flex items-center cursor-pointer"
+					>
+						<AiOutlineHome className="mr-1" />
+						Login
+					</Link>
+				)}
+				{!isRegister && (
+					<Link
+						href={PATH.AUTH.REGISTER}
+						className="btn bg-blue-600  hover:bg-blue-700 text-white px-3 py-1 rounded text-sm shadow-lg flex items-center  cursor-pointer"
+					>
+						<AiOutlinePlusCircle className="mr-1" />
+						Registration
+					</Link>
+				)}
 			</div>
 		);
 	}
