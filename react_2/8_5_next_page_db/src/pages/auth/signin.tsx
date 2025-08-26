@@ -94,7 +94,7 @@ const SignInPage: NextPage<SignInProps> = ({ csrfToken }) => {
 	};
 
 	return (
-		<div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+		<div className="flex items-center justify-center bg-gray-100 p-4">
 			<div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
 				<div className="text-center">
 					<h1 className="text-4xl font-bold text-gray-800">Welcome back! </h1>
