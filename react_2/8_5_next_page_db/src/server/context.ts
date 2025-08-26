@@ -12,12 +12,12 @@ export type DBUser = Session['user'] & {
 };
 
 // Контекст для tRPC
-export type Context = {
+export type ContextWithDBUser = {
 	user?: Session['user'];
 	dbUser?: DBUser;
 };
 
-export const createContext = async ({ req, res }: CreateNextContextOptions): Promise<Context> => {
+export const createContext = async ({ req, res }: CreateNextContextOptions): Promise<ContextWithDBUser> => {
 	const session = await getServerSession(req, res, authOptions);
 
 	if (!session?.user) return {};

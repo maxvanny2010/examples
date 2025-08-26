@@ -53,7 +53,7 @@ export const eventRouter = router({
 				throw new TRPCError({ code: CODE.NOT_FOUND, message: MESSAGES.EVENT_NOT_FOUND });
 			}
 
-			const isJoined = event.participations.some(p => p.userId === ctx.dbUser.id);
+			const isJoined = event.participations.some(p => p.userId === ctx.dbUser!.id);
 
 			return { ...event, isJoined };
 		}),
@@ -68,7 +68,7 @@ export const eventRouter = router({
 
 			return prisma.event.create({
 				data: {
-					authorId: ctx.dbUser.id,
+					authorId: ctx.dbUser!.id,
 					eventDate,
 					title: input.title,
 					description: input.description ?? null,
@@ -101,7 +101,7 @@ export const eventRouter = router({
 		.input(JoinEventSchema)
 		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: JoinEventInput }) =>
 			prisma.participation.create({
-				data: { userId: ctx.dbUser.id, eventId: input.id },
+				data: { userId: ctx.dbUser!.id, eventId: input.id },
 			}),
 		),
 
@@ -109,6 +109,6 @@ export const eventRouter = router({
 	leave: protectedProcedure
 		.input(JoinEventSchema)
 		.mutation(async ({ input, ctx }: { ctx: ContextWithDBUser; input: JoinEventInput }) =>
-			prisma.participation.deleteMany({ where: { userId: ctx.dbUser.id, eventId: input.id } }),
+			prisma.participation.deleteMany({ where: { userId: ctx.dbUser!.id, eventId: input.id } }),
 		),
 });
