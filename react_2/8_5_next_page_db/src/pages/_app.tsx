@@ -23,7 +23,7 @@ export function App({ Component, pageProps: { session, ...pageProps } }: AppProp
 		<SessionProvider session={session}>
 			<div className="min-h-screen bg-gray-100">
 				<LogoutProvider>
-					<Layout>
+					<Layout eventAuthorId={pageProps.eventAuthorId}>
 						<Component {...pageProps} />
 					</Layout>
 				</LogoutProvider>

@@ -4,6 +4,8 @@ import { EventDetail, EventDetailSkeleton } from '@/entities/event';
 import { pathImage, sizeImage } from '@/util';
 import { useSession } from 'next-auth/react';
 import { useLogout } from '@/shared/contexts';
+import { GetServerSidePropsContext } from 'next';
+import prisma from '@/server/db';
 
 export default function EventDetailPage() {
 	const { status } = useSession();
@@ -35,4 +37,24 @@ export default function EventDetailPage() {
 			image={randomImg}
 		/>
 	);
+}
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+	const id = context.params?.id as string;
+	const event = await prisma.event.findUnique({ where: { id: Number(id) } });
+
+	if (!event) {
+		return { notFound: true };
+	}
+
+	return {
+		props: {
+			event: {
+				...event,
+				createdAt: event.createdAt.toISOString(),
+				updatedAt: event.updatedAt.toISOString(),
+				eventDate: event.updatedAt.toISOString(),
+			},
+			eventAuthorId: event.authorId,
+		},
+	};
 }

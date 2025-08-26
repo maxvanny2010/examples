@@ -14,13 +14,19 @@ import {
 } from 'react-icons/ai';
 
 interface ButtonHeaderProps {
-	user: { role: typeof ROLES[keyof typeof ROLES]; name?: string; email?: string };
+	user: {
+		role: typeof ROLES[keyof typeof ROLES];
+		id?: number;
+		name?: string;
+		email?: string;
+	};
+	eventAuthorId?: number;
 }
 
-export default function ButtonHeader({ user }: ButtonHeaderProps) {
+export default function ButtonHeader({ user, eventAuthorId }: ButtonHeaderProps) {
 	const router = useRouter();
 	const eventId = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
-
+	console.log(eventAuthorId);
 	const isDetailPage = Boolean(eventId) && router.pathname === PATH.EVENTS.ID('[id]');
 	const isHome = router.pathname === PATH.HOME.ROOT;
 	const isDashboard = router.pathname === PATH.ADMIN.DASHBOARD;
@@ -63,7 +69,10 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 	const createHandler = async () => {
 		await router.push(PATH.EVENTS.CREATE);
 	};
-
+	const canEdit =
+		isDetailPage &&
+		(user.role === ROLES.ADMIN || (user.role === ROLES.USER && user.id === eventAuthorId));
+	console.log(user.id, eventAuthorId);
 	return (
 		<div className="flex items-center space-x-2">
 			{hasRole(user.role, [ROLES.ADMIN, ROLES.USER]) && (
@@ -87,7 +96,7 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 						</ButtonEventAction>
 
 					)}
-					{isDetailPage && (
+					{canEdit && (
 						<ButtonEventAction
 							type={BUTTON_EVENT_TYPE.EDIT}
 							className="flex items-center gap-1 cursor-pointer"
