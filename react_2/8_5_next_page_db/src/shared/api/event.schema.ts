@@ -1,16 +1,16 @@
 import z from 'zod';
 
 export const CreateEventSchema = z.object({
-	title: z.string().min(3, 'Название должно содержать хотя бы 3 символа'),
+	title: z.string().min(3, 'Title must be at least 3 characters long'),
 	description: z
 		.string()
-		.max(300, 'Описание слишком длинное')
+		.max(300, 'Description is too long')
 		.optional(),
 	eventDate: z
 		.string()
 		.optional()
 		.refine((val) => !val || !Number.isNaN(Date.parse(val)), {
-			message: 'Неверная дата',
+			message: 'Invalid date',
 		}),
 });
 

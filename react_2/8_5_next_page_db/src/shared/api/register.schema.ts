@@ -3,17 +3,17 @@ import z from 'zod';
 
 export const registerSchema = z
 	.object({
-		name: z.string().min(1, 'Имя обязательно'),
-		email: z.string().min(1, 'Email обязателен').email('Неверный формат email'),
-		password: z.string().min(3, 'Пароль должен содержать минимум 3 символа'),
-		confirmPassword: z.string().min(1, 'Подтвердите пароль'),
+		name: z.string().min(1, 'Name is required'),
+		email: z.string().min(1, 'Email is required').email('Invalid email format'),
+		password: z.string().min(3, 'Password must be at least 3 characters long'),
+		confirmPassword: z.string().min(1, 'Please confirm your password'),
 		role: z.literal(ROLES.USER),
 	})
 	.refine((data) => {
-		console.log('Проверка паролей:', data.password, data.confirmPassword);
+		console.log('Checking passwords:', data.password, data.confirmPassword);
 		return data.password === data.confirmPassword;
 	}, {
-		message: 'Пароли не совпадают',
+		message: 'Passwords do not match',
 		path: ['confirmPassword'],
 	});
 

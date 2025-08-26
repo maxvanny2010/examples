@@ -1,7 +1,7 @@
 export const MESSAGES = {
-	USER_NOT_FOUND: 'Пользователь не найден или удалён',
-	EVENT_NOT_FOUND: 'Событие не найдено',
-	EVENT_NO_ID: 'ID события не передан',
+	USER_NOT_FOUND: 'User not found or deleted',
+	EVENT_NOT_FOUND: 'Event not found',
+	EVENT_NO_ID: 'Event ID not provided',
 	ADMIN_EMAIL: 'admin@gmail.com',
 	ADMIN_NAME: 'admin',
 	AMIN_EXIST: 'Admin already exists',
