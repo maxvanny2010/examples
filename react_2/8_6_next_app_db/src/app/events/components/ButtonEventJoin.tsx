@@ -1,3 +1,4 @@
+'use client'
 import { trpc } from '@/shared/api';
 
 type JoinEventButtonProps = {
