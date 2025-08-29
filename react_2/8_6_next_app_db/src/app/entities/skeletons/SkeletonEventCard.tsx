@@ -1,4 +1,4 @@
-export const CardEventSkeleton = () => {
+export const SkeletonEventCard = () => {
 	return (
 		<div className="flex flex-col bg-white rounded-xl shadow-md overflow-hidden max-w-sm w-full animate-pulse">
 			{/* Image Placeholder */}
