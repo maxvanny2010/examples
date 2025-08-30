@@ -4,8 +4,8 @@ import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { PATH } from '@/shared/path';
 import { BUTTON_EVENT_TYPE, ROLES } from '@/shared/types';
-import { hasRole } from '@/server/roles';
-import ButtonEventAction from '@/components/ui/ButtonAction';
+import { hasRole } from '@/server/core/roles';
+import ButtonEventAction from './ButtonAction';
 import {
 	AiOutlineDashboard,
 	AiOutlineEdit,
