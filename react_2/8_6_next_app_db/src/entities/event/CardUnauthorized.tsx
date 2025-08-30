@@ -5,7 +5,7 @@ import { AiOutlineLock } from 'react-icons/ai';
 import { useRouter } from 'next/navigation';
 import { PATH } from '@/shared/path';
 
-export const UnauthorizedCard: FC = () => {
+export const CardUnauthorized: FC = () => {
 	const router = useRouter();
 	return (
 		<div className="flex flex-col items-center justify-center h-96">

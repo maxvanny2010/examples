@@ -2,7 +2,7 @@
 
 import { CardEvent } from './CardEvent';
 import { Event } from '@/shared/types/event';
-import { ButtonEventJoin } from './ButtonEventJoin';
+import { ButtonEventJoin } from '@/features/event-join/ButtonEventJoin';
 
 type Props = {
 	events: Event[];

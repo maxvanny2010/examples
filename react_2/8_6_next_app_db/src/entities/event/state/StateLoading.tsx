@@ -1,6 +1,6 @@
 'use client';
 
-import { SkeletonEventCard } from '@/app/entities/skeletons';
+import { SkeletonEventCard } from '../skeletons';
 
 export const StateLoading = () => {
 	return (
