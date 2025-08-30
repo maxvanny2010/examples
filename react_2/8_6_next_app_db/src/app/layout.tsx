@@ -1,12 +1,12 @@
 import '@/shared/styles/globals.css';
 import { ReactNode } from 'react';
 import { SessionProvider } from 'next-auth/react';
-import { ensureAdminExists } from '@/server/seedAdmin';
+import { ensureAdminExists } from '@/server/core/seedAdmin';
 import { Metadata } from 'next';
 import { MESSAGES } from '@/shared/util';
 import { LogoutProvider } from '@/shared/contexts';
 import { trpc } from '@/shared/api';
-import { Layout } from '@/components/ui';
+import { Layout } from '@/shared/ui';
 
 // Серверный вызов при инициализации
 if (typeof window === 'undefined') {
