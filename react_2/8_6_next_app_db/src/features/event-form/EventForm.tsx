@@ -1,17 +1,10 @@
-'use client';
-
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-	CreateEventInput,
-	CreateEventSchema,
-	EditEventInput,
-	EditEventSchema,
-} from '@/shared/api';
-import { EVENT_MODE, EventModeType } from '@/shared/types';
-import { useRouter } from 'next/navigation';
-import { PATH } from '@/shared/path';
 import { DateTime } from 'luxon';
+import { useRouter } from 'next/router';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { CreateEventInput, CreateEventSchema, EditEventInput, EditEventSchema } from '@/shared/api';
+import { EVENT_MODE, EventModeType } from '@/shared/types';
+import { PATH } from '@/shared/path';
 
 type Props = {
 	mode: EventModeType;
@@ -40,31 +33,32 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 
 	const handleCancel = () => {
 		reset();
-		router.push(PATH.HOME.ROOT);
+		router.push(PATH.HOME.ROOT).then(r => r);
 	};
 
 	const handleFormSubmit: SubmitHandler<CreateEventInput | EditEventInput> = (data) => {
 		const payload = {
 			...data,
 			eventDate: data.eventDate
-				? DateTime.fromJSDate(new Date(data.eventDate)).toFormat(
-					"yyyy-MM-dd'T'HH:mm"
-				)
+				? DateTime.fromJSDate(new Date(data.eventDate)).toFormat('yyyy-MM-dd\'T\'HH:mm')
 				: undefined,
+
 		};
 		onSubmit(payload);
 	};
 
 	return (
 		<div className="max-w-xl mx-auto p-6 bg-white rounded-md shadow-md">
-			<h1 className="text-4xl font-semibold text-gray-900 mb-6">
-				{mode === EVENT_MODE.CREATE ? 'Create' : 'Edit'} Event
+			<h1 className="text-4xl font-semibold text-gray-900 mb-2">
+				{mode === EVENT_MODE.CREATE ? 'Create' : 'Edit'} events
 			</h1>
 
-			<form onSubmit={handleSubmit(handleFormSubmit)} noValidate>
-				{/* Title */}
+			<form onSubmit={handleSubmit(handleFormSubmit)}
+				  noValidate>
+				{/* Название */}
 				<div className="mb-6">
-					<label htmlFor="title" className="block text-sm font-semibold text-gray-900 mb-2">
+					<label htmlFor="title"
+						   className="block text-sm font-semibold text-gray-900 mb-2">
 						Title
 					</label>
 					<input
@@ -76,14 +70,13 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 						}`}
 						aria-invalid={!!errors.title}
 					/>
-					{errors.title && (
-						<p className="mt-1 text-xs text-red-600">{errors.title.message}</p>
-					)}
+					{errors.title && <p className="mt-1 text-xs text-red-600">{errors.title.message}</p>}
 				</div>
 
-				{/* Description */}
+				{/* Описание */}
 				<div className="mb-6">
-					<label htmlFor="description" className="block text-sm font-semibold text-gray-900 mb-2">
+					<label htmlFor="description"
+						   className="block text-sm font-semibold text-gray-900 mb-2">
 						Description
 					</label>
 					<textarea
@@ -96,17 +89,16 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 						placeholder="Describe the event"
 					/>
 					<p className={`mt-1 text-sm ${errors.description ? 'text-red-600' : 'text-gray-600'}`}>
-						{lettersCount} / 300 symbols
+						Write a few sentences about the event.. <span>{lettersCount} / 300 symbols</span>
 					</p>
-					{errors.description && (
-						<p className="mt-1 text-xs text-red-600">{errors.description.message}</p>
-					)}
+					{errors.description && <p className="mt-1 text-xs text-red-600">{errors.description.message}</p>}
 				</div>
 
-				{/* Event date */}
+				{/* Дата */}
 				<div className="mb-6">
-					<label htmlFor="eventDate" className="block text-sm font-semibold text-gray-900 mb-2">
-						Event Date
+					<label htmlFor="eventDate"
+						   className="block text-sm font-semibold text-gray-900 mb-2">
+						Event date
 					</label>
 					<input
 						id="eventDate"
@@ -116,12 +108,9 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 							errors.eventDate ? 'outline-red-600' : ''
 						}`}
 					/>
-					{errors.eventDate && (
-						<p className="mt-1 text-xs text-red-600">{errors.eventDate.message}</p>
-					)}
+					{errors.eventDate && <p className="mt-1 text-xs text-red-600">{errors.eventDate.message}</p>}
 				</div>
 
-				{/* Buttons */}
 				<div className="flex flex-col gap-3">
 					<button
 						type="submit"
