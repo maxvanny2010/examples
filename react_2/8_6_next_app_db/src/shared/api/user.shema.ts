@@ -5,7 +5,7 @@ export const CreateUserSchema = z.object({
 	name: z.string().min(3, 'Name is required'),
 	email: z.string().min(1, 'Email is required').email('Invalid email format'),
 	password: z.string().min(3, 'Password must be at least 3 characters long'),
-	role: z.enum([ROLES.GUEST, ROLES.USER, ROLES.ADMIN]).optional(),
+	role: z.enum([ROLES.GUEST, ROLES.USER, ROLES.ADMIN]),
 });
 
 export const EditUserSchema = CreateUserSchema.extend({
