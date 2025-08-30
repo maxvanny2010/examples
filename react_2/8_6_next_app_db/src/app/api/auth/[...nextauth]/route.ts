@@ -1,6 +1,6 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth from 'next-auth/next';
-import prisma from '@/server/db';
+import prisma from '@/server/core/db';
 import { NextAuthOptions } from 'next-auth';
 import bcrypt from 'bcryptjs';
 import { RoleType } from '@/shared/types';

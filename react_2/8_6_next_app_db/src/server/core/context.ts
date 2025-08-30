@@ -1,4 +1,3 @@
-// src/server/context.ts
 import prisma from './db';
 import type { Session } from 'next-auth';
 import { getServerSession } from 'next-auth';

@@ -9,11 +9,6 @@ interface UserRole {
 	email?: string;
 }
 
-export const checkRole = (userRole: Role, allowedRoles: Role[]) => {
-	if (!allowedRoles.includes(userRole)) {
-		throw new Error('Нет прав для выполнения действия');
-	}
-};
 export const hasRole = (userRole: Role, allowedRoles: Role[]): boolean => {
 	return allowedRoles.includes(userRole);
 };
