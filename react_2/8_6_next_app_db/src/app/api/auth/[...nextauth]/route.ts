@@ -1,9 +1,10 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
-import NextAuth from 'next-auth/next';
-import prisma from '@/server/core/db';
 import { NextAuthOptions } from 'next-auth';
+import NextAuth from 'next-auth/next';
 import bcrypt from 'bcryptjs';
+import prisma from '@/server/core/db';
 import { RoleType } from '@/shared/types';
+import { UserBase } from '@/shared/types/user';
 
 export const authOptions: NextAuthOptions = {
 	providers: [
@@ -13,7 +14,7 @@ export const authOptions: NextAuthOptions = {
 				email: { label: 'Username', type: 'text' },
 				password: { label: 'Password', type: 'password' },
 			},
-			async authorize(credentials, req): Promise<any> {
+			async authorize(credentials): Promise<UserBase | null> {
 				if (!credentials) return null;
 
 				const user = await prisma.user.findUnique({
@@ -38,7 +39,7 @@ export const authOptions: NextAuthOptions = {
 		}),
 	],
 	callbacks: {
-		async session({ session, token, user }) {
+		async session({ session, token }) {
 			// Добавляю роль из JWT в сессию
 			if (session.user) {
 				session.user.id = token.id;
@@ -49,11 +50,12 @@ export const authOptions: NextAuthOptions = {
 		async jwt({ token, user }) {
 			if (user) {
 				token.id = Number(user.id);
-				token.role = user.role as RoleType; // сохраняю роль в JWT
+				token.role = user.role as RoleType;
 			}
 			return token;
 		},
 	},
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
