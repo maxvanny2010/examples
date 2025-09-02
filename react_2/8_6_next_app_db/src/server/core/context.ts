@@ -1,15 +1,8 @@
 import prisma from './db';
 import type { Session } from 'next-auth';
 import { getServerSession } from 'next-auth';
+import { DBUser } from '@/shared/types/user';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-
-export type DBUser = {
-	id: number;
-	name: string;
-	email: string;
-	role: string;
-	deleted: boolean;
-};
 
 export type ContextWithDBUser = {
 	user?: Session['user'];
@@ -19,7 +12,7 @@ export type ContextWithDBUser = {
 export const createContext = async (): Promise<ContextWithDBUser> => {
 	const session = await getServerSession(authOptions);
 
-	if (!session?.user) return {};
+	if (!session?.user?.id) return {};
 
 	const dbUser = await prisma.user.findUnique({
 		where: { id: session.user.id },

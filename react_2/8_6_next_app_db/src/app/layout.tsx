@@ -1,45 +1,29 @@
 import '@/shared/styles/globals.css';
 import { ReactNode } from 'react';
-import { SessionProvider } from 'next-auth/react';
-import { ensureAdminExists } from '@/server/core/seedAdmin';
 import { Metadata } from 'next';
 import { MESSAGES } from '@/shared/util';
-import { LogoutProvider } from '@/shared/contexts';
-import { trpc } from '@/shared/api';
+import { ClientProviders } from '@/app/providers-wrapper';
+import { initAdminOnce } from '@/server/core/initAdmin';
 import { Layout } from '@/shared/ui';
 
-// Серверный вызов при инициализации
-if (typeof window === 'undefined') {
-	(async () => {
-		try {
-			await ensureAdminExists();
-		} catch (err) {
-			console.error(MESSAGES.ADMIN_FAILED, err);
-		}
-	})();
-}
 
-// Метаданные страницы (замена <Head> из _document.tsx)
 export const metadata: Metadata = {
-	title: 'Next SSR React Prisma app',
-	description: 'Next SSR React Prisma app',
+	title: MESSAGES.META,
+	description: MESSAGES.META,
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+	if (typeof window === 'undefined') {
+		await initAdminOnce();
+	}
+
 	return (
 		<html lang="en">
-		<body className="antialiased min-h-screen bg-gray-100">
-		<SessionProvider>
-			<LogoutProvider>
-				<Layout>
-					{children}
-				</Layout>
-			</LogoutProvider>
-		</SessionProvider>
+		<body className="min-h-screen bg-gray-100">
+		<ClientProviders>
+			<Layout>{children}</Layout>
+		</ClientProviders>
 		</body>
 		</html>
 	);
 }
-
-// TRPC HOC
-export const AppWithTRPC = trpc.withTRPC(RootLayout);

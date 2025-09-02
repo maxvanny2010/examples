@@ -1,16 +1,15 @@
 'use client';
 
-import { trpc } from '@/shared/api';
 import { useSession } from 'next-auth/react';
 import { StateEmpty, StateError, StateLoading } from '@/entities/event/state';
 import { EventList } from '@/entities/event/EventList';
+import { trpc } from '@/shared/api';
 
 export default function Home() {
-	const { data: session, status } = useSession();
+	const { status } = useSession();
 	const isAuthenticated = status === 'authenticated';
 
 	const { data: events, isLoading, isError } = trpc.event.findMany.useQuery();
-
 	if (isLoading) return <StateLoading />;
 	if (isError) return <StateError />;
 	if (!events || events.length === 0) return <StateEmpty />;
@@ -27,7 +26,8 @@ export default function Home() {
 					</p>
 				</header>
 
-				<EventList events={events} isAuthenticated={isAuthenticated} />
+				<EventList events={events}
+						   isAuthenticated={isAuthenticated} />
 			</div>
 		</main>
 	);
