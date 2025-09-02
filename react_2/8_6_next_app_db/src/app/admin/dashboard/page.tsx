@@ -1,28 +1,20 @@
 'use client';
 import { trpc } from '@/shared/api';
-import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { ROLES } from '@/shared/types';
-import { UserDeleteModal } from '@/shared/ui';
 import { CardForbidden, CardUnauthorized } from '@/entities/event';
 import { SkeletonUsers } from '@/entities/user/skeletons';
 import { UsersTable } from '@/entities/user';
+import { useRouter } from 'next/navigation';
+import { PATH } from '@/shared/path';
 
 const AdminDashboard = () => {
+	const router = useRouter();
 	const { data: session } = useSession();
-	const { data: users, refetch, isLoading } = trpc.user.adminOnly.useQuery(
-		undefined,
-		{ enabled: session?.user?.role === ROLES.ADMIN },
-	);
 
-	const deleteUser = trpc.user.delete.useMutation({
-		onSuccess: () => {
-			refetch().then(r => r);
-			setSelectedUser(null);
-		},
+	const { data: users, isLoading } = trpc.admin.getAll.useQuery(undefined, {
+		enabled: session?.user?.role === ROLES.ADMIN,
 	});
-
-	const [selectedUser, setSelectedUser] = useState<null | { id: string | number; name: string }>(null);
 
 	if (!session) return <CardUnauthorized />;
 	if (session.user.role !== ROLES.ADMIN) return <CardForbidden />;
@@ -34,17 +26,10 @@ const AdminDashboard = () => {
 
 			<UsersTable
 				users={users ?? []}
-				onDelete={(id, name) => setSelectedUser({ id, name })}
+				onDelete={(id, name) => {
+					router.push(`${PATH.ADMIN.DASHBOARD}?modal=delete-user&id=${id}&name=${name}`);
+				}}
 			/>
-
-			{/* Модалка подтверждения */}
-			{selectedUser && (
-				<UserDeleteModal
-					name={selectedUser.name}
-					onCancel={() => setSelectedUser(null)}
-					onConfirm={() => deleteUser.mutate({ id: Number(selectedUser.id) })}
-				/>
-			)}
 		</div>
 	);
 };
