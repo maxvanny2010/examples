@@ -18,3 +18,4 @@ export const UniqueUserSchema = z.object({
 
 export type CreateUserInput = z.infer<typeof CreateUserSchema>;
 export type EditUserInput = z.infer<typeof EditUserSchema>;
+export type UniqueUserInput = z.infer<typeof UniqueUserSchema>;
