@@ -8,7 +8,7 @@ import {
 	JoinEventSchema,
 	UniqueEventInput,
 	UniqueEventSchema,
-} from '@/shared/api';
+} from '@/shared/schema';
 import { eventService } from './event.service';
 import { ContextWithDBUser } from '@/server/core/context';
 

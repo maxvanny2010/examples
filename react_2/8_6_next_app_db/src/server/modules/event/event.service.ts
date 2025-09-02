@@ -3,7 +3,7 @@ import { eventRepository } from './event.repository';
 import { TRPCError } from '@trpc/server';
 import { CODE, MESSAGES } from '@/shared/util';
 import { ContextWithDBUser } from '@/server/core/context';
-import { CreateEventInput, EditEventInput, JoinEventInput, UniqueEventInput } from '@/shared/api';
+import { CreateEventInput, EditEventInput, JoinEventInput, UniqueEventInput } from '@/shared/schema';
 
 export const eventService = {
 	findMany: async (ctx: ContextWithDBUser) => {

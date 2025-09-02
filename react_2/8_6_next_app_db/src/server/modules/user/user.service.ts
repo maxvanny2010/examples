@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { userRepository } from './user.repository';
 import { ROLES } from '@/shared/types';
-import { CreateUserInput, EditUserInput } from '@/shared/api';
+import { CreateUserInput, EditUserInput } from '@/shared/schema';
 
 export const userService = {
 	getAll: () => userRepository.findAll(),

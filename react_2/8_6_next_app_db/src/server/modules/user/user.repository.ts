@@ -1,5 +1,5 @@
 import prisma from '@/server/core/db';
-import { CreateUserInput } from '@/shared/api';
+import { CreateUserInput } from '@/shared/schema';
 
 export const userRepository = {
 	findAll: () =>

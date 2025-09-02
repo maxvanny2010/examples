@@ -1,9 +1,9 @@
 import { adminProcedure, router } from '@/server/core/trpc';
-import { CreateUserSchema, EditUserSchema, UniqueUserSchema } from '@/shared/api';
+import { CreateUserSchema, EditUserSchema, UniqueUserSchema } from '@/shared/schema';
 import { userService } from './user.service';
 
-export const userRouter = router({
-	adminOnly: adminProcedure.query(() => userService.getAll()),
+export const adminRouter = router({
+	getAll: adminProcedure.query(() => userService.getAll()),
 
 	findUnique: adminProcedure
 		.input(UniqueUserSchema)
