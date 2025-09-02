@@ -1,5 +1,6 @@
 import { RouterOutput } from '@/shared/api';
 import type { FC } from 'react';
+import Image from 'next/image';
 import { HiOutlineCalendar, HiOutlineUsers } from 'react-icons/hi';
 
 // --- Типы и Вспомогательные утилиты ---
@@ -58,7 +59,7 @@ export const EventDetail = ({ data, image }: EventDetailProps) => {
 
 						{/* Левая колонка: Изображение */}
 						<div className="lg:col-span-2">
-							<img
+							<Image
 								src={image}
 								alt={`Event cover. ${title}`}
 								className="w-full h-64 lg:h-full object-cover" // object-cover предотвращает искажение
