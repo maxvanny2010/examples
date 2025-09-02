@@ -3,7 +3,7 @@ export const PATH = {
 		ROOT: '/events',
 		ID: (id: string | number) => `/events/${id}`,
 		CREATE: '/events/create',
-		EDIT: (id: string | number) => `/events/edit/${id}`,
+		EDIT: (id: string | number) => `/events/${id}/edit`,
 	},
 	HOME: {
 		ROOT: '/',
@@ -16,5 +16,6 @@ export const PATH = {
 	ADMIN: {
 		ROOT: '/admin',
 		DASHBOARD: '/admin/dashboard',
+		DELETE: (id: string | number) => `/admin/delete/user/${id}/`,
 	},
 } as const;
