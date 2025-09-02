@@ -18,10 +18,8 @@ const BUTTON_CONFIG = {
 export default function ButtonEventAction({ type, onClick, children, className }: ButtonEventActionProps) {
 	const { class: colorClass } = BUTTON_CONFIG[type];
 	return (
-		<button
-			onClick={onClick}
-			className={`btn ${className} ${colorClass} text-white px-3 py-1 rounded text-sm shadow-lg`}
-		>
+		<button onClick={onClick}
+				className={`btn ${className} ${colorClass} text-white px-3 py-1 rounded text-sm shadow-lg`}>
 			{children}
 		</button>
 	);

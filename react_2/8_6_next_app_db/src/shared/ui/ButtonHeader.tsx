@@ -1,7 +1,8 @@
 'use client';
+
 import Link from 'next/link';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import { PATH } from '@/shared/path';
 import { BUTTON_EVENT_TYPE, ROLES } from '@/shared/types';
 import { hasRole } from '@/server/core/roles';
@@ -13,6 +14,7 @@ import {
 	AiOutlineLogout,
 	AiOutlinePlusCircle,
 } from 'react-icons/ai';
+import { useEventAuthor } from '@/shared/hooks';
 
 interface ButtonHeaderProps {
 	user: {
@@ -21,20 +23,19 @@ interface ButtonHeaderProps {
 		name?: string;
 		email?: string;
 	};
-	eventAuthorId?: number;
 }
 
-export default function ButtonHeader({ user, eventAuthorId }: ButtonHeaderProps) {
+export default function ButtonHeader({ user }: ButtonHeaderProps) {
 	const router = useRouter();
-	const eventId = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
-	console.log(eventAuthorId);
-	const isDetailPage = Boolean(eventId) && router.pathname === PATH.EVENTS.ID('[id]');
-	const isHome = router.pathname === PATH.HOME.ROOT;
-	const isDashboard = router.pathname === PATH.ADMIN.DASHBOARD;
-	const isSignIn = router.pathname === PATH.AUTH.SIGNIN;
-	const isRegister = router.pathname === PATH.AUTH.REGISTER;
+	const pathname = usePathname();
+	const params = useParams();
+	const eventId = Number(params?.id);
+	const { authorId, isDetailPage } = useEventAuthor(eventId);
+	const isHome = pathname === PATH.HOME.ROOT;
+	const isDashboard = pathname === PATH.ADMIN.DASHBOARD;
+	const isSignIn = pathname === PATH.AUTH.SIGNIN;
+	const isRegister = pathname === PATH.AUTH.REGISTER;
 
-	// Гость
 	if (user.role === ROLES.GUEST) {
 		return (
 			<div className="flex items-center space-x-2">
@@ -63,17 +64,19 @@ export default function ButtonHeader({ user, eventAuthorId }: ButtonHeaderProps)
 	const logoutHandler = async () => {
 		await signOut({ callbackUrl: PATH.HOME.ROOT });
 	};
+
 	const editHandler = async () => {
 		if (!eventId) return;
-		await router.push(PATH.EVENTS.EDIT(eventId));
+		router.push(PATH.EVENTS.EDIT(eventId));
 	};
+
 	const createHandler = async () => {
-		await router.push(PATH.EVENTS.CREATE);
+		router.push(PATH.EVENTS.CREATE);
 	};
+
 	const canEdit =
 		isDetailPage &&
-		(user.role === ROLES.ADMIN || (user.role === ROLES.USER && user.id === eventAuthorId));
-	console.log(user.id, eventAuthorId);
+		(user.role === ROLES.ADMIN || (user.role === ROLES.USER && user.id === authorId));
 	return (
 		<div className="flex items-center space-x-2">
 			{hasRole(user.role, [ROLES.ADMIN, ROLES.USER]) && (
@@ -87,33 +90,36 @@ export default function ButtonHeader({ user, eventAuthorId }: ButtonHeaderProps)
 							Dashboard
 						</Link>
 					)}
+
 					{(isHome || isDetailPage) && (
 						<ButtonEventAction
 							type={BUTTON_EVENT_TYPE.CREATE}
 							className="flex items-center gap-1 cursor-pointer"
-							onClick={createHandler}>
+							onClick={createHandler}
+						>
 							<AiOutlinePlusCircle />
 							<span>Create</span>
 						</ButtonEventAction>
-
 					)}
+
 					{canEdit && (
 						<ButtonEventAction
 							type={BUTTON_EVENT_TYPE.EDIT}
 							className="flex items-center gap-1 cursor-pointer"
-							onClick={editHandler}>
+							onClick={editHandler}
+						>
 							<AiOutlineEdit />
 							<span>Edit</span>
 						</ButtonEventAction>
 					)}
+
 					<button
 						onClick={logoutHandler}
-						className="btn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm shadow-lg flex items-center  cursor-pointer"
+						className="btn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm shadow-lg flex items-center cursor-pointer"
 					>
 						<AiOutlineLogout className="mr-1" />
 						Logout ({user.name})
 					</button>
-
 				</div>
 			)}
 		</div>
