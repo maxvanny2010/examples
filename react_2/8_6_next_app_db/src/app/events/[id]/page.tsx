@@ -1,59 +1,38 @@
-import { GetServerSidePropsContext } from 'next';
+'use client';
+
+import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { trpc } from '@/shared/api';
-import prisma from '@/server/core/db';
-import { useLogout } from '@/shared/contexts';
-import { MESSAGES, pathImage, sizeImage } from '@/shared/util';
-import { EventDetail } from '@/entities/event';
 import { SkeletonEventDetail } from '@/entities/event/skeletons';
+import { MESSAGES } from '@/shared/util';
+import { trpc } from '@/shared/api';
+import { useLogout } from '@/shared/contexts';
+import { EventDetailClient } from './EventDetailClient';
+import { StateEmpty, StateError } from '@/entities/event/state';
 
 export default function EventDetailPage() {
-	const { status } = useSession();
 	const { isLoggingOut } = useLogout();
-	const router = useRouter();
+	const { status } = useSession();
+	const params = useParams();
+	const idParam = params?.id;
 
-	const id = router.query.id;
-	const idNumber = typeof id === 'string' ? Number(id) : undefined;
-
-	const { data, isLoading, error } = trpc.event.findUnique.useQuery(
-		{ id: idNumber! },
-		{ enabled: Boolean(idNumber) },
-	);
-
-	if (isLoggingOut || !idNumber || status === 'loading' || isLoading) return <SkeletonEventDetail />;
-
-	if (error) return <p>Mistake: {error.message}</p>;
-
-	if (!data) return <p>{MESSAGES.EVENT_NOT_FOUND}</p>;
-
-	const randomImg = `${pathImage}${id}${sizeImage}`;
-
-	return (
-		<EventDetail
-			data={data}
-			image={randomImg}
-		/>
-	);
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-	const id = context.params?.id as string;
-	const event = await prisma.event.findUnique({ where: { id: Number(id) } });
-
-	if (!event) {
-		return { notFound: true };
+	if (!idParam || Array.isArray(idParam)) {
+		return <p>{MESSAGES.EVENT_NOT_CORRECT_ID}</p>;
 	}
 
-	return {
-		props: {
-			event: {
-				...event,
-				createdAt: event.createdAt.toISOString(),
-				updatedAt: event.updatedAt.toISOString(),
-				eventDate: event.updatedAt.toISOString(),
-			},
-			eventAuthorId: event.authorId,
-		},
-	};
+	const idNumber = Number(idParam);
+	if (Number.isNaN(idNumber)) {
+		return <p>{MESSAGES.EVENT_NOT_CORRECT_ID}</p>;
+	}
+
+	const { data, isLoading, error } = trpc.event.findUnique.useQuery(
+		{ id: idNumber },
+		{ enabled: true },
+	);
+
+	if (isLoggingOut || status === 'loading' || isLoading) return <SkeletonEventDetail />;
+	if (error) return <StateError message={error.message} />;
+	if (!data) return <StateEmpty />;
+
+	return <EventDetailClient event={data}
+							  eventId={idParam} />;
 }
