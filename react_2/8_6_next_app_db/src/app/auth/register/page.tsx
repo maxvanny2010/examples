@@ -1,83 +1,87 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { FiLock, FiMail, FiUser } from 'react-icons/fi';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { RegisterFormData, registerSchema, trpc } from '@/shared/api';
+import { RegisterFormData, registerSchema } from '@/shared/schema';
+import { trpc } from '@/shared/api';
 import { Alert, InputField } from '@/shared/ui';
-import { ROLES } from '@/shared/types';
+import { CODE, MESSAGES, trpcError } from '@/shared/util';
 import { PATH } from '@/shared/path';
+import { ROLES } from '@/shared/types';
 
-const RegisterForm = () => {
+export default function RegisterForm() {
 	const router = useRouter();
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-	const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<RegisterFormData>({
-		resolver: zodResolver(registerSchema),
-		mode: 'onBlur',
-		defaultValues: { role: ROLES.USER },
-	});
+	const { register, handleSubmit, formState: { errors, isSubmitting } } =
+		useForm<RegisterFormData>({
+			resolver: zodResolver(registerSchema),
+			mode: 'onBlur',
+			defaultValues: { role: ROLES.USER },
+		});
 
 	const registerMutation = trpc.auth.register.useMutation();
 
 	const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
-		setErrorMessage(null); // очищаем ошибку перед новой попыткой
+		setErrorMessage(null);
+		const { confirmPassword, ...payload } = data;
 
-		registerMutation.mutate(
-			{
-				name: data.name,
-				email: data.email,
-				password: data.password,
-				role: ROLES.USER,
+		registerMutation.mutate(payload, {
+			onSuccess: () => router.push(PATH.AUTH.SIGNIN),
+			onError: (error) => {
+				setErrorMessage(
+					trpcError(error, {
+						[CODE.CONFLICT]: MESSAGES.USER_ALREADY_REGISTERED,
+					}, MESSAGES.USER_ERROR_REGISTRATION),
+				);
 			},
-			{
-				onSuccess: (user) => {
-					console.log('User created:', user);
-					router.push(PATH.AUTH.SIGNIN);
-				},
-				onError: (error: any) => {
-					if (error.message.includes('Unique constraint failed')) {
-						setErrorMessage('This email is already registered.');
-					} else {
-						setErrorMessage('Registration error. Please try again later.');
-					}
-				},
-			},
-		);
+		});
 	};
 
 	return (
-		<div className="flex items-center justify-center bg-gray-100 p-4">
+		<div className="flex items-center justify-center p-4">
 			<div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
-				{errorMessage && (
-					<Alert onClose={() => setErrorMessage(null)}>
-						{errorMessage}
-					</Alert>
-				)}
-				<div className="text-center">
-					<h1 className="text-4xl font-bold text-gray-800">Registration</h1>
-				</div>
+				{errorMessage && <Alert onClose={() => setErrorMessage(null)}>{errorMessage}</Alert>}
+				<h1 className="text-4xl font-bold text-gray-800 text-center">Registration</h1>
+
 				<form onSubmit={handleSubmit(onSubmit)}
 					  className="space-y-4">
-					<InputField label="Name"
-								id="name"
-								register={register('name')}
-								error={errors.name?.message}
-								placeholder="Your name" />
-					<InputField label="Email"
-								id="email"
-								register={register('email')}
-								error={errors.email?.message}
-								placeholder="you@example.com" />
-					<InputField label="Password"
-								id="password"
-								type="password"
-								register={register('password')}
-								error={errors.password?.message}
-								placeholder="•••" />
+					<InputField
+						label="Name"
+						id="name"
+						icon={<FiUser />}
+						register={register('name')}
+						error={errors.name?.message}
+						placeholder="Your name"
+					/>
+
+					<InputField
+						label="Email"
+						id="email"
+						icon={<FiMail />}
+						register={register('email')}
+						error={errors.email?.message}
+						placeholder="you@example.com"
+					/>
+
+					<InputField
+						label="Password"
+						id="password"
+						type="password"
+						icon={<FiLock />}
+						register={register('password')}
+						error={errors.password?.message}
+						placeholder="•••"
+					/>
+
 					<InputField
 						label="Confirm Password"
 						id="confirmPassword"
 						type="password"
+						icon={<FiLock />}
 						register={register('confirmPassword')}
 						error={errors.confirmPassword?.message}
 						placeholder="•••"
@@ -88,12 +92,10 @@ const RegisterForm = () => {
 						disabled={isSubmitting || registerMutation.isPending}
 						className="w-full py-3 px-4 text-white font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed transition-all duration-200"
 					>
-						{registerMutation.isPending ? 'Registration...' : 'Register'}
+						{registerMutation.isPending ? 'Registering...' : 'Register'}
 					</button>
 				</form>
 			</div>
 		</div>
 	);
-};
-
-export default RegisterForm;
+}

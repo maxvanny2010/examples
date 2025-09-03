@@ -10,7 +10,6 @@ export const registerSchema = z
 		role: z.literal(ROLES.USER),
 	})
 	.refine((data) => {
-		console.log('Checking passwords:', data.password, data.confirmPassword);
 		return data.password === data.confirmPassword;
 	}, {
 		message: 'Passwords do not match',
