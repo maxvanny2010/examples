@@ -1,11 +1,9 @@
-import { router } from '../trpc';
-import { eventRouter } from '@/server/routes/event';
-import { userRouter } from '@/server/routes/user';
-import { authRouter } from '@/server/routes/auth';
+import {router} from '../core/trpc';
+import {adminRouters, authRouters, eventRouters} from "@/server/modules";
 
 export const appRouter = router({
-	event: eventRouter,
-	user: userRouter,
-	auth: authRouter,
+    event: eventRouters,
+    user: adminRouters,
+    auth: authRouters,
 });
 export type AppRouter = typeof appRouter;
