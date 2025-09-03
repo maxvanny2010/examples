@@ -1,60 +1,38 @@
-import { useRouter } from 'next/router';
-import { trpc } from '@/shared/api';
-import { EventDetail, EventDetailSkeleton } from '@/entities/event';
-import { pathImage, sizeImage } from '@/util';
-import { useSession } from 'next-auth/react';
-import { useLogout } from '@/shared/contexts';
-import { GetServerSidePropsContext } from 'next';
-import prisma from '@/server/db';
+'use client';
 
-export default function EventDetailPage() {
-	const { status } = useSession();
-	const { isLoggingOut } = useLogout();
-	const router = useRouter();
+import {useParams} from 'next/navigation';
+import {useSession} from 'next-auth/react';
+import {MESSAGES} from '@/shared/util';
+import {useLogout} from '@/shared/contexts';
+import {trpc} from '@/shared/schema';
+import {EventDetailsSkeleton} from '@/entities/event';
+import {StateEmpty, StateError} from '@/entities/event/ui/state';
+import {EventDetailClient} from '@/entities/event/ui/EventDetailClient';
 
-	const id = router.query.id;
-	const idNumber = typeof id === 'string' ? Number(id) : undefined;
+export const EventDetailsPage = () => {
+    const {isLoggingOut} = useLogout();
+    const {status} = useSession();
+    const params = useParams();
+    const idParam = params?.id;
 
-	const { data, isLoading, error } = trpc.event.findUnique.useQuery(
-		{ id: idNumber! },
-		{ enabled: Boolean(idNumber) }
-	);
+    if (!idParam || Array.isArray(idParam)) {
+        return <p>{MESSAGES.EVENT_NOT_CORRECT_ID}</p>;
+    }
 
-	// Пока идёт логин/логаут или нет id → показываем скелетон
-	if (isLoggingOut || !idNumber || status === 'loading' || isLoading) return <EventDetailSkeleton />;
+    const idNumber = Number(idParam);
+    if (Number.isNaN(idNumber)) {
+        return <p>{MESSAGES.EVENT_NOT_CORRECT_ID}</p>;
+    }
 
-	// Обработка ошибки запроса
-	if (error) return <p>Ошибка: {error.message}</p>;
+    const {data, isLoading, error} = trpc.event.findUnique.useQuery(
+        {id: idNumber},
+        {enabled: true},
+    );
 
-	// Если события нет → сообщение
-	if (!data) return <p>Событие не найдено</p>;
+    if (isLoggingOut || status === 'loading' || isLoading) return <EventDetailsSkeleton/>;
+    if (error) return <StateError message={error.message}/>;
+    if (!data) return <StateEmpty/>;
 
-	const randomImg = `${pathImage}${id}${sizeImage}`;
-
-	return (
-		<EventDetail
-			data={data}
-			image={randomImg}
-		/>
-	);
-}
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-	const id = context.params?.id as string;
-	const event = await prisma.event.findUnique({ where: { id: Number(id) } });
-
-	if (!event) {
-		return { notFound: true };
-	}
-
-	return {
-		props: {
-			event: {
-				...event,
-				createdAt: event.createdAt.toISOString(),
-				updatedAt: event.updatedAt.toISOString(),
-				eventDate: event.updatedAt.toISOString(),
-			},
-			eventAuthorId: event.authorId,
-		},
-	};
-}
+    return <EventDetailClient event={data}
+                              eventId={idParam}/>;
+};
