@@ -3,7 +3,6 @@ export const MESSAGES = {
 	USER_PASSWORD_NOT_FOUND: 'Invalid email or password. Please try again',
 	USER_ALREADY_REGISTERED: 'User already registered',
 	USER_ERROR_REGISTRATION: 'Registration error. Please try again later.',
-	USER_ERROR_LOGIN: 'Invalid email or password. Please try again.',
 	EVENT_NOT_FOUND: 'Event not found',
 	EVENT_NOT_CORRECT_ID: 'An event ID isn\'t corrected',
 	EVENT_ERROR_UPDATE: 'Event update error.',

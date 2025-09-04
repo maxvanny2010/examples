@@ -89,7 +89,7 @@ const SignInPage: NextPage<SignInProps> = ({ csrfToken }) => {
 		});
 
 		if (result?.error) {
-			setAuthError(MESSAGES.USER_ERROR_LOGIN);
+			setAuthError(MESSAGES.USER_PASSWORD_NOT_FOUND);
 		} else if (result?.ok) {
 			window.location.href = PATH.HOME.ROOT;
 		}
