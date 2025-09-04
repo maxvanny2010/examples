@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import { DateTime } from 'luxon';
 import { PATH } from '@/shared/path';
+import Image from 'next/image';
 import { Event } from '@/shared/types/event';
 import { pathImage, sizeImage } from '@/shared/util';
 
@@ -21,10 +22,12 @@ export const CardEvent = ({ id, title, description, eventDate, action }: Props) 
 		>
 			{/* Изображение реагирует на наведение курсора на карточку */}
 			<div className="relative overflow-hidden h-48">
-				<img
+				<Image
 					src={imageUrl}
 					alt={title}
 					className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+					width={200}
+					height={300}
 				/>
 				<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
 			</div>
