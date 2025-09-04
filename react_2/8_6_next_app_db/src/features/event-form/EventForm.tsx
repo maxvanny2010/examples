@@ -1,7 +1,7 @@
 'use client';
 
 import { DateTime } from 'luxon';
-import { useRouter } from 'next/navigation'; // ✅ вместо next/router
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { CreateEventInput, CreateEventSchema, EditEventInput, EditEventSchema } from '@/shared/schema';

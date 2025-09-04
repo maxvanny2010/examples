@@ -26,7 +26,6 @@ interface ButtonHeaderProps {
 export const ButtonHeader = ({ user, eventAuthorId }: ButtonHeaderProps) => {
 	const router = useRouter();
 	const eventId = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
-	console.log(eventAuthorId);
 	const isDetailPage = Boolean(eventId) && router.pathname === PATH.EVENTS.ID('[id]');
 	const isHome = router.pathname === PATH.HOME.ROOT;
 	const isDashboard = router.pathname === PATH.ADMIN.DASHBOARD;

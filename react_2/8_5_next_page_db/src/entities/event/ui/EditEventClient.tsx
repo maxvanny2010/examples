@@ -94,7 +94,7 @@ export const EditEventClient = ({id}: EditEventClientProps) => {
                         ? DateTime.fromJSDate(new Date(event.eventDate)).toFormat('yyyy-MM-dd\'T\'HH:mm')
                         : undefined,
                 }}
-                onSubmit={handleSubmitEdit}
+                onSubmitAction={handleSubmitEdit}
             />
         </div>
     );

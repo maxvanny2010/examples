@@ -28,7 +28,7 @@ export default function CreateEvent() {
         <div className="mx-auto max-w-4xl space-y-4">
             {mutationError && <Alert onClose={() => setMutationError(null)}>{mutationError}</Alert>}
             <EventForm mode={EVENT_MODE.CREATE}
-                       onSubmit={handleSubmitCreate}
+                       onSubmitAction={handleSubmitCreate}
             />
         </div>
     );
