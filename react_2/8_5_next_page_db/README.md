@@ -2,6 +2,12 @@
 
 ## Project: Events
 
+| ID | Username | Email           | Role  |
+|----|----------|-----------------|-------|
+| 2  | user1    | user1@gmail.com | USER  |
+| 5  | admin    | admin@gmail.com | ADMIN |
+| 6  | user2    | user2@gmail.com | USER  |
+
 #### [home page]
 
 ![home](public/images/home-unauthtorized.png)
