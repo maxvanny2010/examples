@@ -8,7 +8,7 @@ import { UsersTable } from '@/entities/user';
 import { useRouter } from 'next/navigation';
 import { PATH } from '@/shared/path';
 
-const AdminDashboard = () => {
+export default function AdminDashboard() {
 	const router = useRouter();
 	const { data: session } = useSession();
 
@@ -33,5 +33,3 @@ const AdminDashboard = () => {
 		</div>
 	);
 };
-
-export default AdminDashboard;

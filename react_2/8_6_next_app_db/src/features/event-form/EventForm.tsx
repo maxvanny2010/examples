@@ -36,7 +36,7 @@ export const EventForm = ({ mode, defaultValues, onSubmitAction }: Props) => {
 
 	const handleCancel = () => {
 		reset();
-		router.push(PATH.HOME.ROOT); // ✅ без .then()
+		router.push(PATH.HOME.ROOT);
 	};
 
 	const handleFormSubmit: SubmitHandler<
