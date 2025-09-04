@@ -26,7 +26,7 @@ const AdminDashboard = () => {
 
 			<UsersTable
 				users={users ?? []}
-				onDelete={(id, name) => {
+				onDeleteAction={(id, name) => {
 					router.push(`${PATH.ADMIN.DASHBOARD}?modal=delete-user&id=${id}&name=${name}`);
 				}}
 			/>

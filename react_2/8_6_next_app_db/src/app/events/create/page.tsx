@@ -36,7 +36,7 @@ export default function CreateEvent() {
 				<Alert onClose={() => setMutationError(null)}>{mutationError}</Alert>
 			)}
 			<EventForm mode={EVENT_MODE.CREATE}
-					   onSubmit={handleSubmitCreate} />
+					   onSubmitAction={handleSubmitCreate} />
 		</div>
 	);
 }

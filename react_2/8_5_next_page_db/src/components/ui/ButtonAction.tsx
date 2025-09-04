@@ -14,7 +14,7 @@ const BUTTON_CONFIG = {
 	[BUTTON_EVENT_TYPE.DETAIL]: { class: 'bg-gray-600 hover:bg-gray-700' },
 };
 
-export default function ButtonEventAction({ type, onClick, children, className }: ButtonEventActionProps) {
+export const ButtonEventAction = ({ type, onClick, children, className }: ButtonEventActionProps) => {
 	const { class: colorClass } = BUTTON_CONFIG[type];
 	return (
 		<button onClick={onClick}
@@ -22,4 +22,4 @@ export default function ButtonEventAction({ type, onClick, children, className }
 			{children}
 		</button>
 	);
-}
+};

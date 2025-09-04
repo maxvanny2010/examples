@@ -11,10 +11,10 @@ import { PATH } from '@/shared/path';
 type Props = {
 	mode: EventModeType;
 	defaultValues?: Partial<EditEventInput>;
-	onSubmit: SubmitHandler<CreateEventInput | EditEventInput>;
+	onSubmitAction: SubmitHandler<CreateEventInput | EditEventInput>;
 };
 
-export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
+export const EventForm = ({ mode, defaultValues, onSubmitAction }: Props) => {
 	const router = useRouter();
 	const schema =
 		mode === EVENT_MODE.CREATE ? CreateEventSchema : EditEventSchema;
@@ -50,7 +50,7 @@ export const EventForm = ({ mode, defaultValues, onSubmit }: Props) => {
 				)
 				: undefined,
 		};
-		onSubmit(payload);
+		onSubmitAction(payload);
 	};
 
 	return (
