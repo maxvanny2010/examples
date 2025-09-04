@@ -7,10 +7,9 @@ import { ButtonHeader } from '@/components';
 
 interface LayoutProps {
 	children: ReactNode;
-	eventAuthorId?: number;
 }
 
-export const Layout = ({ children, eventAuthorId }: LayoutProps) => {
+export const Layout = ({ children }: LayoutProps) => {
 	const user = useUserRole();
 	return (
 		<div className="min-h-screen flex flex-col">
@@ -21,8 +20,7 @@ export const Layout = ({ children, eventAuthorId }: LayoutProps) => {
 						<AiOutlineHome />
 					</Link>
 				</div>
-				<ButtonHeader user={user}
-							  eventAuthorId={eventAuthorId} />
+				<ButtonHeader user={user} />
 			</header>
 
 			<main className="flex-1 p-4">{children}</main>

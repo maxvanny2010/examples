@@ -12,6 +12,7 @@ import {
 	AiOutlineLogout,
 	AiOutlinePlusCircle,
 } from 'react-icons/ai';
+import { useEventAuthor } from '@/shared/hooks';
 
 interface ButtonHeaderProps {
 	user: {
@@ -20,13 +21,12 @@ interface ButtonHeaderProps {
 		name?: string;
 		email?: string;
 	};
-	eventAuthorId?: number;
 }
 
-export const ButtonHeader = ({ user, eventAuthorId }: ButtonHeaderProps) => {
+export const ButtonHeader = ({ user }: ButtonHeaderProps) => {
 	const router = useRouter();
-	const eventId = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
-	const isDetailPage = Boolean(eventId) && router.pathname === PATH.EVENTS.ID('[id]');
+	const eventId = Number(Array.isArray(router.query.id) ? router.query.id[0] : router.query.id);
+	const { authorId, isDetailPage } = useEventAuthor(eventId);
 	const isHome = router.pathname === PATH.HOME.ROOT;
 	const isDashboard = router.pathname === PATH.ADMIN.DASHBOARD;
 	const isSignIn = router.pathname === PATH.AUTH.SIGNIN;
@@ -70,8 +70,7 @@ export const ButtonHeader = ({ user, eventAuthorId }: ButtonHeaderProps) => {
 	};
 	const canEdit =
 		isDetailPage &&
-		(user.role === ROLES.ADMIN || (user.role === ROLES.USER && user.id === eventAuthorId));
-	console.log(user.id, eventAuthorId);
+		(user.role === ROLES.ADMIN || (user.role === ROLES.USER && user.id === authorId));
 	return (
 		<div className="flex items-center space-x-2">
 			{hasRole(user.role, [ROLES.ADMIN, ROLES.USER]) && (
