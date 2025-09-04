@@ -8,6 +8,7 @@ import { FiEye, FiEyeOff, FiLock, FiMail } from 'react-icons/fi';
 import type { GetServerSidePropsContext, NextPage } from 'next';
 import { loginSchema } from '@/shared/schema';
 import { PATH } from '@/shared/path';
+import { MESSAGES } from '@/shared/util';
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -88,7 +89,7 @@ const SignInPage: NextPage<SignInProps> = ({ csrfToken }) => {
 		});
 
 		if (result?.error) {
-			setAuthError('Неверный email или пароль. Попробуйте снова.');
+			setAuthError(MESSAGES.USER_ERROR_LOGIN);
 		} else if (result?.ok) {
 			window.location.href = PATH.HOME.ROOT;
 		}
