@@ -27,7 +27,7 @@ export default function RegisterForm() {
 
 	const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
 		setErrorMessage(null);
-		const { confirmPassword, ...payload } = data;
+		const { ...payload } = data;
 
 		registerMutation.mutate(payload, {
 			onSuccess: () => router.push(PATH.AUTH.SIGNIN),
