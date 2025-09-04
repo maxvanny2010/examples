@@ -27,9 +27,10 @@ export const EventCard = ({ id, title, description, eventDate, action }: EventCa
 				<Image
 					src={imageUrl}
 					alt={title}
+					fill
 					className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-					width={200}
-					height={300}
+					sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 100vw"
+					priority
 				/>
 				<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
 			</div>
