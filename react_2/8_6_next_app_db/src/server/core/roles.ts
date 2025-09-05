@@ -25,7 +25,7 @@ export const useUserRole = (): UserRole => {
 	}
 
 	return {
-		id: session.user.id,
+		id: Number(session.user.id),
 		role: session.user.role as RoleType, // явно к RoleType
 		name: session.user.name ?? session.user.email ?? ROLES.USER, // fallback на email
 		email: session.user.email ?? undefined,

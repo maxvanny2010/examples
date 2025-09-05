@@ -10,7 +10,7 @@ export const eventService = {
 		const events = await eventRepository.findMany();
 		return events.map(({ participations, ...event }) => ({
 			...event,
-			isJoined: ctx.user ? participations.some(p => p.userId === ctx.user!.id) : false,
+			isJoined: ctx.user ? participations.some(p => p.userId === Number(ctx.dbUser!.id)) : false,
 		}));
 	},
 
@@ -23,7 +23,7 @@ export const eventService = {
 		if (!event) {
 			throw new TRPCError({ code: CODE.NOT_FOUND, message: MESSAGES.EVENT_NOT_FOUND });
 		}
-		const isJoined = event.participations.some(p => p.userId === ctx.dbUser!.id);
+		const isJoined = event.participations.some(p => p.userId === Number(ctx.dbUser!.id));
 		return { ...event, isJoined };
 	},
 
@@ -33,7 +33,7 @@ export const eventService = {
 			: new Date();
 
 		return eventRepository.create({
-			authorId: ctx.dbUser!.id,
+			authorId: Number(ctx.dbUser!.id),
 			title: input.title,
 			description: input.description ?? null,
 			eventDate,
@@ -57,10 +57,10 @@ export const eventService = {
 	},
 
 	join: async (ctx: ContextWithDBUser, input: JoinEventInput) => {
-		return eventRepository.join(ctx.dbUser!.id, input.id);
+		return eventRepository.join(Number(ctx.dbUser!.id), input.id);
 	},
 
 	leave: async (ctx: ContextWithDBUser, input: JoinEventInput) => {
-		return eventRepository.leave(ctx.dbUser!.id, input.id);
+		return eventRepository.leave(Number(ctx.dbUser!.id), input.id);
 	},
 };

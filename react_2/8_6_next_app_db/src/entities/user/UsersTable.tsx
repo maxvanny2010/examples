@@ -2,11 +2,11 @@
 
 import { AiOutlineDelete } from 'react-icons/ai';
 import { ROLES } from '@/shared/types';
-import { DBUser } from '@/shared/types/user';
+import { DBUser } from '@/server/core/context';
 
 type UsersTableProps = {
 	users: DBUser[];
-	onDeleteAction: (id: number, name: string) => void;
+	onDeleteAction: (id: string, name: string) => void;
 };
 
 export function UsersTable({ users, onDeleteAction }: UsersTableProps) {
