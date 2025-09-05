@@ -7,7 +7,8 @@ import { TRPCProvider } from '@/shared/api/trpc-provider';
 
 export function ClientProviders({ children }: { children: ReactNode }) {
 	return (
-		<SessionProvider>
+		<SessionProvider refetchInterval={0}
+						 refetchOnWindowFocus={false}>
 			<LogoutProvider>
 				<TRPCProvider>{children}</TRPCProvider>
 			</LogoutProvider>

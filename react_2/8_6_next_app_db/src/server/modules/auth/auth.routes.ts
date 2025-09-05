@@ -6,7 +6,6 @@ export const authRoutes = router({
 	register: procedure
 		.input(CreateUserSchema)
 		.mutation(async ({ input }: { input: CreateUserInput }) => {
-			console.log('authService.register called', input.email);
 			return authService.register(input);
 		}),
 });

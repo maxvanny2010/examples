@@ -1,26 +1,29 @@
 import prisma from './db';
 import type { Session } from 'next-auth';
-import { getServerSession } from 'next-auth';
-import { DBUser } from '@/shared/types/user';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import type { DBUser as DBUserOriginal } from '@/shared/types/next-auth';
+import type { Role } from '@prisma/client';
+
+export type DBUser = Omit<DBUserOriginal, 'id' | 'role'> & {
+	id: string;
+	role: Role;
+};
 
 export type ContextWithDBUser = {
 	user?: Session['user'];
 	dbUser?: DBUser;
 };
 
-export const createContext = async (): Promise<ContextWithDBUser> => {
-	const session = await getServerSession(authOptions);
-
+export const createContext = async (session: Session | null): Promise<ContextWithDBUser> => {
 	if (!session?.user?.id) return {};
 
-	const dbUser = await prisma.user.findUnique({
-		where: { id: session.user.id },
+	const dbUserRaw = await prisma.user.findUnique({
+		where: { id: Number(session.user.id) },
 	});
 
-	if (!dbUser || dbUser.deleted) return { user: session.user };
+	if (!dbUserRaw || dbUserRaw.deleted) return { user: session.user };
 
-	return { user: session.user, dbUser };
+	return {
+		user: session.user,
+		dbUser: { ...dbUserRaw, id: dbUserRaw.id.toString() },
+	};
 };
-
-export type TRPCContext = Awaited<ReturnType<typeof createContext>>;

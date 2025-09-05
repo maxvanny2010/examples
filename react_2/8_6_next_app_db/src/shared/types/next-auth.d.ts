@@ -1,11 +1,11 @@
 import { DefaultSession } from 'next-auth';
-import { RoleType } from '@/shared/types';
+import { Role } from '@prisma/client';
 
 export interface UserBase {
-	id: number;
+	id: string;
 	name: string;
 	email: string;
-	role: RoleType;
+	role: Role; // из Prisma
 }
 
 export interface DBUser extends UserBase {
@@ -21,7 +21,7 @@ declare module 'next-auth' {
 
 declare module 'next-auth/jwt' {
 	interface JWT {
-		id: number;
-		role: RoleType;
+		id: string;
+		role: Role;
 	}
 }
