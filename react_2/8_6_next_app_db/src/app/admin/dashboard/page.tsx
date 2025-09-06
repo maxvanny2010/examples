@@ -5,11 +5,9 @@ import { ROLES } from '@/shared/types';
 import { CardForbidden, CardUnauthorized } from '@/entities/event';
 import { SkeletonUsers } from '@/entities/user/skeletons';
 import { UsersTable } from '@/entities/user';
-import { useRouter } from 'next/navigation';
 import { PATH } from '@/shared/path';
 
 export default function AdminDashboard() {
-	const router = useRouter();
 	const { data: session } = useSession();
 
 	const { data: users, isLoading } = trpc.admin.getAll.useQuery(undefined, {
@@ -27,9 +25,10 @@ export default function AdminDashboard() {
 			<UsersTable
 				users={users ?? []}
 				onDeleteAction={(id, name) => {
-					router.push(`${PATH.ADMIN.DASHBOARD}?modal=delete-user&id=${id}&name=${name}`);
+					return `${PATH.ADMIN.DASHBOARD}/delete/${id}?name=${encodeURIComponent(name)}`;
 				}}
 			/>
+
 		</div>
 	);
 };

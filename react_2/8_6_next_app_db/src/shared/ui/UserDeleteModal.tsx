@@ -11,9 +11,9 @@ export const UserDeleteModal = ({ name, onCancel, onConfirm }: UserDeleteModalPr
 	return (
 		<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 			<div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-				<h3 className="text-lg font-semibold mb-4 text-black">Remove user</h3>
+				<h3 className="text-lg font-semibold mb-4 text-black">Remove {name}</h3>
 				<p className="mb-6 text-gray-700">
-					Are you sure you want to delete the user <span className="font-medium">{name}</span>?
+					Are you sure you want to delete the <span className="font-medium">{name}</span>?
 				</p>
 				<div className="flex justify-end gap-3">
 					<button

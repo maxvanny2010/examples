@@ -3,10 +3,11 @@
 import { AiOutlineDelete } from 'react-icons/ai';
 import { ROLES } from '@/shared/types';
 import { DBUser } from '@/shared/types/next-auth';
+import Link from 'next/link';
 
 type UsersTableProps = {
 	users: DBUser[];
-	onDeleteAction: (id: string, name: string) => void;
+	onDeleteAction: (id: string, name: string) => string;
 };
 
 export function UsersTable({ users, onDeleteAction }: UsersTableProps) {
@@ -50,12 +51,12 @@ export function UsersTable({ users, onDeleteAction }: UsersTableProps) {
 						</td>
 						<td className="px-4 py-3 border border-black text-center">
 							{!u.deleted && u.role !== ROLES.ADMIN && (
-								<button
-									onClick={() => onDeleteAction(u.id, u.name)}
+								<Link
+									href={onDeleteAction(u.id, u.name)}
 									className="inline-flex items-center gap-2 text-red-600 hover:text-red-800 font-medium transition-colors cursor-pointer"
 								>
 									<AiOutlineDelete className="text-lg" />
-								</button>
+								</Link>
 							)}
 						</td>
 					</tr>
