@@ -2,7 +2,7 @@
 
 import { AiOutlineDelete } from 'react-icons/ai';
 import { ROLES } from '@/shared/types';
-import { DBUser } from '@/server/core/context';
+import { DBUser } from '@/shared/types/next-auth';
 
 type UsersTableProps = {
 	users: DBUser[];
