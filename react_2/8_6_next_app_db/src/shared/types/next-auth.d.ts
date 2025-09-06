@@ -5,14 +5,13 @@ export interface UserBase {
 	id: string;
 	name: string;
 	email: string;
-	role: Role; // из Prisma
+	role: Role;
 }
 
 export interface DBUser extends UserBase {
 	deleted: boolean;
 }
 
-// Для NextAuth
 declare module 'next-auth' {
 	interface Session {
 		user: UserBase & DefaultSession['user'];

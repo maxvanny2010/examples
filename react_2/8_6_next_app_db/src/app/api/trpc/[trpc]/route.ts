@@ -1,12 +1,28 @@
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { appRouter } from '@/server/routes';
-import { ContextWithDBUser, createContext as createInnerContext } from '@/server/core/context';
-import { auth } from '@/auth';
+import { createContext } from '@/server/core/context';
+import type { Session } from 'next-auth';
+import { Role } from '@prisma/client';
 
 const handler = async (req: Request) => {
-	const session = await auth();
+	const userId = req.headers.get('x-user-id');
+	const role = req.headers.get('x-user-role') as Role | null;
 
-	const context: ContextWithDBUser = await createInnerContext(session);
+	console.log('📥 Route headers:', { userId, role });
+
+	const session: Session | null = userId
+		? {
+			user: {
+				id: userId,
+				name: '',
+				email: '',
+				role: role && Object.values(Role).includes(role) ? role : Role.USER,
+			},
+			expires: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+		}
+		: null;
+
+	const context = await createContext(session);
 
 	return fetchRequestHandler({
 		endpoint: '/api/trpc',
@@ -17,4 +33,3 @@ const handler = async (req: Request) => {
 };
 
 export { handler as GET, handler as POST };
-
