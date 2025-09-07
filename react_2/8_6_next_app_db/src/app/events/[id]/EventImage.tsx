@@ -15,6 +15,7 @@ export const EventImage = ({ imageId, title }: Props) => {
 		<div className="lg:col-span-2">
 			<Image
 				src={src}
+				priority
 				alt={`Event cover. ${title}`}
 				className="w-full h-64 lg:h-full object-cover"
 				width={600}
