@@ -5,7 +5,7 @@ import { auth } from './auth.edge';
 export async function middleware(req: NextRequest) {
 	const session = await auth();
 
-	console.log('🔑 Middleware session:', session);
+	console.log('Middleware session: 🔑 ', session);
 
 	const headers = new Headers(req.headers);
 

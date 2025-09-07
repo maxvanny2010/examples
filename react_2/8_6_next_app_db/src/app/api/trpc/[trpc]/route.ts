@@ -8,7 +8,7 @@ const handler = async (req: Request) => {
 	const userId = req.headers.get('x-user-id');
 	const role = req.headers.get('x-user-role') as Role | null;
 
-	console.log('📥 Route headers:', { userId, role });
+	console.log('Route headers: 📥 ', { userId, role });
 
 	const session: Session | null = userId
 		? {
