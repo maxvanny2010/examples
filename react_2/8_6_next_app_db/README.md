@@ -32,6 +32,10 @@
 
 ![admin details](public/images/admin-details.png)
 
+#### [admin modal delete event]
+
+![admin modal delete event](public/images/admin-modal-delete-event.png)
+
 #### [admin create page]
 
 ![admin create](public/images/admin-create.png)
@@ -44,9 +48,9 @@
 
 ![admin dashboard](public/images/admin-dashboard.png)
 
-#### [admin delete modal]
+#### [admin modal delete user]
 
-![admin delete modal](public/images/admin-modal-delete.png)
+![admin modal delete user](public/images/admin-modal-delete-user.png)
 
 #### [user home page]
 
