@@ -36,6 +36,7 @@ export default function DeleteUserModal({ id, name }: DeleteUserModalProps) {
 			name={name}
 			onCancel={() => router.push(PATH.ADMIN.DASHBOARD)}
 			onConfirm={() => deleteUser.mutate({ id: Number(id) })}
+			isPending={deleteUser.isPending}
 		/>
 	);
 }

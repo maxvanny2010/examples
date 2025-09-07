@@ -9,6 +9,7 @@ import { hasRole } from '@/server/core/roles';
 import ButtonEventAction from './ButtonAction';
 import {
 	AiOutlineDashboard,
+	AiOutlineDelete,
 	AiOutlineEdit,
 	AiOutlineHome,
 	AiOutlineLogout,
@@ -62,7 +63,7 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 	}
 
 	const logoutHandler = async () => {
-		await signOut({ callbackUrl: PATH.HOME.ROOT });
+		await signOut({ redirectTo: PATH.HOME.ROOT });
 	};
 
 	const editHandler = async () => {
@@ -74,9 +75,17 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 		router.push(PATH.EVENTS.CREATE);
 	};
 
+	const deleteHandler = () => {
+		if (!eventId) return;
+		router.push(PATH.EVENTS.DELETE(eventId), { scroll: false });
+	};
+
 	const canEdit =
 		isDetailPage &&
 		(user.role === ROLES.ADMIN || (user.role === ROLES.USER && user.id === authorId));
+
+	const canDelete = isDetailPage && user.role === ROLES.ADMIN;
+
 	return (
 		<div className="flex items-center space-x-2">
 			{hasRole(user.role, [ROLES.ADMIN, ROLES.USER]) && (
@@ -110,6 +119,17 @@ export default function ButtonHeader({ user }: ButtonHeaderProps) {
 						>
 							<AiOutlineEdit />
 							<span>Edit</span>
+						</ButtonEventAction>
+					)}
+
+					{canDelete && (
+						<ButtonEventAction
+							type={BUTTON_EVENT_TYPE.DELETE}
+							className="flex items-center gap-1 cursor-pointer text-red-600 hover:text-red-700"
+							onClick={deleteHandler}
+						>
+							<AiOutlineDelete />
+							<span>Delete</span>
 						</ButtonEventAction>
 					)}
 

@@ -6,11 +6,14 @@ import { EventImage } from './EventImage';
 import type { RouterOutput } from '@/shared/api';
 
 interface Props {
-	event: NonNullable<RouterOutput['event']['findUnique']>;
+	event: NonNullable<RouterOutput['event']['findUnique']> | undefined | null;
 	eventId: string;
 }
 
 export const EventDetailClient = ({ event, eventId }: Props) => {
+	if (!event) {
+		return null;
+	}
 	return (
 		<main className="min-h-screen bg-slate-50 font-sans antialiased">
 			<div className="container mx-auto px-4 py-12 sm:py-16">

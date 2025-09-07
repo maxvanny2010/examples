@@ -32,6 +32,15 @@ export const eventRepository = {
 	update: (id: number, data: { title?: string; description?: string | null; eventDate?: Date }) =>
 		prisma.event.update({ where: { id }, data }),
 
+	delete: async (id: number) => {
+		await prisma.participation.deleteMany({
+			where: { eventId: id },
+		});
+		return prisma.event.delete({
+			where: { id },
+		});
+	},
+
 	join: (userId: number, eventId: number) =>
 		prisma.participation.create({ data: { userId, eventId } }),
 

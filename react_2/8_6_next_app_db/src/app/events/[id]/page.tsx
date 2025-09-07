@@ -26,7 +26,6 @@ export default function EventDetailPage() {
 
 	const { data, isLoading, error } = trpc.event.findUnique.useQuery(
 		{ id: idNumber },
-		{ enabled: true },
 	);
 
 	if (isLoggingOut || status === 'loading' || isLoading) return <SkeletonEventDetail />;

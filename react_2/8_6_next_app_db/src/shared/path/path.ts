@@ -3,6 +3,7 @@ export const PATH = {
 		ROOT: '/events',
 		ID: (id: string | number) => `/events/${id}`,
 		CREATE: '/events/create',
+		DELETE: (id: string | number) => `/events/${id}/delete`,
 		EDIT: (id: string | number) => `/events/${id}/edit`,
 	},
 	HOME: {

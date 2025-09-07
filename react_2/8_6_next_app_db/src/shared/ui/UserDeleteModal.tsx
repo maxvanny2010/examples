@@ -5,9 +5,10 @@ interface UserDeleteModalProps {
 	name: string;
 	onCancel: () => void;
 	onConfirm: () => void;
+	isPending?: boolean;
 }
 
-export const UserDeleteModal = ({ name, onCancel, onConfirm }: UserDeleteModalProps) => {
+export const UserDeleteModal = ({ name, onCancel, onConfirm, isPending = false }: UserDeleteModalProps) => {
 	return (
 		<div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 			<div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
@@ -24,9 +25,12 @@ export const UserDeleteModal = ({ name, onCancel, onConfirm }: UserDeleteModalPr
 					</button>
 					<button
 						onClick={onConfirm}
-						className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors"
+						disabled={isPending}
+						className={`px-4 py-2 rounded-lg text-white transition-colors ${
+							isPending ? 'bg-red-400 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'
+						}`}
 					>
-						Remove
+						{isPending ? 'Removing...' : 'Remove'}
 					</button>
 				</div>
 			</div>

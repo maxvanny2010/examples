@@ -56,6 +56,17 @@ export const eventService = {
 		});
 	},
 
+	delete: async (ctx: ContextWithDBUser, input: UniqueEventInput) => {
+		const event = await eventRepository.findUnique(input.id);
+		if (!event) {
+			throw new TRPCError({ code: CODE.NOT_FOUND, message: MESSAGES.EVENT_NOT_FOUND });
+		}
+
+		const deleted = await eventRepository.delete(input.id);
+		return { success: true, deleted };
+	},
+
+
 	join: async (ctx: ContextWithDBUser, input: JoinEventInput) => {
 		return eventRepository.join(Number(ctx.dbUser!.id), input.id);
 	},

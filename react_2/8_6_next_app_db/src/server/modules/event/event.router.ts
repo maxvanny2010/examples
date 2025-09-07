@@ -1,4 +1,4 @@
-import { procedure, protectedProcedure, router } from '@/server/core/trpc';
+import { adminProcedure, procedure, protectedProcedure, router } from '@/server/core/trpc';
 import {
 	CreateEventInput,
 	CreateEventSchema,
@@ -36,6 +36,12 @@ export const eventRouter = router({
 		.input(EditEventSchema)
 		.mutation(({ input, ctx }: { input: EditEventInput; ctx: ContextWithDBUser }) =>
 			eventService.update(ctx, input),
+		),
+
+	delete: adminProcedure
+		.input(UniqueEventSchema)
+		.mutation(({ input, ctx }: { input: UniqueEventInput; ctx: ContextWithDBUser }) =>
+			eventService.delete(ctx, input),
 		),
 
 	join: protectedProcedure

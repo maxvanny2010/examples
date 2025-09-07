@@ -6,6 +6,7 @@ export const MESSAGES = {
 	EVENT_NOT_FOUND: 'Event not found',
 	EVENT_NOT_CORRECT_ID: 'An event ID isn\'t corrected',
 	EVENT_ERROR_UPDATE: 'Event update error.',
+	EVENT_ERROR_DELETE: 'Event delete error.',
 	EVENT_NO_ID: 'Event ID not provided',
 	ADMIN_EXIST: 'Admin already exists',
 	ADMIN_CREATED: 'Admin user created: admin@gmail.com / admin',

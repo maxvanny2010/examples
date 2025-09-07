@@ -13,6 +13,7 @@ const BUTTON_CONFIG = {
 	[BUTTON_EVENT_TYPE.CREATE]: { class: 'bg-green-600 hover:bg-green-700' },
 	[BUTTON_EVENT_TYPE.EDIT]: { class: 'bg-blue-600 hover:bg-blue-700' },
 	[BUTTON_EVENT_TYPE.DETAIL]: { class: 'bg-gray-600 hover:bg-gray-700' },
+	[BUTTON_EVENT_TYPE.DELETE]: { class: 'bg-red-200 hover:bg-red-400' },
 };
 
 export default function ButtonEventAction({ type, onClick, children, className }: ButtonEventActionProps) {
