@@ -1,0 +1,12 @@
+services:
+  date:
+    build:
+      dockerfile: date.dockerfile
+    #  ports:
+    #     - "3005:3005"   # если нужно достучаться к date с хоста
+  result:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - date
