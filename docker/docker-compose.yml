@@ -8,5 +8,9 @@ services:
     build: .
     ports:
       - "3000:3000"
+    env_file:
+      - .env
+    # environment:
+    #  - "DATE_SERVER_HOST=http://date:3005"
     depends_on:
       - date
