@@ -1,0 +1,9 @@
+stages:
+  -install
+
+Npm install:
+  stage: install
+  image: node:22.19.0
+  script:
+    - cd frontend
+    - npm ci
