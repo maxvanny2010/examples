@@ -509,3 +509,12 @@ exit
 | 9   | `sudo journalctl -xeu docker.service --no-pager`                 | Выводит подробные логи сервиса Docker для отладки проблем при запуске.                             |
 | 10  | `docker --version`                                               | Проверяет, что установлен Docker корректно.                                                        |
 | 11  | `docker info`                                                    | Проверяет, что демон Docker работает и готов к использованию.                                      |
+
+
+```bash
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+docker volume ls
+docker volume prune
+```
