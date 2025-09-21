@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {fetchDateFromServer} from "./api/dateService";
+import { useEffect, useState } from "react";
+import { fetchDateFromServer } from "./api/dateService";
 import "../static/css/style.css";
 
 function App() {
