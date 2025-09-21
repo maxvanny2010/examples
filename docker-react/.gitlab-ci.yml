@@ -1,0 +1,80 @@
+stages:
+  - build-docker
+  - deploy
+
+variables:
+  DOCKER_REGISTRY: $DOCKER_HUB_USERNAME
+  APP_NAME: result
+  EXEC_FOLDER: /home/maxvanny2010/docker-react
+
+Build & Push Docker Images:
+  stage: build-docker
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+  script:
+    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+    - echo "VITE_RESULT_SERVER_HOST=$VITE_RESULT_SERVER_HOST" > frontend/.env.production
+    - cp nginx/default_http.conf nginx/default.conf
+    - docker compose -f docker-compose.build.yml build
+    - docker compose -f docker-compose.build.yml push
+
+Deploy:
+  stage: deploy
+  image: ubuntu:latest
+  needs:
+    - Build & Push Docker Images
+  script:
+    # 1. Создание файла с приватным ключом
+    - echo "$SSH_PRIVATE_KEY" | base64 -d > deploy_key
+    - chmod 600 deploy_key
+
+    # 2. Установка SSH и утилит
+    - apt-get update && apt-get install -y openssh-client git tar gzip sudo
+
+    # 3. Остановка контейнеров на сервере
+    - ssh -i deploy_key -o StrictHostKeyChecking=no $SERVER_USER_NAME@$SSH_HOST "
+      cd $EXEC_FOLDER &&
+      docker compose -f docker-compose.deploy.yml down || true
+      "
+
+    # 4. Заливка файлов на сервер (включая папку nginx)
+    - tar -czf - . | ssh -i deploy_key -o StrictHostKeyChecking=no $SERVER_USER_NAME@$SSH_HOST "
+      mkdir -p $EXEC_FOLDER &&
+      cd $EXEC_FOLDER &&
+      find . -mindepth 1 ! -name certbot -exec rm -rf {} + 2>/dev/null || true &&
+      tar -xzf -
+      "
+
+    # 5. Копирование временной HTTP-конфигурации
+    - ssh -i deploy_key -o StrictHostKeyChecking=no $SERVER_USER_NAME@$SSH_HOST "
+      cd $EXEC_FOLDER &&
+      cp nginx/default_http.conf nginx/default.conf
+      "
+
+    # 6. Поднятие Nginx для проверки Certbot
+    - ssh -i deploy_key -o StrictHostKeyChecking=no $SERVER_USER_NAME@$SSH_HOST "
+      cd $EXEC_FOLDER &&
+      docker compose -f docker-compose.deploy.yml up -d nginx
+      "
+
+    # 7. Запуск Certbot
+    - ssh -i deploy_key -o StrictHostKeyChecking=no $SERVER_USER_NAME@$SSH_HOST "
+      cd $EXEC_FOLDER &&
+      docker compose -f docker-compose.deploy.yml run --rm certbot certonly --webroot -w /var/www/certbot -d $CERTBOT_DOMAIN --email $CERTBOT_EMAIL --agree-tos --no-eff-email --non-interactive
+      "
+
+    # 8. Копирование финальной HTTPS-конфигурации
+    - ssh -i deploy_key -o StrictHostKeyChecking=no $SERVER_USER_NAME@$SSH_HOST "
+      cd $EXEC_FOLDER &&
+      cp nginx/default_https.conf nginx/default.conf
+      "
+
+    # 9. Поднятие всех сервисов заново с HTTPS
+    - ssh -i deploy_key -o StrictHostKeyChecking=no $SERVER_USER_NAME@$SSH_HOST "
+      cd $EXEC_FOLDER &&
+      docker compose -f docker-compose.deploy.yml pull &&
+      docker compose -f docker-compose.deploy.yml up -d --force-recreate
+      "
