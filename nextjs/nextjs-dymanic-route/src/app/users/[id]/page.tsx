@@ -1,17 +1,21 @@
+import {Metadata, ResolvingMetadata} from "next";
+
 type RouteParams = {
     id: string;
 }
-type UserDetailsProps = {
+type PageParams = {
     params: Promise<RouteParams>;
 }
-export default async function UserDetailPage({params}: UserDetailsProps) {
+type UserDetailsPageParams = PageParams;
+
+export default async function UserDetailPage({params}: PageParams) {
 
     const {id} = await params;
     const user = await fetch(
         `https://jsonplaceholder.typicode.com/users/${id}`,
         {next: {revalidate: 60}}
     ).then((response) => response.json());
-
+    console.log(user);
     return (
         <div>
             <h1 className="text-2xl font-bold mb-4">User Detail Page</h1>
@@ -26,4 +30,25 @@ export async function generateStaticParams() {
     return users.map((user: any) => ({
         id: user.id.toString(),
     }))
+}
+
+export async function generateMetadata(
+    {params}: UserDetailsPageParams,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    const {id} = await params
+
+    const user = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then((res) => res.json())
+
+    return {
+        title: user.username,
+        description: `user info ${user.email}`,
+        keywords: ["Next.js", "TypeScript", "React"],
+        openGraph: {
+            title: `OG ${user.username}`,
+            description: `OG ${user.email}`,
+
+        },
+    }
 }
