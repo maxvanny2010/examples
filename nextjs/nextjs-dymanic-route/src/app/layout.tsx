@@ -19,8 +19,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
                                        children,
+                                       content,
+                                       sidebar,
+                                       modal
                                    }: Readonly<{
     children: React.ReactNode;
+    content: React.ReactNode;
+    sidebar: React.ReactNode;
+    modal: React.ReactNode;
 }>) {
     return (
         <html lang="en">
@@ -29,7 +35,13 @@ export default function RootLayout({
             Shared Header for all Pages
         </header>
         <hr/>
-        {children}
+        <div style={{display: 'flex', height: "100vh"}}>
+            <aside style={{width: 250, borderRight: '1px solid #ddd'}}>{sidebar}</aside>
+            <main style={{flex: 1, position: 'relative', padding: 20}}>
+                {content} {children}
+            </main>
+        </div>
+        {modal}
         </body>
         </html>
     );

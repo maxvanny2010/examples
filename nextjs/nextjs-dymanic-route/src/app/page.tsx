@@ -4,7 +4,7 @@ export default async function Home() {
 
     return (
         <>
-            <div>Home Page Content:</div>
+            <h1>Home Page</h1>
             <br/>
             <div>{
                 response.map((user: any) => {
