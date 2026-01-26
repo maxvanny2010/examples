@@ -1,0 +1,1 @@
+export const ActivitySkeleton = () => <div className="h-40 bg-zinc-200 rounded animate-pulse"/>;
